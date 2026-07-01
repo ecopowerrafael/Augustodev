@@ -1,0 +1,13 @@
+# Robots.txt for Augusto Dev
+# Optimized for maximum organic visibility and performance indexing.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /dashboard/
+Disallow: /*?*   # Block parameters from bloating search indexes
+
+# Sitemaps Index Mapping
+Sitemap: https://augustodev.com/sitemap.xml

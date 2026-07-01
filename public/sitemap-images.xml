@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://augustodev.com/</loc>
+    <image:image>
+      <image:loc>https://augustodev.com/og-image.png</image:loc>
+      <image:title>Augusto Dev - Portfólio de Alta Performance</image:title>
+      <image:caption>Visualizador do Google Search Console e Otimização SEO Extrema</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://augustodev.com/logo.png</image:loc>
+      <image:title>Augusto Dev Logo</image:title>
+      <image:caption>Desenvolvedor de Software e Arquiteto de Sistemas</image:caption>
+    </image:image>
+  </url>
+</urlset>

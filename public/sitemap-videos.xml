@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://augustodev.com/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://augustodev.com/video-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>Demonstração de Aplicativo de Delivery em Alta Velocidade</video:title>
+      <video:description>Animação 3D interativa de entrega expressa integrada com React e Tailwind.</video:description>
+      <video:content_loc>https://augustodev.com/videos/delivery-demo.mp4</video:content_loc>
+      <video:duration>35</video:duration>
+      <video:publication_date>2026-06-27T00:00:00+00:00</video:publication_date>
+    </video:video>
+  </url>
+</urlset>

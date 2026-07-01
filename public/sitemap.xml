@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>https://augustodev.com/sitemap-pages.xml</loc>
+      <lastmod>2026-06-27</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://augustodev.com/sitemap-products.xml</loc>
+      <lastmod>2026-06-27</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://augustodev.com/sitemap-images.xml</loc>
+      <lastmod>2026-06-27</lastmod>
+   </sitemap>
+   <sitemap>
+      <loc>https://augustodev.com/sitemap-videos.xml</loc>
+      <lastmod>2026-06-27</lastmod>
+   </sitemap>
+</sitemapindex>

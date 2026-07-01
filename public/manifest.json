@@ -1,0 +1,22 @@
+{
+  "short_name": "Augusto Dev",
+  "name": "Augusto Dev - Criação de sites e Aplicativos",
+  "description": "Criação de sites otimizados, Criação de aplicativos Android e IOS, Otimização SEO, Criar Landing page de alta conversão",
+  "start_url": "/",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00FF41",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
