@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Compass, Calendar, Search, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
 
+// Image import
+import mansionImg from "../assets/images/luxury_mansion_sp_1784137092375.jpg";
+
 // SEO components
 import { Breadcrumb, ProductSchema } from "../seo/SEOComponents";
 
@@ -91,7 +94,7 @@ export default function RealEstateSection() {
         {/* Right: Premium Interactive Visual Container */}
         <div className="relative w-full lg:w-[420px] aspect-[16/10] bg-[#12141A] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group-hover:border-[#C5A880]/30 transition-all duration-500">
           <img 
-            src="/src/assets/images/luxury_mansion_sp_1784137092375.jpg" 
+            src={mansionImg} 
             alt="Mansion Preview" 
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
             referrerPolicy="no-referrer"

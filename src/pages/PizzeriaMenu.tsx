@@ -24,10 +24,10 @@ import {
   Percent
 } from "lucide-react";
 
-// Generated high-quality images
-const margheritaImg = "/src/assets/images/neapolitan_pizza_margherita_1784140572397.jpg";
-const pepperoniImg = "/src/assets/images/gourmet_pepperoni_pizza_1784140586628.jpg";
-const chocolateStrawberryImg = "/src/assets/images/chocolate_strawberry_pizza_1784140598651.jpg";
+// Generated high-quality images imported as ES Modules
+import margheritaImg from "../assets/images/neapolitan_pizza_margherita_1784140572397.jpg";
+import pepperoniImg from "../assets/images/gourmet_pepperoni_pizza_1784140586628.jpg";
+import chocolateStrawberryImg from "../assets/images/chocolate_strawberry_pizza_1784140598651.jpg";
 
 interface MenuItem {
   id: string;

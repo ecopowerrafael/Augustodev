@@ -35,7 +35,16 @@ export function SEOProvider({ children }: { children: React.ReactNode }) {
 export function useSEO() {
   const context = useContext(SeoContext);
   if (!context) {
-    throw new Error("useSEO must be used within an SEOProvider");
+    return {
+      seoState: {
+        title: SEO_CONFIG.defaultTitle,
+        description: SEO_CONFIG.defaultDescription,
+        canonicalUrl: SEO_CONFIG.domain,
+        ogType: "website",
+        ogImage: SEO_CONFIG.ogImageUrl,
+      },
+      setSeoState: () => {},
+    };
   }
   return context;
 }

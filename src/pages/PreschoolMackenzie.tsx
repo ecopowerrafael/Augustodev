@@ -28,9 +28,9 @@ import {
   HelpCircle
 } from "lucide-react";
 
-// Generated image assets
-const classroomImg = "/src/assets/images/preschool_classroom_1784142253433.jpg";
-const mascotImg = "/src/assets/images/preschool_owl_mascot_1784142266262.jpg";
+// Generated image assets imported as ES Modules
+import classroomImg from "../assets/images/preschool_classroom_1784142253433.jpg";
+import mascotImg from "../assets/images/preschool_owl_mascot_1784142266262.jpg";
 
 interface CounterProps {
   value: number;

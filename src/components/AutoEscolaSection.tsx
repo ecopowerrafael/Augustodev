@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Sparkles, Navigation, ShieldAlert, Disc, ArrowRight, Gauge } from "lucide-react";
 
+// Image import
+import drivingSchoolCar from "../assets/images/driving_school_car_1784143284543.jpg";
+
 // SEO components
 import { Breadcrumb, ProductSchema } from "../seo/SEOComponents";
 
@@ -91,7 +94,7 @@ export default function AutoEscolaSection() {
         {/* Right: Premium Interactive Visual Container */}
         <div className="relative w-full lg:w-[420px] aspect-[16/10] bg-[#07090E] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group-hover:border-amber-500/30 transition-all duration-500">
           <img 
-            src="/src/assets/images/driving_school_car_1784143284543.jpg" 
+            src={drivingSchoolCar} 
             alt="Auto Escola Preview" 
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-70"
             referrerPolicy="no-referrer"

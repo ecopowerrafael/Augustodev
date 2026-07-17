@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Pizza, MessageSquare, Zap, ShieldCheck, Flame, ArrowRight, ShoppingCart } from "lucide-react";
 
+// Image import
+import margheritaImg from "../assets/images/neapolitan_pizza_margherita_1784140572397.jpg";
+
 // SEO components
 import { Breadcrumb, ProductSchema } from "../seo/SEOComponents";
 
@@ -91,7 +94,7 @@ export default function PizzeriaSection() {
         {/* Right: Premium Interactive Visual Container */}
         <div className="relative w-full lg:w-[420px] aspect-[16/10] bg-[#07090E] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group-hover:border-red-500/30 transition-all duration-500">
           <img 
-            src="/src/assets/images/neapolitan_pizza_margherita_1784140572397.jpg" 
+            src={margheritaImg} 
             alt="Pizzaria Cardapio Digital Preview" 
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
             referrerPolicy="no-referrer"

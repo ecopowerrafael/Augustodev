@@ -21,9 +21,9 @@ import {
   Percent 
 } from "lucide-react";
 
-// Generated high-quality images
-const ebookCoverImg = "/src/assets/images/ebook_cover_ia_1784137376665.jpg";
-const entrepreneurImg = "/src/assets/images/entrepreneur_success_office_1784137398342.jpg";
+// Generated high-quality images imported as ES Modules
+import ebookCoverImg from "../assets/images/ebook_cover_ia_1784137376665.jpg";
+import entrepreneurImg from "../assets/images/entrepreneur_success_office_1784137398342.jpg";
 
 interface Testimonial {
   name: string;

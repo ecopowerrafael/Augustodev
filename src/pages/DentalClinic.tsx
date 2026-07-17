@@ -26,8 +26,8 @@ import {
 } from "lucide-react";
 
 // Generated image assets
+import dentalClinicImg from "../assets/images/dental_clinic_luxury_1784141031013.jpg";
 const toothGlowImg = "https://www.imagensanimadas.com/data/media/151/dente-imagem-animada-0013.gif";
-const dentalClinicImg = "/src/assets/images/dental_clinic_luxury_1784141031013.jpg";
 
 interface Specialist {
   name: string;

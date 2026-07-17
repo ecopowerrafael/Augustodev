@@ -32,6 +32,8 @@ import PreschoolMackenzie from "./pages/PreschoolMackenzie";
 import AutoEscolaPortfolio from "./pages/AutoEscolaPortfolio";
 import ArchitectPortfolio from "./pages/ArchitectPortfolio";
 import ArchitectSection from "./components/ArchitectSection";
+import MarvetAgropecuaria from "./pages/MarvetAgropecuaria";
+import MarvetSection from "./components/MarvetSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -162,6 +164,7 @@ export default function App() {
           { text: "Website Advocacia Premium", path: "/portfolio/advogado" },
           { text: "Website Imobiliária Luxo", path: "/portfolio/imobiliaria" },
           { text: "Möbius Studio de Arquitetura", path: "/portfolio/arquiteto" },
+          { text: "Marvet Produtos Agropecuários", path: "/portfolio/marvet" },
           { text: "Landing Page E-book", path: "/portfolio/ebook" },
           { text: "Cardápio Pizzaria Artesanal", path: "/portfolio/pizzaria" },
           { text: "Clínica Odontológica Premium", path: "/portfolio/dentista" },
@@ -280,6 +283,11 @@ export default function App() {
   // CASE 0.7: Standalone 100% Independent Architect Portfolio Page
   if (currentPath === "/portfolio/arquiteto" || currentPath === "/portfolio/arquitetura" || currentPath === "/site-de-arquiteto" || currentPath === "/site-de-arquitetura" || currentPath === "/arquiteto" || currentPath === "/arquitetura") {
     return <ArchitectPortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.8: Standalone 100% Independent Marvet Agropecuária Page
+  if (currentPath === "/portfolio/marvet" || currentPath === "/portfolio/agropecuaria" || currentPath === "/site-de-agropecuaria" || currentPath === "/marvet" || currentPath === "/agropecuaria" || currentPath === "/portfolio/marvet-agropecuaria") {
+    return <MarvetAgropecuaria onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -491,6 +499,11 @@ export default function App() {
             {/* 6.7. Möbius Studio Architect Portfolio Case Section (Case 10) */}
             <section className="scroll-mt-24">
               <ArchitectSection />
+            </section>
+
+            {/* 6.8. Marvet Agropecuária Case Section (Case 11) */}
+            <section className="scroll-mt-24">
+              <MarvetSection />
             </section>
 
             {/* Section divider */}

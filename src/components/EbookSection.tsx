@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { BookOpen, MessageSquare, Zap, ShieldCheck, Star, ArrowRight } from "lucide-react";
 
+// Image import
+import ebookCoverImg from "../assets/images/ebook_cover_ia_1784137376665.jpg";
+
 // SEO components
 import { Breadcrumb, ProductSchema } from "../seo/SEOComponents";
 
@@ -91,7 +94,7 @@ export default function EbookSection() {
         {/* Right: Premium Interactive Visual Container */}
         <div className="relative w-full lg:w-[420px] aspect-[16/10] bg-[#07090E] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group-hover:border-[#00FF41]/30 transition-all duration-500">
           <img 
-            src="/src/assets/images/ebook_cover_ia_1784137376665.jpg" 
+            src={ebookCoverImg} 
             alt="E-book Cover Preview" 
             className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
             referrerPolicy="no-referrer"

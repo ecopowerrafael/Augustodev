@@ -20,9 +20,9 @@ import {
   ArrowLeft
 } from "lucide-react";
 
-// Paths to the generated high-quality assets
-const luxuryOfficeImg = "/src/assets/images/luxury_law_office_1784134667503.jpg";
-const lawyerPortraitImg = "/src/assets/images/lawyer_portrait_1784134680230.jpg";
+// Paths to the generated high-quality assets imported as ES Modules
+import luxuryOfficeImg from "../assets/images/luxury_law_office_1784134667503.jpg";
+import lawyerPortraitImg from "../assets/images/lawyer_portrait_1784134680230.jpg";
 
 interface Article {
   id: string;

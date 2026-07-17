@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { Sparkles, GraduationCap, Compass, BookOpen, Smile, ArrowRight, ShieldCheck } from "lucide-react";
 
+// Image import
+import classroomImg from "../assets/images/preschool_classroom_1784142253433.jpg";
+
 // SEO components
 import { Breadcrumb, ProductSchema } from "../seo/SEOComponents";
 
@@ -91,7 +94,7 @@ export default function PreschoolSection() {
         {/* Right: Premium Interactive Visual Container */}
         <div className="relative w-full lg:w-[420px] aspect-[16/10] bg-[#07090E] rounded-xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center group-hover:border-red-500/30 transition-all duration-500">
           <img 
-            src="/src/assets/images/preschool_classroom_1784142253433.jpg" 
+            src={classroomImg} 
             alt="Preschool Website Preview" 
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-70"
             referrerPolicy="no-referrer"

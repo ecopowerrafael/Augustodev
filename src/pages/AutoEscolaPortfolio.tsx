@@ -28,9 +28,9 @@ import {
   HelpCircle
 } from "lucide-react";
 
-// Generated image assets
-const drivingSchoolCar = "/src/assets/images/driving_school_car_1784143284543.jpg";
-const dashboardHud = "/src/assets/images/car_dashboard_hud_1784143297378.jpg";
+// Generated image assets imported as ES Modules
+import drivingSchoolCar from "../assets/images/driving_school_car_1784143284543.jpg";
+import dashboardHud from "../assets/images/car_dashboard_hud_1784143297378.jpg";
 
 interface DashboardLight {
   id: string;
