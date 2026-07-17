@@ -36,6 +36,7 @@ import MarvetAgropecuaria from "./pages/MarvetAgropecuaria";
 import MarvetSection from "./components/MarvetSection";
 import VisaPortfolio from "./pages/VisaPortfolio";
 import VisaSection from "./components/VisaSection";
+import MarketplacePortfolio from "./pages/MarketplacePortfolio";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -168,6 +169,7 @@ export default function App() {
           { text: "Möbius Studio de Arquitetura", path: "/portfolio/arquiteto" },
           { text: "Marvet Produtos Agropecuários", path: "/portfolio/marvet" },
           { text: "Consultoria Vistos & Passaporte", path: "/portfolio/visto-e-passaporte" },
+          { text: "Marketplace de Serviços", path: "/portfolio/marketplace" },
           { text: "Landing Page E-book", path: "/portfolio/ebook" },
           { text: "Cardápio Pizzaria Artesanal", path: "/portfolio/pizzaria" },
           { text: "Clínica Odontológica Premium", path: "/portfolio/dentista" },
@@ -296,6 +298,11 @@ export default function App() {
   // CASE 0.9: Standalone 100% Independent Visa and Passport Page
   if (currentPath === "/portfolio/visto-e-passaporte" || currentPath === "/visto-e-passaporte" || currentPath === "/site-de-visto-e-passaporte" || currentPath === "/portfolio/consultoria-vistos") {
     return <VisaPortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.10: Standalone 100% Independent Service Marketplace Platform Page
+  if (currentPath === "/portfolio/marketplace" || currentPath === "/plataforma-marketplace" || currentPath === "/site-de-marketplace" || currentPath === "/site-de-servicos" || currentPath === "/portfolio/plataforma-servicos") {
+    return <MarketplacePortfolio onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs

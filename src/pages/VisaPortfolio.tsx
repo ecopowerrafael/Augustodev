@@ -981,6 +981,75 @@ export default function VisaPortfolio({ onBack }: { onBack: () => void }) {
             </a>
           </div>
 
+          {/* CLIENT SATISFACTION BANNER WITH USER IMAGE */}
+          <div className="mt-16 bg-white border border-stone-200/80 rounded-3xl p-6 sm:p-10 text-left shadow-lg overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A059]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center font-sans">
+              
+              {/* Text copy explaining the success metrics */}
+              <div className="lg:col-span-6 space-y-5">
+                <span className="inline-flex items-center space-x-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full text-emerald-800 font-mono text-[10px] font-bold uppercase tracking-wider">
+                  <Award className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>CREDIBILIDADE COMPROVADA</span>
+                </span>
+                
+                <h3 className="font-serif font-black text-2xl sm:text-3xl text-[#0B1E36] leading-tight">
+                  Sua aprovação no visto americano é a nossa prioridade número um
+                </h3>
+                
+                <p className="text-stone-600 font-sans text-xs sm:text-sm leading-relaxed">
+                  Trabalhamos de forma transparente para que a emissão do seu documento internacional aconteça de forma rápida e segura. Cuidamos do preenchimento exato do DS-160, emitimos as taxas oficiais, agendamos sua biometria e oferecemos treinamento personalizado para a entrevista consular.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 pt-2">
+                  <div className="space-y-1 bg-stone-50 p-3.5 rounded-xl border border-stone-200/50">
+                    <span className="block font-serif text-xl font-bold text-[#15325B]">+20.000</span>
+                    <span className="text-stone-500 text-[10px] font-mono uppercase tracking-wider block">Clientes Atendidos</span>
+                  </div>
+                  <div className="space-y-1 bg-stone-50 p-3.5 rounded-xl border border-stone-200/50">
+                    <span className="block font-serif text-xl font-bold text-emerald-600">98.4%</span>
+                    <span className="text-stone-500 text-[10px] font-mono uppercase tracking-wider block">Índice de Aprovação</span>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href="https://wa.me/5549999999999?text=Ola!+Gostaria+de+saber+mais+sobre+a+assessoria+para+visto+americano."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-3 rounded-xl bg-[#15325B] hover:bg-[#0B1E36] text-white font-bold text-xs uppercase tracking-wider transition-all items-center space-x-2 shadow-md hover:scale-[1.02]"
+                  >
+                    <span>Falar Com Um Consultor</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Image box with high-quality styling */}
+              <div className="lg:col-span-6 relative">
+                <div className="absolute -inset-1.5 bg-gradient-to-r from-[#C5A059] to-[#15325B] rounded-2xl blur-md opacity-25" />
+                <div className="relative rounded-2xl overflow-hidden border-2 border-[#C5A059]/40 bg-stone-100 shadow-2xl">
+                  <img 
+                    src="https://www.comotirarovistoamericano.com.br/wp-content/uploads/2025/06/Visto-Americano.jpg" 
+                    alt="Visto Americano - Mais de 20.000 clientes satisfeitos" 
+                    referrerPolicy="no-referrer"
+                    className="w-full h-auto object-cover transform hover:scale-[1.02] transition duration-500 rounded-xl"
+                  />
+                  {/* Subtle caption overlay */}
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-left">
+                    <p className="text-white font-sans text-xs font-bold leading-tight">
+                      Assessoria Completa e Segura para Emissão do seu Visto
+                    </p>
+                    <p className="text-stone-300 font-mono text-[9px] uppercase tracking-wider mt-0.5">
+                      Visto Certo - Conectando Você ao Mundo
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </section>
 
