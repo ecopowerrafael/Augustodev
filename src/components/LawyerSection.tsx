@@ -13,6 +13,12 @@ export default function LawyerSection() {
   const [animationState, setAnimationState] = useState<"idle" | "running" | "completed">("idle");
   const [showText, setShowText] = useState(false);
 
+  const navigateToPortfolio = () => {
+    window.history.pushState({}, "", "/portfolio/advogado");
+    window.dispatchEvent(new Event("popstate"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const startAnimation = () => {
     if (animationState === "running") return;
     setAnimationState("running");
@@ -131,6 +137,24 @@ export default function LawyerSection() {
             </motion.div>
           )}
         </div>
+      </div>
+
+      {/* Independent Portfolio Callout Banner */}
+      <div className="mb-6 p-5 rounded-lg bg-[#00FF41]/5 border border-[#00FF41]/20 flex flex-col md:flex-row items-center justify-between gap-4 z-10 text-left">
+        <div>
+          <span className="font-mono text-[9px] text-[#00FF41] font-bold block uppercase tracking-[0.2em]">DEMONSTRAÇÃO DE PORTFÓLIO PREMIUM</span>
+          <h4 className="font-sans font-bold text-white text-base mt-1">Website de Advocacia de Alto Padrão</h4>
+          <p className="text-white/60 text-xs mt-1">
+            Criamos uma página institucional 100% independente do estilo hacker, com design refinado, fotos geradas por IA, artigos expandíveis e CTA ativo para (15) 99711-8125.
+          </p>
+        </div>
+        <button
+          onClick={navigateToPortfolio}
+          className="w-full md:w-auto py-2.5 px-5 rounded bg-[#00FF41] text-black font-mono text-[10px] font-extrabold uppercase tracking-widest hover:bg-[#00FF41]/85 shadow-[0_0_15px_rgba(0,255,65,0.4)] transition-all cursor-pointer flex items-center justify-center space-x-1.5 shrink-0"
+        >
+          <span>ACESSAR SITE</span>
+          <Sparkles className="h-3.5 w-3.5" />
+        </button>
       </div>
 
       {/* Footer Specs for Institutional/Corporate/Medical Sites */}

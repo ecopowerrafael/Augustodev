@@ -8,6 +8,11 @@ import { useSEO, MetaTags, StructuredData, Breadcrumb, FAQSchema, ProductSchema 
 import { SEO_CONFIG } from "./seoConfig";
 import InternalLinker from "./InternalLinker";
 import { NEW_SEO_LANDING_DATA } from "./seoLandingDataNew";
+import { TECH_SEO_LANDING_DATA } from "./seoLandingDataTech";
+import { BUSINESS_SEO_LANDING_DATA } from "./seoLandingDataBusiness";
+import { FREELANCER_SEO_LANDING_DATA } from "./seoLandingDataFreelancer";
+import { SEO_NICHE_LANDING_DATA } from "./seoLandingDataSeoNiche";
+import { SEO_AUTOMATION_SYS_LANDING_DATA } from "./seoLandingDataAutomationSys";
 
 // Types for Landing Content
 export interface LandingPageData {
@@ -808,7 +813,12 @@ export const SEO_LANDING_DATA_BASE: Record<string, LandingPageData> = {
 
 export const SEO_LANDING_DATA: Record<string, LandingPageData> = {
   ...SEO_LANDING_DATA_BASE,
-  ...NEW_SEO_LANDING_DATA
+  ...NEW_SEO_LANDING_DATA,
+  ...TECH_SEO_LANDING_DATA,
+  ...BUSINESS_SEO_LANDING_DATA,
+  ...FREELANCER_SEO_LANDING_DATA,
+  ...SEO_NICHE_LANDING_DATA,
+  ...SEO_AUTOMATION_SYS_LANDING_DATA
 };
 
 

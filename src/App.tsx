@@ -14,9 +14,24 @@ import BentoGrid from "./components/BentoGrid";
 import DeliverySection from "./components/DeliverySection";
 import MobilitySection from "./components/MobilitySection";
 import LawyerSection from "./components/LawyerSection";
+import RealEstateSection from "./components/RealEstateSection";
+import EbookSection from "./components/EbookSection";
+import PizzeriaSection from "./components/PizzeriaSection";
+import DentalSection from "./components/DentalSection";
+import PreschoolSection from "./components/PreschoolSection";
+import AutoEscolaSection from "./components/AutoEscolaSection";
 import ContactSection from "./components/ContactSection";
 import SeoSection from "./components/SeoSection";
 import SeoLandingPages, { SEO_LANDING_DATA } from "./seo/SeoLandingPages";
+import LawyerPortfolio from "./pages/LawyerPortfolio";
+import RealEstatePortfolio from "./pages/RealEstatePortfolio";
+import EbookLandingPage from "./pages/EbookLandingPage";
+import PizzeriaMenu from "./pages/PizzeriaMenu";
+import DentalClinic from "./pages/DentalClinic";
+import PreschoolMackenzie from "./pages/PreschoolMackenzie";
+import AutoEscolaPortfolio from "./pages/AutoEscolaPortfolio";
+import ArchitectPortfolio from "./pages/ArchitectPortfolio";
+import ArchitectSection from "./components/ArchitectSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -68,9 +83,21 @@ export default function App() {
   };
 
   const navigateTo = (path: string) => {
-    window.history.pushState({}, "", path);
-    setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (path.includes("#")) {
+      const [route, hash] = path.split("#");
+      window.history.pushState({}, "", route || "/");
+      setCurrentPath(route || "/");
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, route === "/" || route === "" ? 50 : 150);
+    } else {
+      window.history.pushState({}, "", path);
+      setCurrentPath(path);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   // Extract the slug from the URL path
@@ -81,46 +108,69 @@ export default function App() {
     // Categorized footer links for crawlability and authority
     const columns = [
       {
-        title: "01 // INTENÇÃO COMERCIAL",
+        title: "01 // SOLUÇÕES COM IA",
         links: [
-          { text: "Criar Site Profissional", path: "/criar-site-profissional" },
-          { text: "Quanto Custa Criar um Site", path: "/quanto-custa-para-criar-um-site" },
-          { text: "Empresa de Criação de Sites", path: "/empresa-de-criacao-de-sites" },
-          { text: "Criar Site de Vendas", path: "/criar-site-de-vendas" },
-          { text: "Orçamento Criação de Site", path: "/orcamento-criacao-de-site" },
-          { text: "Desenvolvedor Freelance", path: "/desenvolvedor-de-sites-freelance" },
-          { text: "Criar Site Institucional", path: "/criar-site-institucional" },
+          { text: "Chatbot Personalizado com IA", path: "/desenvolvimento-de-chatbot-personalizado-com-ia" },
+          { text: "Integração de APIs de IA", path: "/integracao-de-api-de-inteligencia-artificial-em-sistemas" },
+          { text: "Automação de Processos", path: "/automatizacao-de-processos-internos-via-software" },
+          { text: "Gerador Conteúdo Corporativo", path: "/criar-gerador-de-conteudo-automatizado-corporativo" },
+          { text: "Automação Comercial", path: "/desenvolvimento-de-ferramentas-de-automacao-comercial" },
         ]
       },
       {
-        title: "02 // FERRAMENTAS & PLATAFORMAS",
+        title: "02 // SISTEMAS & SAAS",
         links: [
-          { text: "Criar Site WordPress", path: "/criar-site-wordpress" },
-          { text: "Criar Site Elementor", path: "/criar-site-elementor" },
-          { text: "Melhor Plataforma de Sites", path: "/melhor-plataforma-para-criar-site" },
-          { text: "Criar Site Wix", path: "/criar-site-wix" },
-          { text: "Criar Landing Page Grátis", path: "/criar-landing-page-gratis" },
-          { text: "Shopify Criar Loja", path: "/shopify-criar-loja" },
+          { text: "SaaS Sob Medida", path: "/desenvolvimento-de-saas-sob-medida" },
+          { text: "Sistema de Afiliados", path: "/desenvolvimento-de-sistema-de-afiliados-personalizado" },
+          { text: "Painel Administrativo Restrito", path: "/criar-plataforma-web-com-painel-administrativo-restrito" },
+          { text: "Sistema de Comissionamento", path: "/criar-sistema-de-comissionamento-e-vendas-web" },
+          { text: "Dashboards Corporativos", path: "/desenvolvimento-de-dashboards-corporativos-integrados" },
         ]
       },
       {
-        title: "03 // INFORMATIVAS & TUTORIAIS",
+        title: "03 // RESGATE & MODERNIZAÇÃO",
         links: [
-          { text: "Como Criar um Site", path: "/como-criar-um-site" },
-          { text: "Como Criar Site do Zero", path: "/como-criar-um-site-do-zero" },
-          { text: "Criar Site Grátis", path: "/criar-site-gratis" },
-          { text: "Criar Site de Vendas Guia", path: "/como-criar-um-site-de-vendas" },
-          { text: "Passo a Passo Criação", path: "/passo-a-passo-para-criar-um-site" },
-          { text: "Site Grátis no Google", path: "/criar-site-gratis-no-google" },
+          { text: "Refatoração de Sistemas Web", path: "/empresa-para-refatoracao-de-sistemas-web" },
+          { text: "Corrigir Erros Código Legado", path: "/desenvolvedor-para-corrigir-erros-de-codigo-legado" },
+          { text: "Banco de Dados em Nuvem", path: "/migracao-de-banco-de-dados-para-servidor-em-nuvem" },
+          { text: "Modernização de Sistemas", path: "/modernizacao-de-sistemas-corporativos-antigos" },
+          { text: "Manutenção de Plataformas", path: "/manutencao-preventiva-de-plataformas-web" },
         ]
       },
       {
-        title: "04 // TERMOS TÉCNICOS & INFRA",
+        title: "04 // INTEGRAÇÕES & MOBILE",
         links: [
-          { text: "Domínio e Hospedagem", path: "/dominio-e-hospedagem-de-site" },
-          { text: "Registrar um Domínio", path: "/como-registrar-um-dominio" },
-          { text: "Hospedagem WordPress", path: "/hospedagem-para-wordpress" },
-          { text: "Como Colocar no Google", path: "/como-colocar-o-site-no-google" },
+          { text: "Integração de API Customizada", path: "/integracao-de-api-customizada-em-site-profissional" },
+          { text: "Aplicativo com ERP", path: "/desenvolvimento-de-aplicativo-integrado-com-erp" },
+          { text: "Banco de Dados Escalável", path: "/programacao-de-sistemas-com-banco-de-dados-escalavel" },
+          { text: "Plataforma Mobile e Web", path: "/criar-plataforma-mobile-integrada-com-sistema-web" },
+        ]
+      },
+      {
+        title: "05 // SEO & REPUTAÇÃO",
+        links: [
+          { text: "Empresa no Google Maps", path: "/como-colocar-minha-empresa-no-topo-do-google-maps" },
+          { text: "Agência de SEO Local", path: "/agencia-de-seo-local-para-empresas" },
+          { text: "Reputação Digital no Google", path: "/gerenciamento-de-reputacao-digital-no-google" },
+          { text: "Mudar Site Sem Perder SEO", path: "/como-mudar-de-site-sem-perder-o-posicionamento-no-google" },
+          { text: "SEO para E-Commerce", path: "/consultoria-de-seo-para-e-commerce" },
+        ]
+      },
+      {
+        title: "06 // PORTFÓLIO & CASOS",
+        links: [
+          { text: "Website Advocacia Premium", path: "/portfolio/advogado" },
+          { text: "Website Imobiliária Luxo", path: "/portfolio/imobiliaria" },
+          { text: "Möbius Studio de Arquitetura", path: "/portfolio/arquiteto" },
+          { text: "Landing Page E-book", path: "/portfolio/ebook" },
+          { text: "Cardápio Pizzaria Artesanal", path: "/portfolio/pizzaria" },
+          { text: "Clínica Odontológica Premium", path: "/portfolio/dentista" },
+          { text: "Escola Infantil Mackenzie", path: "/portfolio/escola" },
+          { text: "Autoescola Tecnológica Piloto", path: "/portfolio/autoescola" },
+          { text: "App Delivery Fast-Food", path: "/#project-delivery" },
+          { text: "Plataforma Mobilidade", path: "/#project-mobility" },
+          { text: "Painel de Controle SEO", path: "/#seo-optimization" },
+          { text: "Showcase Arquitetônico", path: "/#expertise-grid" },
         ]
       }
     ];
@@ -130,7 +180,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-12">
           
           {/* SEO Links Map Directory */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left pb-12 border-b border-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-left pb-12 border-b border-white/5">
             {columns.map((col, idx) => (
               <div key={idx} className="space-y-4">
                 <span className="font-mono text-[9px] text-[#00FF41] font-bold uppercase tracking-widest block">
@@ -191,6 +241,46 @@ export default function App() {
       </footer>
     );
   };
+
+  // CASE 0: Standalone 100% Independent Lawyer Portfolio Page
+  if (currentPath === "/portfolio/advogado" || currentPath === "/site-de-advogado") {
+    return <LawyerPortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.1: Standalone 100% Independent Real Estate Portfolio Page
+  if (currentPath === "/portfolio/imobiliaria" || currentPath === "/site-de-imobiliaria") {
+    return <RealEstatePortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.2: Standalone 100% Independent E-book High-Converting Landing Page
+  if (currentPath === "/portfolio/ebook" || currentPath === "/venda-de-ebook" || currentPath === "/site-de-ebook") {
+    return <EbookLandingPage onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.3: Standalone 100% Independent Pizzeria Digital Menu Page
+  if (currentPath === "/portfolio/pizzaria" || currentPath === "/cardapio-digital" || currentPath === "/site-de-pizzaria" || currentPath === "/cardapio-de-pizzaria") {
+    return <PizzeriaMenu onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.4: Standalone 100% Independent Dental Clinic Page
+  if (currentPath === "/portfolio/dentista" || currentPath === "/consultorio-dentista" || currentPath === "/site-de-dentista" || currentPath === "/clinica-odontologica") {
+    return <DentalClinic onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.5: Standalone 100% Independent Preschool Mackenzie Page
+  if (currentPath === "/portfolio/escola" || currentPath === "/portfolio/preschool" || currentPath === "/escola-mackenzie" || currentPath === "/site-de-escola" || currentPath === "/pre-escola-mackenzie") {
+    return <PreschoolMackenzie onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.6: Standalone 100% Independent Auto Escola Portfolio Page
+  if (currentPath === "/portfolio/autoescola" || currentPath === "/portfolio/auto-escola" || currentPath === "/autoescola" || currentPath === "/autoescola-piloto" || currentPath === "/site-de-autoescola") {
+    return <AutoEscolaPortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.7: Standalone 100% Independent Architect Portfolio Page
+  if (currentPath === "/portfolio/arquiteto" || currentPath === "/portfolio/arquitetura" || currentPath === "/site-de-arquiteto" || currentPath === "/site-de-arquitetura" || currentPath === "/arquiteto" || currentPath === "/arquitetura") {
+    return <ArchitectPortfolio onBack={() => navigateTo("/")} />;
+  }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
@@ -366,6 +456,41 @@ export default function App() {
             {/* 6. Lawyer Case Section (Case 03) */}
             <section className="scroll-mt-24">
               <LawyerSection />
+            </section>
+
+            {/* 6.1. Real Estate Case Section (Case 04) */}
+            <section className="scroll-mt-24">
+              <RealEstateSection />
+            </section>
+
+            {/* 6.2. E-book Landing Page Case Section (Case 05) */}
+            <section className="scroll-mt-24">
+              <EbookSection />
+            </section>
+
+            {/* 6.3. Pizzeria Digital Menu Case Section (Case 06) */}
+            <section className="scroll-mt-24">
+              <PizzeriaSection />
+            </section>
+
+            {/* 6.4. Dental Clinic Case Section (Case 07) */}
+            <section className="scroll-mt-24">
+              <DentalSection />
+            </section>
+
+            {/* 6.5. Preschool Mackenzie Case Section (Case 08) */}
+            <section className="scroll-mt-24">
+              <PreschoolSection />
+            </section>
+
+            {/* 6.6. Autoescola Piloto Case Section (Case 09) */}
+            <section className="scroll-mt-24">
+              <AutoEscolaSection />
+            </section>
+
+            {/* 6.7. Möbius Studio Architect Portfolio Case Section (Case 10) */}
+            <section className="scroll-mt-24">
+              <ArchitectSection />
             </section>
 
             {/* Section divider */}

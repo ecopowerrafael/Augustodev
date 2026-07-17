@@ -111,6 +111,122 @@ export const SEO_CONFIG = {
     { path: "/agencia-de-desenvolvimento-de-aplicativos", changefreq: "weekly", priority: "0.9" },
     { path: "/agencia-de-criacao-de-sites-em-sao-paulo", changefreq: "weekly", priority: "0.9" },
     { path: "/desenvolvimento-de-portais-corporativos", changefreq: "weekly", priority: "0.9" },
+    // Category 1.2: Termos de Engenharia, Arquitetura e Modernização (Corporativo & Tech)
+    { path: "/agencia-de-engenharia-de-software", changefreq: "weekly", priority: "0.9" },
+    { path: "/empresa-de-desenvolvimento-de-codigo-sob-medida", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-de-arquitetura-de-software-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sistemas-web-e-aplicativos-corporativos", changefreq: "weekly", priority: "0.9" },
+    { path: "/programacao-de-plataformas-web-escalaveis", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-web-full-stack-para-empresas", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-integracao-de-apis-e-sistemas", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sistemas-web-integrados", changefreq: "weekly", priority: "0.9" },
+    { path: "/programacao-de-painel-administrativo-personalizado", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-especializada-em-desenvolvimento-de-apis", changefreq: "weekly", priority: "0.9" },
+    { path: "/criacao-de-plataformas-e-commerce-e-marketplace-sob-medida", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sistemas-com-banco-de-dados-customizado", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-reformulacao-de-sistemas-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/migracao-de-sistemas-para-tecnologias-modernas", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-de-otimizacao-e-refatoracao-de-codigo", changefreq: "weekly", priority: "0.9" },
+    { path: "/reestruturacao-de-sites-institucionais-antigos", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-novas-funcionalidades-para-sistemas-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-desenvolvimento-de-saas", changefreq: "weekly", priority: "0.9" },
+    { path: "/criacao-e-programacao-de-produtos-digitais", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-mvp-para-startups", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-criar-plataforma-web-personalizada", changefreq: "weekly", priority: "0.9" },
+    { path: "/programacao-de-sistemas-de-afiliados-e-comissoes", changefreq: "weekly", priority: "0.9" },
+    // Category 1.3: Termos de Segurança, LGPD e Conformidade (Compliance)
+    { path: "/agencia-de-desenvolvimento-web-com-foco-em-seguranca", changefreq: "weekly", priority: "0.9" },
+    { path: "/criacao-de-sites-adequados-a-lgpd", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sistemas-com-criptografia-de-dados", changefreq: "weekly", priority: "0.9" },
+    { path: "/auditoria-e-correcao-de-seguranca-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/programacao-de-sistemas-web-seguros-corporativos", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.4: Termos de "Squads" e Outsource de Tecnologia (B2B de Alto Nível)
+    { path: "/terceirizacao-de-desenvolvimento-de-software", changefreq: "weekly", priority: "0.9" },
+    { path: "/alocacao-de-desenvolvedores-web-senior", changefreq: "weekly", priority: "0.9" },
+    { path: "/squad-de-desenvolvimento-web-sob-medida", changefreq: "weekly", priority: "0.9" },
+    { path: "/fabrica-de-software-para-projetos-corporativos", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-de-outsourcing-de-programacao-mobile", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.5: Termos Baseados em Dores Críticas de Negócio (Sintomas)
+    { path: "/meu-sistema-web-esta-lento-o-que-fazer", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-corrigir-erros-de-programacao-em-site", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-integrar-api-de-pagamento-customizada", changefreq: "weekly", priority: "0.9" },
+    { path: "/empresa-para-migrar-site-para-servidor-dedicado", changefreq: "weekly", priority: "0.9" },
+    { path: "/melhorar-core-web-vitals-de-portal-corporativo", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.6: Termos de Design de Interação e Experiência do Usuário (UI/UX)
+    { path: "/agencia-de-ui-ux-design-e-desenvolvimento-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/criacao-de-interfaces-web-personalizadas", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sites-com-animacoes-fluidas", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-de-web-design-focada-em-experiencia-do-usuario", changefreq: "weekly", priority: "0.9" },
+    { path: "/prototipagem-e-programacao-de-sistemas-mobile", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.7: Termos de Automação e Modelos de Negócios Digitais Específicos
+    { path: "/programacao-de-portal-de-autoatendimento-para-clientes", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-sistema-de-agendamento-e-pagamentos", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-plataforma-de-automacao-comercial-web", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.8: Termos de Freelancers de Elite e Soluções Sênior (B2B / Resgate)
+    { path: "/desenvolvedor-web-senior-freelance", changefreq: "weekly", priority: "0.9" },
+    { path: "/programador-full-stack-senior-freelancer", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvedor-mobile-freelancer-aplicativos-ios-android", changefreq: "weekly", priority: "0.9" },
+    { path: "/consultoria-e-desenvolvimento-web-freelancer-para-empresas", changefreq: "weekly", priority: "0.9" },
+    { path: "/programador-wordpress-senior-freelancer", changefreq: "weekly", priority: "0.9" },
+    { path: "/programador-freelancer-manutencao-resgate-sistemas", changefreq: "weekly", priority: "0.9" },
+
+    // Category 1.9: SEO Local, E-Commerce, Reputação, Migração e EEAT (Nicho Premium)
+    { path: "/como-colocar-minha-empresa-no-topo-do-google-maps", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-de-seo-local-para-empresas", changefreq: "weekly", priority: "0.9" },
+    { path: "/consultoria-para-otimizacao-de-perfil-da-empresa-no-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-atrair-clientes-de-alto-padrao-pelo-google-maps", changefreq: "weekly", priority: "0.9" },
+    { path: "/estrategia-de-seo-para-negocios-locais", changefreq: "weekly", priority: "0.9" },
+    { path: "/consultoria-de-seo-para-e-commerce", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-indexar-produtos-da-loja-virtual-no-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/especialista-em-seo-para-plataformas-de-e-commerce", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-aumentar-o-trafego-organico-de-uma-loja-online", changefreq: "weekly", priority: "0.9" },
+    { path: "/otimizacao-de-seo-para-shopify-e-wordpress", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-remover-ou-ocultar-links-negativos-do-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/gerenciamento-de-reputacao-digital-no-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/agencia-para-limpar-buscas-com-nome-da-empresa", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-melhorar-a-reputacao-da-marca-no-buscador", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-mudar-de-site-sem-perder-o-posicionamento-no-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/consultoria-para-migracao-de-site-institucional", changefreq: "weekly", priority: "0.9" },
+    { path: "/redirecionamento-301-de-urls-em-massa-seo", changefreq: "weekly", priority: "0.9" },
+    { path: "/cuidados-de-seo-ao-refazer-um-site-do-zero", changefreq: "weekly", priority: "0.9" },
+    { path: "/seo-para-medicos-e-clinicas-particulares", changefreq: "weekly", priority: "0.9" },
+    { path: "/como-posicionar-escritorio-de-advocacia-no-google", changefreq: "weekly", priority: "0.9" },
+    { path: "/marketing-de-conteudo-focado-em-seo-para-nicho-de-luxo", changefreq: "weekly", priority: "0.9" },
+    { path: "/otimizacao-de-sites-para-profissionais-de-saude-seo", changefreq: "weekly", priority: "0.9" },
+
+    // Category 2.1: Automação de Processos e Inteligência Artificial (Produtividade Corporativa)
+    { path: "/desenvolvimento-de-chatbot-personalizado-com-ia", changefreq: "weekly", priority: "0.9" },
+    { path: "/integracao-de-api-de-inteligencia-artificial-em-sistemas", changefreq: "weekly", priority: "0.9" },
+    { path: "/automatizacao-de-processos-internos-via-software", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-gerador-de-conteudo-automatizado-corporativo", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-ferramentas-de-automacao-comercial", changefreq: "weekly", priority: "0.9" },
+
+    // Category 2.2: Sistemas Web Complexos e Ecossistemas de Afiliados/Vendas
+    { path: "/desenvolvimento-de-sistema-de-afiliados-personalizado", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-plataforma-web-com-painel-administrativo-restrito", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-saas-sob-medida", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-sistema-de-comissionamento-e-vendas-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-dashboards-corporativos-integrados", changefreq: "weekly", priority: "0.9" },
+
+    // Category 2.3: Modernização e Resgate de Código (Refactoring)
+    { path: "/empresa-para-refatoracao-de-sistemas-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvedor-para-corrigir-erros-de-codigo-legado", changefreq: "weekly", priority: "0.9" },
+    { path: "/migracao-de-banco-de-dados-para-servidor-em-nuvem", changefreq: "weekly", priority: "0.9" },
+    { path: "/modernizacao-de-sistemas-corporativos-antigos", changefreq: "weekly", priority: "0.9" },
+    { path: "/manutencao-preventiva-de-plataformas-web", changefreq: "weekly", priority: "0.9" },
+
+    // Category 2.4: Integrações Complexas de APIs e Ecossistemas Mobile
+    { path: "/integracao-de-api-customizada-em-site-profissional", changefreq: "weekly", priority: "0.9" },
+    { path: "/desenvolvimento-de-aplicativo-integrado-com-erp", changefreq: "weekly", priority: "0.9" },
+    { path: "/programacao-de-sistemas-com-banco-de-dados-escalavel", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-plataforma-mobile-integrated-com-sistema-web", changefreq: "weekly", priority: "0.9" },
+    { path: "/criar-plataforma-mobile-integrada-com-sistema-web", changefreq: "weekly", priority: "0.9" },
+
     // Category 1.1: Mobile Development & Apps (Fundo de Funil)
     { path: "/desenvolvedor-mobile-senior-freelance", changefreq: "weekly", priority: "0.9" },
     { path: "/desenvolvimento-de-aplicativos-nativos-android-e-ios", changefreq: "weekly", priority: "0.9" },
