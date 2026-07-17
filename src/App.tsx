@@ -39,6 +39,8 @@ import VisaSection from "./components/VisaSection";
 import MarketplacePortfolio from "./pages/MarketplacePortfolio";
 import LiraDriverPro from "./pages/LiraDriverPro";
 import LiraDriverSection from "./components/LiraDriverSection";
+import LaserCutSaaS from "./pages/LaserCutSaaS";
+import LaserCutSection from "./components/LaserCutSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -178,6 +180,7 @@ export default function App() {
           { text: "Escola Infantil Mackenzie", path: "/portfolio/escola" },
           { text: "Autoescola Tecnológica Piloto", path: "/portfolio/autoescola" },
           { text: "Lira Driver Pro App", path: "/portfolio/lira-driver-pro" },
+          { text: "LaserCut B2B SaaS", path: "/portfolio/laser-cut-saas" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -311,6 +314,11 @@ export default function App() {
   // CASE 0.11: Standalone 100% Independent Lira Driver Pro Page
   if (currentPath === "/portfolio/lira-driver-pro" || currentPath === "/lira-driver-pro" || currentPath === "/site-de-motorista-app" || currentPath === "/site-de-motorista" || currentPath === "/portfolio/lira-driver") {
     return <LiraDriverPro onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.12: Standalone 100% Independent LaserCut B2B SaaS Page
+  if (currentPath === "/portfolio/laser-cut-saas" || currentPath === "/laser-cut-saas" || currentPath === "/site-de-laser-cut" || currentPath === "/site-de-corte-a-laser" || currentPath === "/portfolio/corte-a-laser") {
+    return <LaserCutSaaS onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -537,6 +545,11 @@ export default function App() {
             {/* 6.10. Lira Driver Pro Case Section (Case 13) */}
             <section className="scroll-mt-24" id="project-lira-driver">
               <LiraDriverSection />
+            </section>
+
+            {/* 6.11. LaserCut B2B SaaS Case Section (Case 14) */}
+            <section className="scroll-mt-24" id="project-laser-cut">
+              <LaserCutSection />
             </section>
 
             {/* Section divider */}
