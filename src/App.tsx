@@ -41,6 +41,8 @@ import LiraDriverPro from "./pages/LiraDriverPro";
 import LiraDriverSection from "./components/LiraDriverSection";
 import LaserCutSaaS from "./pages/LaserCutSaaS";
 import LaserCutSection from "./components/LaserCutSection";
+import SolarEnergyPortfolio from "./pages/SolarEnergyPortfolio";
+import SolarEnergySection from "./components/SolarEnergySection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -321,6 +323,11 @@ export default function App() {
     return <LaserCutSaaS onBack={() => navigateTo("/")} />;
   }
 
+  // CASE 0.13: Standalone 100% Independent Solar Energy Page
+  if (currentPath === "/portfolio/energia-solar" || currentPath === "/energia-solar" || currentPath === "/site-de-energia-solar" || currentPath === "/portfolio/solar" || currentPath === "/solar" || currentPath === "/site-de-energia-solar-calculadora") {
+    return <SolarEnergyPortfolio onBack={() => navigateTo("/")} />;
+  }
+
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
     return (
@@ -550,6 +557,11 @@ export default function App() {
             {/* 6.11. LaserCut B2B SaaS Case Section (Case 14) */}
             <section className="scroll-mt-24" id="project-laser-cut">
               <LaserCutSection />
+            </section>
+
+            {/* 6.12. Solar Energy Case Section (Case 15) */}
+            <section className="scroll-mt-24" id="project-solar-energy">
+              <SolarEnergySection />
             </section>
 
             {/* Section divider */}
