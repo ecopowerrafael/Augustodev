@@ -45,6 +45,7 @@ import SolarEnergyPortfolio from "./pages/SolarEnergyPortfolio";
 import SolarEnergySection from "./components/SolarEnergySection";
 import StasiaCosmetics from "./pages/StasiaCosmetics";
 import StasiaSection from "./components/StasiaSection";
+import AlfabetizacaoInfantil from "./pages/AlfabetizacaoInfantil";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -186,6 +187,7 @@ export default function App() {
           { text: "Lira Driver Pro App", path: "/portfolio/lira-driver-pro" },
           { text: "LaserCut B2B SaaS", path: "/portfolio/laser-cut-saas" },
           { text: "Stasia Cosméticos Store", path: "/portfolio/stasia-cosmeticos" },
+          { text: "Alfabetização Infantil", path: "/portfolio/alfabetizacao-infantil" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -334,6 +336,11 @@ export default function App() {
   // CASE 0.14: Standalone 100% Independent Stasia Cosmetics Page
   if (currentPath === "/portfolio/stasia-cosmeticos" || currentPath === "/stasia-cosmeticos" || currentPath === "/site-de-cosmeticos" || currentPath === "/portfolio/stasia" || currentPath === "/stasia") {
     return <StasiaCosmetics onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.15: Standalone 100% Independent Alfabetizacao Infantil Page
+  if (currentPath === "/portfolio/alfabetizacao-infantil" || currentPath === "/alfabetizacao-infantil" || currentPath === "/site-de-alfabetizacao" || currentPath === "/site-de-alfabetizacao-infantil") {
+    return <AlfabetizacaoInfantil onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
