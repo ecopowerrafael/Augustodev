@@ -43,6 +43,8 @@ import LaserCutSaaS from "./pages/LaserCutSaaS";
 import LaserCutSection from "./components/LaserCutSection";
 import SolarEnergyPortfolio from "./pages/SolarEnergyPortfolio";
 import SolarEnergySection from "./components/SolarEnergySection";
+import StasiaCosmetics from "./pages/StasiaCosmetics";
+import StasiaSection from "./components/StasiaSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -183,6 +185,7 @@ export default function App() {
           { text: "Autoescola Tecnológica Piloto", path: "/portfolio/autoescola" },
           { text: "Lira Driver Pro App", path: "/portfolio/lira-driver-pro" },
           { text: "LaserCut B2B SaaS", path: "/portfolio/laser-cut-saas" },
+          { text: "Stasia Cosméticos Store", path: "/portfolio/stasia-cosmeticos" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -326,6 +329,11 @@ export default function App() {
   // CASE 0.13: Standalone 100% Independent Solar Energy Page
   if (currentPath === "/portfolio/energia-solar" || currentPath === "/energia-solar" || currentPath === "/site-de-energia-solar" || currentPath === "/portfolio/solar" || currentPath === "/solar" || currentPath === "/site-de-energia-solar-calculadora") {
     return <SolarEnergyPortfolio onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.14: Standalone 100% Independent Stasia Cosmetics Page
+  if (currentPath === "/portfolio/stasia-cosmeticos" || currentPath === "/stasia-cosmeticos" || currentPath === "/site-de-cosmeticos" || currentPath === "/portfolio/stasia" || currentPath === "/stasia") {
+    return <StasiaCosmetics onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -562,6 +570,11 @@ export default function App() {
             {/* 6.12. Solar Energy Case Section (Case 15) */}
             <section className="scroll-mt-24" id="project-solar-energy">
               <SolarEnergySection />
+            </section>
+
+            {/* 6.13. Stasia Cosmetics Case Section (Case 16) */}
+            <section className="scroll-mt-24" id="project-stasia">
+              <StasiaSection />
             </section>
 
             {/* Section divider */}

@@ -158,7 +158,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
 
   const getFeasibilityVerdict = (score: number) => {
     if (score >= 80) return { label: "EXCELENTE", color: "text-emerald-600 border-emerald-300 bg-emerald-50 text-emerald-800", desc: "Sua residência possui excelente potencial técnico. Estrutura favorável e sem interferências de sombras graves para instalação de alta performance imediata!" };
-    if (score >= 55) return { label: "VIÁVEL COM AJUSTES", color: "text-amber-700 border-amber-300 bg-amber-50 text-amber-800", desc: "Instalação fotovoltaica perfeitamente viável, porém nossa engenharia precisará projetar pequenos ajustes (como suportes de angulação para telhado sul ou microinversores de rastreamento independente)." };
+    if (score >= 55) return { label: "VIÁVEL COM AJUSTES", color: "text-blue-700 border-blue-200 bg-blue-50 text-blue-800", desc: "Instalação fotovoltaica perfeitamente viável, porém nossa engenharia precisará projetar pequenos ajustes (como suportes de angulação para telhado sul ou microinversores de rastreamento independente)." };
     return { label: "ALTA COMPLEXIDADE", color: "text-red-700 border-red-300 bg-red-50 text-red-800", desc: "Seu local possui barreiras físicas acentuadas (forte sombreamento, área restrita ou telhado frágil). Recomenda-se realizar uma visita técnica presencial gratuita de um engenheiro EcoPower para viabilizar." };
   };
 
@@ -851,7 +851,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
                           onClick={() => setHasTreesNearby(!hasTreesNearby)}
                           className={`p-3 rounded-xl border text-left flex items-center justify-between cursor-pointer transition ${
                             hasTreesNearby 
-                              ? "bg-amber-50 border-amber-300 text-amber-900" 
+                              ? "bg-emerald-50 border-emerald-300 text-emerald-900" 
                               : "bg-white border-slate-200 hover:border-slate-300"
                           }`}
                         >
@@ -859,7 +859,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
                             <span className="font-sans font-bold text-xs block">Árvores/Postes Colados no Telhado?</span>
                             <span className="text-[8px] font-mono text-slate-400 block uppercase">Causa sombras parciais à tarde</span>
                           </div>
-                          <div className={`h-4 w-4 rounded-full border flex items-center justify-center shrink-0 ${hasTreesNearby ? "border-amber-600 bg-amber-600 text-white" : "border-slate-300"}`}>
+                          <div className={`h-4 w-4 rounded-full border flex items-center justify-center shrink-0 ${hasTreesNearby ? "border-emerald-600 bg-emerald-600 text-white" : "border-slate-300"}`}>
                             {hasTreesNearby && <Check className="h-3 w-3" />}
                           </div>
                         </button>
@@ -868,7 +868,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
                           onClick={() => setIsCondo(!isCondo)}
                           className={`p-3 rounded-xl border text-left flex items-center justify-between cursor-pointer transition ${
                             isCondo 
-                              ? "bg-amber-50 border-amber-300 text-amber-900" 
+                              ? "bg-blue-50 border-blue-200 text-blue-900" 
                               : "bg-white border-slate-200 hover:border-slate-300"
                           }`}
                         >
@@ -876,7 +876,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
                             <span className="font-sans font-bold text-xs block">O Imóvel fica em Condomínio Fechado?</span>
                             <span className="text-[8px] font-mono text-slate-400 block uppercase">Requer regras de padrão estético</span>
                           </div>
-                          <div className={`h-4 w-4 rounded-full border flex items-center justify-center shrink-0 ${isCondo ? "border-amber-600 bg-amber-600 text-white" : "border-slate-300"}`}>
+                          <div className={`h-4 w-4 rounded-full border flex items-center justify-center shrink-0 ${isCondo ? "border-blue-600 bg-blue-600 text-white" : "border-slate-300"}`}>
                             {isCondo && <Check className="h-3 w-3" />}
                           </div>
                         </button>
@@ -927,7 +927,7 @@ export default function SolarEnergyPortfolio({ onBack }: { onBack?: () => void }
                               feasibilityScore >= 80 
                                 ? "stroke-emerald-600" 
                                 : feasibilityScore >= 55 
-                                  ? "stroke-amber-500" 
+                                  ? "stroke-blue-500" 
                                   : "stroke-red-500"
                             }`}
                             strokeWidth="6"
