@@ -46,6 +46,7 @@ import SolarEnergySection from "./components/SolarEnergySection";
 import StasiaCosmetics from "./pages/StasiaCosmetics";
 import StasiaSection from "./components/StasiaSection";
 import AlfabetizacaoInfantil from "./pages/AlfabetizacaoInfantil";
+import TablewareRental from "./pages/TablewareRental";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -188,6 +189,7 @@ export default function App() {
           { text: "LaserCut B2B SaaS", path: "/portfolio/laser-cut-saas" },
           { text: "Stasia Cosméticos Store", path: "/portfolio/stasia-cosmeticos" },
           { text: "Alfabetização Infantil", path: "/portfolio/alfabetizacao-infantil" },
+          { text: "Aluguel de Mesa & Cozinha", path: "/portfolio/aluguel-mesa-cozinha" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -341,6 +343,11 @@ export default function App() {
   // CASE 0.15: Standalone 100% Independent Alfabetizacao Infantil Page
   if (currentPath === "/portfolio/alfabetizacao-infantil" || currentPath === "/alfabetizacao-infantil" || currentPath === "/site-de-alfabetizacao" || currentPath === "/site-de-alfabetizacao-infantil") {
     return <AlfabetizacaoInfantil onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.16: Standalone 100% Independent Tableware and Kitchen Rental Page
+  if (currentPath === "/portfolio/aluguel-mesa-cozinha" || currentPath === "/aluguel-mesa-cozinha" || currentPath === "/site-de-aluguel-de-loucas" || currentPath === "/aluguel-de-loucas" || currentPath === "/site-de-aluguel-de-louças" || currentPath === "/aluguel-de-louças") {
+    return <TablewareRental onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
