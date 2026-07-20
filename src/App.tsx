@@ -47,6 +47,7 @@ import StasiaCosmetics from "./pages/StasiaCosmetics";
 import StasiaSection from "./components/StasiaSection";
 import AlfabetizacaoInfantil from "./pages/AlfabetizacaoInfantil";
 import TablewareRental from "./pages/TablewareRental";
+import SneakerDistributor from "./pages/SneakerDistributor";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -190,6 +191,7 @@ export default function App() {
           { text: "Stasia Cosméticos Store", path: "/portfolio/stasia-cosmeticos" },
           { text: "Alfabetização Infantil", path: "/portfolio/alfabetizacao-infantil" },
           { text: "Aluguel de Mesa & Cozinha", path: "/portfolio/aluguel-mesa-cozinha" },
+          { text: "Distribuidora de Tênis", path: "/portfolio/distribuidora-tenis" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -348,6 +350,11 @@ export default function App() {
   // CASE 0.16: Standalone 100% Independent Tableware and Kitchen Rental Page
   if (currentPath === "/portfolio/aluguel-mesa-cozinha" || currentPath === "/aluguel-mesa-cozinha" || currentPath === "/site-de-aluguel-de-loucas" || currentPath === "/aluguel-de-loucas" || currentPath === "/site-de-aluguel-de-louças" || currentPath === "/aluguel-de-louças") {
     return <TablewareRental onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.17: Standalone 100% Independent Sneaker Distributor E-Commerce Page
+  if (currentPath === "/portfolio/distribuidora-tenis" || currentPath === "/distribuidora-tenis" || currentPath === "/ecommerce-tenis" || currentPath === "/site-de-distribuidora-de-tenis" || currentPath === "/site-de-distribuidora-de-tênis" || currentPath === "/distribuidora-de-tenis" || currentPath === "/distribuidora-de-tênis") {
+    return <SneakerDistributor onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
