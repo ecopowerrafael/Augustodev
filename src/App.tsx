@@ -48,6 +48,7 @@ import StasiaSection from "./components/StasiaSection";
 import AlfabetizacaoInfantil from "./pages/AlfabetizacaoInfantil";
 import TablewareRental from "./pages/TablewareRental";
 import SneakerDistributor from "./pages/SneakerDistributor";
+import BoloesCaixaReserva from "./pages/BoloesCaixaReserva";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -192,6 +193,7 @@ export default function App() {
           { text: "Alfabetização Infantil", path: "/portfolio/alfabetizacao-infantil" },
           { text: "Aluguel de Mesa & Cozinha", path: "/portfolio/aluguel-mesa-cozinha" },
           { text: "Distribuidora de Tênis", path: "/portfolio/distribuidora-tenis" },
+          { text: "Reserva de Bolões Caixa", path: "/portfolio/reserva-boloes" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -355,6 +357,11 @@ export default function App() {
   // CASE 0.17: Standalone 100% Independent Sneaker Distributor E-Commerce Page
   if (currentPath === "/portfolio/distribuidora-tenis" || currentPath === "/distribuidora-tenis" || currentPath === "/ecommerce-tenis" || currentPath === "/site-de-distribuidora-de-tenis" || currentPath === "/site-de-distribuidora-de-tênis" || currentPath === "/distribuidora-de-tenis" || currentPath === "/distribuidora-de-tênis") {
     return <SneakerDistributor onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.18: Standalone 100% Independent CEF Lottery Pools Reservation Simulator Page
+  if (currentPath === "/portfolio/reserva-boloes" || currentPath === "/reserva-boloes" || currentPath === "/simulador-boloes" || currentPath === "/bolao-caixa" || currentPath === "/boloes-caixa" || currentPath === "/reserva-de-boloes") {
+    return <BoloesCaixaReserva onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
