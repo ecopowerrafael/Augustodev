@@ -49,6 +49,7 @@ import AlfabetizacaoInfantil from "./pages/AlfabetizacaoInfantil";
 import TablewareRental from "./pages/TablewareRental";
 import SneakerDistributor from "./pages/SneakerDistributor";
 import BoloesCaixaReserva from "./pages/BoloesCaixaReserva";
+import LojaQuadrosDecorativos from "./pages/LojaQuadrosDecorativos";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -194,6 +195,7 @@ export default function App() {
           { text: "Aluguel de Mesa & Cozinha", path: "/portfolio/aluguel-mesa-cozinha" },
           { text: "Distribuidora de Tênis", path: "/portfolio/distribuidora-tenis" },
           { text: "Reserva de Bolões Caixa", path: "/portfolio/reserva-boloes" },
+          { text: "Loja de Quadros Decorativos", path: "/portfolio/loja-quadros" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -362,6 +364,11 @@ export default function App() {
   // CASE 0.18: Standalone 100% Independent CEF Lottery Pools Reservation Simulator Page
   if (currentPath === "/portfolio/reserva-boloes" || currentPath === "/reserva-boloes" || currentPath === "/simulador-boloes" || currentPath === "/bolao-caixa" || currentPath === "/boloes-caixa" || currentPath === "/reserva-de-boloes") {
     return <BoloesCaixaReserva onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.19: Standalone 100% Independent Decorative Frames Virtual Store Page
+  if (currentPath === "/portfolio/loja-quadros" || currentPath === "/loja-quadros" || currentPath === "/quadros-decorativos" || currentPath === "/loja-de-quadros" || currentPath === "/quadros") {
+    return <LojaQuadrosDecorativos onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
