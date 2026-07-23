@@ -39,6 +39,7 @@ import VisaSection from "./components/VisaSection";
 import MarketplacePortfolio from "./pages/MarketplacePortfolio";
 import LiraDriverPro from "./pages/LiraDriverPro";
 import LiraDriverSection from "./components/LiraDriverSection";
+import LBTrainerSection from "./components/LBTrainerSection";
 import LaserCutSaaS from "./pages/LaserCutSaaS";
 import LaserCutSection from "./components/LaserCutSection";
 import SolarEnergyPortfolio from "./pages/SolarEnergyPortfolio";
@@ -50,6 +51,10 @@ import TablewareRental from "./pages/TablewareRental";
 import SneakerDistributor from "./pages/SneakerDistributor";
 import BoloesCaixaReserva from "./pages/BoloesCaixaReserva";
 import LojaQuadrosDecorativos from "./pages/LojaQuadrosDecorativos";
+import LBTrainer from "./pages/LBTrainer";
+import AdultStreamPlatform from "./pages/AdultStreamPlatform";
+import AdultStreamSection from "./components/AdultStreamSection";
+import SoReservarPortal from "./pages/SoReservarPortal";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -196,6 +201,8 @@ export default function App() {
           { text: "Distribuidora de Tênis", path: "/portfolio/distribuidora-tenis" },
           { text: "Reserva de Bolões Caixa", path: "/portfolio/reserva-boloes" },
           { text: "Loja de Quadros Decorativos", path: "/portfolio/loja-quadros" },
+          { text: "Plataforma Fitness LB Trainer", path: "/portfolio/lb-trainer" },
+          { text: "So Reservar - Portal de Viagens", path: "/portfolio/so-reservar" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -369,6 +376,21 @@ export default function App() {
   // CASE 0.19: Standalone 100% Independent Decorative Frames Virtual Store Page
   if (currentPath === "/portfolio/loja-quadros" || currentPath === "/loja-quadros" || currentPath === "/quadros-decorativos" || currentPath === "/loja-de-quadros" || currentPath === "/quadros") {
     return <LojaQuadrosDecorativos onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.20: Standalone 100% Independent Fitness Platform LB Trainer MVP
+  if (currentPath === "/portfolio/lb-trainer" || currentPath === "/lb-trainer" || currentPath === "/plataforma-fitness" || currentPath === "/site-de-treino" || currentPath === "/site-fitness") {
+    return <LBTrainer onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.21: Standalone 100% Independent Responsive Adult Streaming Platform
+  if (currentPath === "/portfolio/adult-stream" || currentPath === "/adult-stream" || currentPath === "/site-adulto-responsivo" || currentPath === "/adult-video-platform" || currentPath === "/site-adulto" || currentPath === "/adult-streaming-platform") {
+    return <AdultStreamPlatform onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.22: Standalone 100% Independent So Reservar Travel Portal Page
+  if (currentPath === "/portfolio/so-reservar" || currentPath === "/so-reservar" || currentPath === "/soreservar" || currentPath === "/reserva-de-viagens" || currentPath === "/portal-so-reservar") {
+    return <SoReservarPortal onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -610,6 +632,16 @@ export default function App() {
             {/* 6.13. Stasia Cosmetics Case Section (Case 16) */}
             <section className="scroll-mt-24" id="project-stasia">
               <StasiaSection />
+            </section>
+
+            {/* 6.14. LB Trainer Fitness SaaS Case Section (Case 17) */}
+            <section className="scroll-mt-24" id="project-lb-trainer">
+              <LBTrainerSection />
+            </section>
+
+            {/* 6.15. Adult Streaming Platform Case Section (Case 21) */}
+            <section className="scroll-mt-24" id="project-adult-stream">
+              <AdultStreamSection />
             </section>
 
             {/* Section divider */}
