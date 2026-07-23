@@ -55,6 +55,7 @@ import LBTrainer from "./pages/LBTrainer";
 import AdultStreamPlatform from "./pages/AdultStreamPlatform";
 import AdultStreamSection from "./components/AdultStreamSection";
 import SoReservarPortal from "./pages/SoReservarPortal";
+import TabacariaEcommerce from "./pages/TabacariaEcommerce";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -203,6 +204,7 @@ export default function App() {
           { text: "Loja de Quadros Decorativos", path: "/portfolio/loja-quadros" },
           { text: "Plataforma Fitness LB Trainer", path: "/portfolio/lb-trainer" },
           { text: "So Reservar - Portal de Viagens", path: "/portfolio/so-reservar" },
+          { text: "Tabacaria Velvet & Brasa", path: "/portfolio/tabacaria" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -391,6 +393,11 @@ export default function App() {
   // CASE 0.22: Standalone 100% Independent So Reservar Travel Portal Page
   if (currentPath === "/portfolio/so-reservar" || currentPath === "/so-reservar" || currentPath === "/soreservar" || currentPath === "/reserva-de-viagens" || currentPath === "/portal-so-reservar") {
     return <SoReservarPortal onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.23: Standalone 100% Independent E-commerce Tabacaria & Headshop Velvet & Brasa
+  if (currentPath === "/portfolio/tabacaria" || currentPath === "/tabacaria" || currentPath === "/headshop" || currentPath === "/smoke-shop" || currentPath === "/loja-tabacaria") {
+    return <TabacariaEcommerce onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
