@@ -57,6 +57,7 @@ import AdultStreamSection from "./components/AdultStreamSection";
 import SoReservarPortal from "./pages/SoReservarPortal";
 import TabacariaEcommerce from "./pages/TabacariaEcommerce";
 import SereneApp from "./pages/SereneApp";
+import MealPrepPlatform from "./pages/MealPrepPlatform";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -207,6 +208,7 @@ export default function App() {
           { text: "So Reservar - Portal de Viagens", path: "/portfolio/so-reservar" },
           { text: "Tabacaria Velvet & Brasa", path: "/portfolio/tabacaria" },
           { text: "App Serene - Bem-Estar & Meditação", path: "/portfolio/serene" },
+          { text: "FreshPrep - Refeições & Marmitas", path: "/portfolio/meal-prep" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -405,6 +407,11 @@ export default function App() {
   // CASE 0.24: Standalone 100% Independent Serene Emotional Wellness MVP App
   if (currentPath === "/portfolio/serene" || currentPath === "/serene" || currentPath === "/app-serene" || currentPath === "/site-de-meditacao" || currentPath === "/portfolio/serene-app") {
     return <SereneApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.25: Standalone 100% Independent Meal Prep & Fresh Frozen Food Membership Platform (Factor Style)
+  if (currentPath === "/portfolio/meal-prep" || currentPath === "/meal-prep" || currentPath === "/marmitas" || currentPath === "/marmita-fitness" || currentPath === "/factor" || currentPath === "/freshprep") {
+    return <MealPrepPlatform onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
