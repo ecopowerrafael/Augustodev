@@ -59,6 +59,7 @@ import TabacariaEcommerce from "./pages/TabacariaEcommerce";
 import SereneApp from "./pages/SereneApp";
 import MealPrepPlatform from "./pages/MealPrepPlatform";
 import ColdTrackApp from "./pages/ColdTrackApp";
+import BarberFlowApp from "./pages/BarberFlowApp";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -211,6 +212,7 @@ export default function App() {
           { text: "App Serene - Bem-Estar & Meditação", path: "/portfolio/serene" },
           { text: "FreshPrep - Refeições & Marmitas", path: "/portfolio/meal-prep" },
           { text: "ColdTrack - Gestão de Refrigeração", path: "/portfolio/coldtrack" },
+          { text: "BarberFlow - Agendamento Barbearias", path: "/portfolio/barberflow" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -419,6 +421,11 @@ export default function App() {
   // CASE 0.26: Standalone 100% Independent ColdTrack Refrigeration & Equipment Monitoring System
   if (currentPath === "/portfolio/coldtrack" || currentPath === "/coldtrack" || currentPath === "/cold-track" || currentPath === "/refrigeracao" || currentPath === "/coldtrackapp") {
     return <ColdTrackApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.27: Standalone BarberFlow Scheduling & Management System for Barbershops
+  if (currentPath === "/portfolio/barberflow" || currentPath === "/barberflow" || currentPath === "/barbearia" || currentPath === "/barber-flow" || currentPath === "/barberflowapp") {
+    return <BarberFlowApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
