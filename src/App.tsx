@@ -60,6 +60,8 @@ import SereneApp from "./pages/SereneApp";
 import MealPrepPlatform from "./pages/MealPrepPlatform";
 import ColdTrackApp from "./pages/ColdTrackApp";
 import BarberFlowApp from "./pages/BarberFlowApp";
+import FormulaVitaApp from "./pages/FormulaVitaApp";
+import FormulaVitaSection from "./components/FormulaVitaSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -213,6 +215,7 @@ export default function App() {
           { text: "FreshPrep - Refeições & Marmitas", path: "/portfolio/meal-prep" },
           { text: "ColdTrack - Gestão de Refrigeração", path: "/portfolio/coldtrack" },
           { text: "BarberFlow - Agendamento Barbearias", path: "/portfolio/barberflow" },
+          { text: "Fórmula Vita - Farmácia de Manipulação", path: "/portfolio/formula-vita" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -426,6 +429,11 @@ export default function App() {
   // CASE 0.27: Standalone BarberFlow Scheduling & Management System for Barbershops
   if (currentPath === "/portfolio/barberflow" || currentPath === "/barberflow" || currentPath === "/barbearia" || currentPath === "/barber-flow" || currentPath === "/barberflowapp") {
     return <BarberFlowApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.28: Standalone Formula Vita Compounding Pharmacy & Recipe Quote Platform
+  if (currentPath === "/portfolio/formula-vita" || currentPath === "/formula-vita" || currentPath === "/farmacia-de-manipulacao" || currentPath === "/site-de-farmacia-de-manipulacao" || currentPath === "/portfolio/farmacia") {
+    return <FormulaVitaApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -677,6 +685,11 @@ export default function App() {
             {/* 6.15. Adult Streaming Platform Case Section (Case 21) */}
             <section className="scroll-mt-24" id="project-adult-stream">
               <AdultStreamSection />
+            </section>
+
+            {/* 6.16. Formula Vita Compounding Pharmacy Case Section (Case 28) */}
+            <section className="scroll-mt-24" id="project-formula-vita">
+              <FormulaVitaSection />
             </section>
 
             {/* Section divider */}
