@@ -72,6 +72,8 @@ import { GMGCheckApp } from "./pages/GMGCheckApp";
 import { GMGCheckSection } from "./components/GMGCheckSection";
 import NexoTicketsApp from "./pages/NexoTicketsApp";
 import { NexoTicketsSection } from "./components/NexoTicketsSection";
+import BHPresentesApp from "./pages/BHPresentesApp";
+import { BHPresentesSection } from "./components/BHPresentesSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -474,6 +476,11 @@ export default function App() {
     return <NexoTicketsApp onBack={() => navigateTo("/")} />;
   }
 
+  // CASE 0.34: Standalone BH Presentes - Cell Phone Store Landing Page (Pampulha, BH)
+  if (currentPath === "/portfolio/bh-presentes" || currentPath === "/bh-presentes" || currentPath === "/pampulha-cell" || currentPath === "/celulares" || currentPath === "/bh-celulares" || currentPath === "/celulares-pampulha" || currentPath === "/loja-de-celulares") {
+    return <BHPresentesApp onBack={() => navigateTo("/")} />;
+  }
+
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
     return (
@@ -753,6 +760,11 @@ export default function App() {
             {/* 6.21. Nexo Tickets Ticketing & Split Payments Platform Case Section (Case 33) */}
             <section className="scroll-mt-24" id="project-nexo-tickets">
               <NexoTicketsSection onOpenApp={() => navigateTo("/portfolio/nexo-tickets")} />
+            </section>
+
+            {/* 6.22. BH Presentes Cell Phone Store Landing Page Case Section (Case 34) */}
+            <section className="scroll-mt-24" id="project-bh-presentes">
+              <BHPresentesSection onOpenApp={() => navigateTo("/portfolio/bh-presentes")} />
             </section>
 
             {/* Section divider */}
