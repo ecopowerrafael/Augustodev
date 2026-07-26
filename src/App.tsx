@@ -74,6 +74,8 @@ import NexoTicketsApp from "./pages/NexoTicketsApp";
 import { NexoTicketsSection } from "./components/NexoTicketsSection";
 import BHPresentesApp from "./pages/BHPresentesApp";
 import { BHPresentesSection } from "./components/BHPresentesSection";
+import EntrelinhasApp from "./pages/EntrelinhasApp";
+import { EntrelinhasSection } from "./components/EntrelinhasSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -231,6 +233,10 @@ export default function App() {
           { text: "TáNáMão - App Contratação de Serviços", path: "/portfolio/tanamao" },
           { text: "Nexo Seguros - Corretora de Seguros", path: "/portfolio/nexo-seguros" },
           { text: "Kennel Legacy - Criadores de Cães & Pedigree", path: "/portfolio/kennel-legacy" },
+          { text: "GMG Check - Vistorias Técnicas & Relatórios", path: "/portfolio/gmg-check" },
+          { text: "Nexo Tickets - Gestão de Ingressos & Eventos", path: "/portfolio/nexo-tickets" },
+          { text: "BH Presentes - Loja de Celulares", path: "/portfolio/bh-presentes" },
+          { text: "Entrelinhas - Blog Minimalista & Artigos", path: "/portfolio/entrelinhas" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -479,6 +485,11 @@ export default function App() {
   // CASE 0.34: Standalone BH Presentes - Cell Phone Store Landing Page (Pampulha, BH)
   if (currentPath === "/portfolio/bh-presentes" || currentPath === "/bh-presentes" || currentPath === "/pampulha-cell" || currentPath === "/celulares" || currentPath === "/bh-celulares" || currentPath === "/celulares-pampulha" || currentPath === "/loja-de-celulares") {
     return <BHPresentesApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.35: Standalone 100% Independent Entrelinhas Minimalist Personal Blog
+  if (currentPath === "/portfolio/entrelinhas" || currentPath === "/entrelinhas" || currentPath === "/blog" || currentPath === "/site-de-blog" || currentPath === "/blog-minimalista" || currentPath === "/artigos") {
+    return <EntrelinhasApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -765,6 +776,11 @@ export default function App() {
             {/* 6.22. BH Presentes Cell Phone Store Landing Page Case Section (Case 34) */}
             <section className="scroll-mt-24" id="project-bh-presentes">
               <BHPresentesSection onOpenApp={() => navigateTo("/portfolio/bh-presentes")} />
+            </section>
+
+            {/* 6.23. Entrelinhas Minimalist Personal Blog Case Section (Case 35) */}
+            <section className="scroll-mt-24" id="project-entrelinhas">
+              <EntrelinhasSection onOpenApp={() => navigateTo("/portfolio/entrelinhas")} />
             </section>
 
             {/* Section divider */}

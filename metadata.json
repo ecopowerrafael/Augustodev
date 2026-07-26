@@ -1,6 +1,6 @@
 {
-  "name": "Augusto Dev",
-  "description": "Desenvolvimento de sistemas sob medida, criação de sites e aplicativos, otimização SEO profissional, portfólios para advocacia, clínicas, escolas infantis e autoescolas premium.",
+  "name": "Entrelinhas — Blog Pessoal Minimalista",
+  "description": "Ideias, experiências e reflexões para ler com calma. Um blog pessoal focado em excelente legibilidade, artigos autorais e experiência de leitura sem distrações.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
