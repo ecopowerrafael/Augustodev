@@ -70,6 +70,8 @@ import KennelLegacyApp from "./pages/KennelLegacyApp";
 import KennelLegacySection from "./components/KennelLegacySection";
 import { GMGCheckApp } from "./pages/GMGCheckApp";
 import { GMGCheckSection } from "./components/GMGCheckSection";
+import NexoTicketsApp from "./pages/NexoTicketsApp";
+import { NexoTicketsSection } from "./components/NexoTicketsSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -467,6 +469,11 @@ export default function App() {
     return <GMGCheckApp onBack={() => navigateTo("/")} />;
   }
 
+  // CASE 0.33: Standalone Nexo Tickets Ticketing & Split Payments Platform
+  if (currentPath === "/portfolio/nexo-tickets" || currentPath === "/nexo-tickets" || currentPath === "/ingressos" || currentPath === "/nexo" || currentPath === "/nexotickets" || currentPath === "/eventos-nexo" || currentPath === "/tickets") {
+    return <NexoTicketsApp onBack={() => navigateTo("/")} />;
+  }
+
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
     return (
@@ -741,6 +748,11 @@ export default function App() {
             {/* 6.20. GMG Check Technical Inspection Platform Case Section (Case 32) */}
             <section className="scroll-mt-24" id="project-gmg-check">
               <GMGCheckSection onOpenApp={() => navigateTo("/portfolio/gmg-check")} />
+            </section>
+
+            {/* 6.21. Nexo Tickets Ticketing & Split Payments Platform Case Section (Case 33) */}
+            <section className="scroll-mt-24" id="project-nexo-tickets">
+              <NexoTicketsSection onOpenApp={() => navigateTo("/portfolio/nexo-tickets")} />
             </section>
 
             {/* Section divider */}
