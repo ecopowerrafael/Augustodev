@@ -62,6 +62,8 @@ import ColdTrackApp from "./pages/ColdTrackApp";
 import BarberFlowApp from "./pages/BarberFlowApp";
 import FormulaVitaApp from "./pages/FormulaVitaApp";
 import FormulaVitaSection from "./components/FormulaVitaSection";
+import TaNaMaoApp from "./pages/TaNaMaoApp";
+import TaNaMaoSection from "./components/TaNaMaoSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -216,6 +218,7 @@ export default function App() {
           { text: "ColdTrack - Gestão de Refrigeração", path: "/portfolio/coldtrack" },
           { text: "BarberFlow - Agendamento Barbearias", path: "/portfolio/barberflow" },
           { text: "Fórmula Vita - Farmácia de Manipulação", path: "/portfolio/formula-vita" },
+          { text: "TáNáMão - App Contratação de Serviços", path: "/portfolio/tanamao" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -434,6 +437,11 @@ export default function App() {
   // CASE 0.28: Standalone Formula Vita Compounding Pharmacy & Recipe Quote Platform
   if (currentPath === "/portfolio/formula-vita" || currentPath === "/formula-vita" || currentPath === "/farmacia-de-manipulacao" || currentPath === "/site-de-farmacia-de-manipulacao" || currentPath === "/portfolio/farmacia") {
     return <FormulaVitaApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.29: Standalone TáNáMão Service Hiring Platform & Marketplace
+  if (currentPath === "/portfolio/tanamao" || currentPath === "/tanamao" || currentPath === "/aplicativo-de-servicos" || currentPath === "/tanamao-app" || currentPath === "/portfolio/servicos") {
+    return <TaNaMaoApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -690,6 +698,11 @@ export default function App() {
             {/* 6.16. Formula Vita Compounding Pharmacy Case Section (Case 28) */}
             <section className="scroll-mt-24" id="project-formula-vita">
               <FormulaVitaSection />
+            </section>
+
+            {/* 6.17. TáNáMão Service Hiring Marketplace Case Section (Case 29) */}
+            <section className="scroll-mt-24" id="project-tanamao">
+              <TaNaMaoSection />
             </section>
 
             {/* Section divider */}
