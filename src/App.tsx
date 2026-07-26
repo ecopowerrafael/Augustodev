@@ -66,6 +66,10 @@ import TaNaMaoApp from "./pages/TaNaMaoApp";
 import TaNaMaoSection from "./components/TaNaMaoSection";
 import NexoSegurosApp from "./pages/NexoSegurosApp";
 import NexoSegurosSection from "./components/NexoSegurosSection";
+import KennelLegacyApp from "./pages/KennelLegacyApp";
+import KennelLegacySection from "./components/KennelLegacySection";
+import { GMGCheckApp } from "./pages/GMGCheckApp";
+import { GMGCheckSection } from "./components/GMGCheckSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -222,6 +226,7 @@ export default function App() {
           { text: "Fórmula Vita - Farmácia de Manipulação", path: "/portfolio/formula-vita" },
           { text: "TáNáMão - App Contratação de Serviços", path: "/portfolio/tanamao" },
           { text: "Nexo Seguros - Corretora de Seguros", path: "/portfolio/nexo-seguros" },
+          { text: "Kennel Legacy - Criadores de Cães & Pedigree", path: "/portfolio/kennel-legacy" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -450,6 +455,16 @@ export default function App() {
   // CASE 0.30: Standalone Nexo Seguros Insurance Brokerage Platform
   if (currentPath === "/portfolio/nexo-seguros" || currentPath === "/nexo-seguros" || currentPath === "/site-de-seguros" || currentPath === "/corretora-de-seguros" || currentPath === "/portfolio/seguros") {
     return <NexoSegurosApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.31: Standalone Kennel Legacy Dog Breeders & Pedigree Platform
+  if (currentPath === "/portfolio/kennel-legacy" || currentPath === "/kennel-legacy" || currentPath === "/canil" || currentPath === "/pedigree" || currentPath === "/criadores" || currentPath.startsWith("/canil/") || currentPath.startsWith("/cao/")) {
+    return <KennelLegacyApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.32: Standalone GMG Check Technical Inspection Platform
+  if (currentPath === "/portfolio/gmg-check" || currentPath === "/gmg-check" || currentPath === "/vistorias" || currentPath === "/gmg" || currentPath === "/gmgcheck" || currentPath === "/gmg-vistorias" || currentPath === "/vistoria-gmg") {
+    return <GMGCheckApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -716,6 +731,16 @@ export default function App() {
             {/* 6.18. Nexo Seguros Insurance Brokerage Case Section (Case 30) */}
             <section className="scroll-mt-24" id="project-nexo-seguros">
               <NexoSegurosSection />
+            </section>
+
+            {/* 6.19. Kennel Legacy Dog Breeders & Pedigree Platform Case Section (Case 31) */}
+            <section className="scroll-mt-24" id="project-kennel-legacy">
+              <KennelLegacySection />
+            </section>
+
+            {/* 6.20. GMG Check Technical Inspection Platform Case Section (Case 32) */}
+            <section className="scroll-mt-24" id="project-gmg-check">
+              <GMGCheckSection onOpenApp={() => navigateTo("/portfolio/gmg-check")} />
             </section>
 
             {/* Section divider */}
