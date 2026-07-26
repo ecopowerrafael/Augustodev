@@ -64,6 +64,8 @@ import FormulaVitaApp from "./pages/FormulaVitaApp";
 import FormulaVitaSection from "./components/FormulaVitaSection";
 import TaNaMaoApp from "./pages/TaNaMaoApp";
 import TaNaMaoSection from "./components/TaNaMaoSection";
+import NexoSegurosApp from "./pages/NexoSegurosApp";
+import NexoSegurosSection from "./components/NexoSegurosSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -219,6 +221,7 @@ export default function App() {
           { text: "BarberFlow - Agendamento Barbearias", path: "/portfolio/barberflow" },
           { text: "Fórmula Vita - Farmácia de Manipulação", path: "/portfolio/formula-vita" },
           { text: "TáNáMão - App Contratação de Serviços", path: "/portfolio/tanamao" },
+          { text: "Nexo Seguros - Corretora de Seguros", path: "/portfolio/nexo-seguros" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -442,6 +445,11 @@ export default function App() {
   // CASE 0.29: Standalone TáNáMão Service Hiring Platform & Marketplace
   if (currentPath === "/portfolio/tanamao" || currentPath === "/tanamao" || currentPath === "/aplicativo-de-servicos" || currentPath === "/tanamao-app" || currentPath === "/portfolio/servicos") {
     return <TaNaMaoApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.30: Standalone Nexo Seguros Insurance Brokerage Platform
+  if (currentPath === "/portfolio/nexo-seguros" || currentPath === "/nexo-seguros" || currentPath === "/site-de-seguros" || currentPath === "/corretora-de-seguros" || currentPath === "/portfolio/seguros") {
+    return <NexoSegurosApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -703,6 +711,11 @@ export default function App() {
             {/* 6.17. TáNáMão Service Hiring Marketplace Case Section (Case 29) */}
             <section className="scroll-mt-24" id="project-tanamao">
               <TaNaMaoSection />
+            </section>
+
+            {/* 6.18. Nexo Seguros Insurance Brokerage Case Section (Case 30) */}
+            <section className="scroll-mt-24" id="project-nexo-seguros">
+              <NexoSegurosSection />
             </section>
 
             {/* Section divider */}
