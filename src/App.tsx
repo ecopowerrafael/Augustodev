@@ -76,6 +76,8 @@ import BHPresentesApp from "./pages/BHPresentesApp";
 import { BHPresentesSection } from "./components/BHPresentesSection";
 import EntrelinhasApp from "./pages/EntrelinhasApp";
 import { EntrelinhasSection } from "./components/EntrelinhasSection";
+import { ContentFlowApp } from "./pages/ContentFlowApp";
+import { ContentFlowSection } from "./components/ContentFlowSection";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -237,6 +239,7 @@ export default function App() {
           { text: "Nexo Tickets - Gestão de Ingressos & Eventos", path: "/portfolio/nexo-tickets" },
           { text: "BH Presentes - Loja de Celulares", path: "/portfolio/bh-presentes" },
           { text: "Entrelinhas - Blog Minimalista & Artigos", path: "/portfolio/entrelinhas" },
+          { text: "ContentFlow - SaaS de Gestão Editorial & Aprovação", path: "/portfolio/contentflow" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -490,6 +493,11 @@ export default function App() {
   // CASE 0.35: Standalone 100% Independent Entrelinhas Minimalist Personal Blog
   if (currentPath === "/portfolio/entrelinhas" || currentPath === "/entrelinhas" || currentPath === "/blog" || currentPath === "/site-de-blog" || currentPath === "/blog-minimalista" || currentPath === "/artigos") {
     return <EntrelinhasApp onBack={() => navigateTo("/")} />;
+  }
+
+  // CASE 0.36: Standalone 100% Independent ContentFlow Editorial & Approval SaaS
+  if (currentPath === "/portfolio/contentflow" || currentPath === "/contentflow" || currentPath === "/saas-de-conteudo" || currentPath === "/gestao-editorial" || currentPath === "/content-flow" || currentPath === "/portal-de-aprovacao") {
+    return <ContentFlowApp onBack={() => navigateTo("/")} />;
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -781,6 +789,11 @@ export default function App() {
             {/* 6.23. Entrelinhas Minimalist Personal Blog Case Section (Case 35) */}
             <section className="scroll-mt-24" id="project-entrelinhas">
               <EntrelinhasSection onOpenApp={() => navigateTo("/portfolio/entrelinhas")} />
+            </section>
+
+            {/* 6.24. ContentFlow SaaS MVP Case Section (Case 36) */}
+            <section className="scroll-mt-24" id="project-contentflow">
+              <ContentFlowSection onOpenApp={() => navigateTo("/portfolio/contentflow")} />
             </section>
 
             {/* Section divider */}
