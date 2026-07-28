@@ -14,6 +14,7 @@ import {
 interface Review {
   id: string;
   author: string;
+  clientName?: string;
   rating: number;
   date: string;
   comment: string;
@@ -23,6 +24,8 @@ interface Review {
 interface PortfolioItem {
   title: string;
   image: string;
+  imageUrl?: string;
+  category?: string;
   description: string;
 }
 
@@ -2381,10 +2384,10 @@ export default function MarketplacePortfolio({ onBack }: { onBack: () => void })
                     <div className="grid grid-cols-2 gap-4">
                       {selectedProviderProfile.portfolio.map((item, idx) => (
                         <div key={idx} className="group relative rounded-xl overflow-hidden border border-stone-200 shadow-sm aspect-video bg-stone-100">
-                          <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition duration-300 group-hover:scale-105" />
+                          <img src={item.imageUrl || item.image} alt={item.title} className="w-full h-full object-cover transition duration-300 group-hover:scale-105" />
                           <div className="absolute inset-x-0 bottom-0 bg-stone-950/80 p-2.5 text-white transform translate-y-full group-hover:translate-y-0 transition duration-300 text-left">
                             <h5 className="font-serif font-bold text-[10px] line-clamp-1">{item.title}</h5>
-                            <span className="font-mono text-[8px] text-stone-300 uppercase block mt-0.5">{item.category}</span>
+                            <span className="font-mono text-[8px] text-stone-300 uppercase block mt-0.5">{item.category || "Projeto"}</span>
                           </div>
                         </div>
                       ))}
@@ -2400,7 +2403,7 @@ export default function MarketplacePortfolio({ onBack }: { onBack: () => void })
                       {selectedProviderProfile.reviews.map((rev, idx) => (
                         <div key={idx} className="p-3.5 bg-stone-50 border border-stone-200/50 rounded-xl space-y-2">
                           <div className="flex items-center justify-between">
-                            <span className="font-serif font-bold text-xs text-stone-800">{rev.clientName}</span>
+                            <span className="font-serif font-bold text-xs text-stone-800">{rev.clientName || rev.author}</span>
                             <div className="flex items-center space-x-1 font-mono text-[10px] text-amber-600 font-bold">
                               <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
                               <span>{rev.rating.toFixed(1)}</span>

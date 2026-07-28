@@ -20,7 +20,8 @@ export type ActiveTab =
   | 'team' 
   | 'settings' 
   | 'plans' 
-  | 'saas_admin';
+  | 'saas_admin'
+  | 'client_detail';
 
 interface SidebarProps {
   activeTab: ActiveTab;

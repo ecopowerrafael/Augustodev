@@ -1,6 +1,6 @@
 {
-  "name": "Entrelinhas — Blog Pessoal Minimalista",
-  "description": "Ideias, experiências e reflexões para ler com calma. Um blog pessoal focado em excelente legibilidade, artigos autorais e experiência de leitura sem distrações.",
+  "name": "Augusto Dev — Portfólio & Plataformas SaaS",
+  "description": "Portfólio de engenharia de software, cases de sucesso e ecossistema de soluções digitais e plataformas SaaS de alta performance.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

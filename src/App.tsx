@@ -78,6 +78,9 @@ import EntrelinhasApp from "./pages/EntrelinhasApp";
 import { EntrelinhasSection } from "./components/EntrelinhasSection";
 import { ContentFlowApp } from "./pages/ContentFlowApp";
 import { ContentFlowSection } from "./components/ContentFlowSection";
+import MenteLudicaApp from "./pages/MenteLudicaApp";
+import MenteLudicaSection from "./components/MenteLudicaSection";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
 import { SEOProvider, MetaTags, StructuredData, getOrganizationSchema, getWebsiteSchema, getLocalBusinessSchema } from "./seo/SEOComponents";
@@ -240,6 +243,7 @@ export default function App() {
           { text: "BH Presentes - Loja de Celulares", path: "/portfolio/bh-presentes" },
           { text: "Entrelinhas - Blog Minimalista & Artigos", path: "/portfolio/entrelinhas" },
           { text: "ContentFlow - SaaS de Gestão Editorial & Aprovação", path: "/portfolio/contentflow" },
+          { text: "MenteLúdica - SaaS de Recursos Terapêuticos Interativos", path: "/portfolio/mente-ludica" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -497,7 +501,20 @@ export default function App() {
 
   // CASE 0.36: Standalone 100% Independent ContentFlow Editorial & Approval SaaS
   if (currentPath === "/portfolio/contentflow" || currentPath === "/contentflow" || currentPath === "/saas-de-conteudo" || currentPath === "/gestao-editorial" || currentPath === "/content-flow" || currentPath === "/portal-de-aprovacao") {
-    return <ContentFlowApp onBack={() => navigateTo("/")} />;
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma ContentFlow">
+        <ContentFlowApp onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.37: Standalone 100% Independent MenteLúdica Interactive Therapeutic Resources SaaS
+  if (currentPath === "/portfolio/mente-ludica" || currentPath === "/mente-ludica" || currentPath === "/menteludica" || currentPath === "/saas-terapeutico" || currentPath === "/recursos-terapeuticos" || currentPath === "/plataforma-psicologos") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma MenteLúdica">
+        <MenteLudicaApp onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
   }
 
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
@@ -793,7 +810,16 @@ export default function App() {
 
             {/* 6.24. ContentFlow SaaS MVP Case Section (Case 36) */}
             <section className="scroll-mt-24" id="project-contentflow">
-              <ContentFlowSection onOpenApp={() => navigateTo("/portfolio/contentflow")} />
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo ContentFlow">
+                <ContentFlowSection onOpenApp={() => navigateTo("/portfolio/contentflow")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.25. MenteLúdica SaaS MVP Case Section (Case 37) */}
+            <section className="scroll-mt-24" id="project-menteludica">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo MenteLúdica">
+                <MenteLudicaSection onOpenApp={() => navigateTo("/portfolio/mente-ludica")} />
+              </ErrorBoundary>
             </section>
 
             {/* Section divider */}

@@ -195,6 +195,8 @@ export interface SaaSPlan {
   maxUsers: string;
   features: string[];
   popular?: boolean;
+  isPopular?: boolean;
+  description?: string;
 }
 
 export interface SaaSAdminOrg {
