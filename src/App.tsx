@@ -82,6 +82,8 @@ import MenteLudicaApp from "./pages/MenteLudicaApp";
 import MenteLudicaSection from "./components/MenteLudicaSection";
 import AlkymityApp from "./pages/AlkymityApp";
 import AlkymitySection from "./components/AlkymitySection";
+import { VektorApp } from "./pages/VektorApp";
+import { VektorSection } from "./components/VektorSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -246,6 +248,8 @@ export default function App() {
           { text: "Entrelinhas - Blog Minimalista & Artigos", path: "/portfolio/entrelinhas" },
           { text: "ContentFlow - SaaS de Gestão Editorial & Aprovação", path: "/portfolio/contentflow" },
           { text: "MenteLúdica - SaaS de Recursos Terapêuticos Interativos", path: "/portfolio/mente-ludica" },
+          { text: "Alkymity - Ecossistema Galápagos Wellness", path: "/portfolio/alkymity" },
+          { text: "Vektor - Contabilidade Consultiva & Inteligência Tributária", path: "/portfolio/vektor" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -524,6 +528,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma Alkymity">
         <AlkymityApp onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.39: Standalone Vektor Contabilidade & Inteligência Tributária Prototype
+  if (currentPath === "/portfolio/vektor" || currentPath === "/vektor" || currentPath === "/contabilidade" || currentPath === "/abrir-empresa" || currentPath === "/trocar-contabilidade" || currentPath === "/bpo-financeiro" || currentPath === "/diagnostico-tributario") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma Vektor Contabilidade">
+        <VektorApp onBackToPortfolio={() => navigateTo("/")} />
       </ErrorBoundary>
     );
   }
@@ -837,6 +850,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-alkymity">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Alkymity">
                 <AlkymitySection onOpenApp={() => navigateTo("/portfolio/alkymity")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.27. Vektor Contabilidade & Inteligência Tributária Case Section (Case 39) */}
+            <section className="scroll-mt-24" id="project-vektor">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Vektor Contabilidade">
+                <VektorSection onOpenPrototype={() => navigateTo("/portfolio/vektor")} />
               </ErrorBoundary>
             </section>
 
