@@ -80,6 +80,8 @@ import { ContentFlowApp } from "./pages/ContentFlowApp";
 import { ContentFlowSection } from "./components/ContentFlowSection";
 import MenteLudicaApp from "./pages/MenteLudicaApp";
 import MenteLudicaSection from "./components/MenteLudicaSection";
+import AlkymityApp from "./pages/AlkymityApp";
+import AlkymitySection from "./components/AlkymitySection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -517,6 +519,15 @@ export default function App() {
     );
   }
 
+  // CASE 0.38: Standalone Alkymity Galápagos Luxury Wellness Ecosystem Prototype
+  if (currentPath === "/portfolio/alkymity" || currentPath === "/alkymity" || currentPath === "/galapagos-wellness" || currentPath === "/alkymity-studio" || currentPath === "/alkymity-suites" || currentPath === "/wellness-galapagos") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma Alkymity">
+        <AlkymityApp onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
     return (
@@ -819,6 +830,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-menteludica">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo MenteLúdica">
                 <MenteLudicaSection onOpenApp={() => navigateTo("/portfolio/mente-ludica")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.26. Alkymity Galápagos Luxury Wellness Ecosystem Case Section (Case 38) */}
+            <section className="scroll-mt-24" id="project-alkymity">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Alkymity">
+                <AlkymitySection onOpenApp={() => navigateTo("/portfolio/alkymity")} />
               </ErrorBoundary>
             </section>
 
