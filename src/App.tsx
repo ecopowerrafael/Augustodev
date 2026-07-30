@@ -90,6 +90,8 @@ import NeuroAprendeApp from "./pages/NeuroAprendeApp";
 import { NeuroAprendeSection } from "./components/NeuroAprendeSection";
 import { CobrancaFlowApp } from "./components/cobrancaflow/CobrancaFlowApp";
 import { CobrancaFlowSection } from "./components/CobrancaFlowSection";
+import { RHConnectApp } from "./components/rhconnect/RHConnectApp";
+import { RHConnectSection } from "./components/RHConnectSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -259,6 +261,7 @@ export default function App() {
           { text: "CrediCompare - Simulador de Financiamento Imobiliário Multibancos", path: "/portfolio/credito-imobiliario" },
           { text: "NeuroAprende Games - Plataforma de Jogos Educativos para Neurodivergentes", path: "/portfolio/neuroaprende" },
           { text: "CobrancaFlow - Agenda de Cobranças & Réguas Automáticas WhatsApp", path: "/portfolio/cobrancaflow" },
+          { text: "RH Connect - Plataforma Inteligente de Recrutamento & Seleção com IA", path: "/portfolio/rh-connect" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -573,6 +576,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar o protótipo CobrancaFlow">
         <CobrancaFlowApp />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.43: Standalone RH Connect System Prototype
+  if (currentPath === "/portfolio/rh-connect" || currentPath === "/rh-connect" || currentPath === "/rhconnect" || currentPath === "/plataforma-de-recrutamento" || currentPath === "/recrutamento-com-ia") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma RH Connect">
+        <RHConnectApp />
       </ErrorBoundary>
     );
   }
@@ -914,6 +926,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-cobrancaflow">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo CobrancaFlow">
                 <CobrancaFlowSection onOpenPrototype={() => navigateTo("/portfolio/cobrancaflow")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.31. RH Connect Recruitment Platform with AI Case Section (Case 43) */}
+            <section className="scroll-mt-24" id="project-rh-connect">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo RH Connect">
+                <RHConnectSection onOpenPrototype={() => navigateTo("/portfolio/rh-connect")} />
               </ErrorBoundary>
             </section>
 

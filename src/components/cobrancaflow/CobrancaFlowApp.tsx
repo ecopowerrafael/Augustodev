@@ -93,7 +93,9 @@ export const CobrancaFlowApp: React.FC = () => {
       sentAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
       messageContent: `Olá ${newCharge.clientName}, registramos sua cobrança de R$ ${newCharge.amount.toFixed(2)} com vencimento em ${newCharge.dueDate}.`,
       status: 'programada',
-      triggerType: 'Cadastro de Título',
+      triggerType: 'automático',
+      attempts: 1,
+      sentBy: 'Sistema'
     };
 
     setDispatchLogs(prev => [newLog, ...prev]);
@@ -136,7 +138,9 @@ export const CobrancaFlowApp: React.FC = () => {
       sentAt: new Date().toISOString().replace('T', ' ').substring(0, 16),
       messageContent: `Olá, ${charge.clientName}! Passando para lembrar da cobrança referente a ${charge.description} no valor de R$ ${charge.amount.toFixed(2)} com vencimento em ${charge.dueDate}. Link de pagamento: ${charge.paymentLink}`,
       status: 'entregue',
-      triggerType: 'Envio Manual Instantâneo',
+      triggerType: 'manual',
+      attempts: 1,
+      sentBy: 'Usuário'
     };
 
     setDispatchLogs(prev => [newLog, ...prev]);
