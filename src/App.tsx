@@ -86,6 +86,8 @@ import { VektorApp } from "./pages/VektorApp";
 import { VektorSection } from "./components/VektorSection";
 import { SimuladorCreditoImobiliarioApp } from "./pages/SimuladorCreditoImobiliarioApp";
 import { SimuladorCreditoImobiliarioSection } from "./components/SimuladorCreditoImobiliarioSection";
+import NeuroAprendeApp from "./pages/NeuroAprendeApp";
+import { NeuroAprendeSection } from "./components/NeuroAprendeSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -253,6 +255,7 @@ export default function App() {
           { text: "Alkymity - Ecossistema Galápagos Wellness", path: "/portfolio/alkymity" },
           { text: "Vektor - Contabilidade Consultiva & Inteligência Tributária", path: "/portfolio/vektor" },
           { text: "CrediCompare - Simulador de Financiamento Imobiliário Multibancos", path: "/portfolio/credito-imobiliario" },
+          { text: "NeuroAprende Games - Plataforma de Jogos Educativos para Neurodivergentes", path: "/portfolio/neuroaprende" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -549,6 +552,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar o Simulador de Financiamento Imobiliário Multibancos">
         <SimuladorCreditoImobiliarioApp onBackToPortfolio={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.41: Standalone NeuroAprende Games Prototype
+  if (currentPath === "/portfolio/neuroaprende" || currentPath === "/neuroaprende" || currentPath === "/jogos-neurodivergentes" || currentPath === "/neuroaprende-games") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma NeuroAprende Games">
+        <NeuroAprendeApp onBackToPortfolio={() => navigateTo("/")} />
       </ErrorBoundary>
     );
   }
@@ -876,6 +888,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-credito-imobiliario">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Simulador Imobiliário">
                 <SimuladorCreditoImobiliarioSection onOpenPrototype={() => navigateTo("/portfolio/credito-imobiliario")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.29. NeuroAprende Games Case Section (Case 41) */}
+            <section className="scroll-mt-24" id="project-neuroaprende">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo NeuroAprende Games">
+                <NeuroAprendeSection onOpenPrototype={() => navigateTo("/portfolio/neuroaprende")} />
               </ErrorBoundary>
             </section>
 
