@@ -84,6 +84,8 @@ import AlkymityApp from "./pages/AlkymityApp";
 import AlkymitySection from "./components/AlkymitySection";
 import { VektorApp } from "./pages/VektorApp";
 import { VektorSection } from "./components/VektorSection";
+import { SimuladorCreditoImobiliarioApp } from "./pages/SimuladorCreditoImobiliarioApp";
+import { SimuladorCreditoImobiliarioSection } from "./components/SimuladorCreditoImobiliarioSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -250,6 +252,7 @@ export default function App() {
           { text: "MenteLúdica - SaaS de Recursos Terapêuticos Interativos", path: "/portfolio/mente-ludica" },
           { text: "Alkymity - Ecossistema Galápagos Wellness", path: "/portfolio/alkymity" },
           { text: "Vektor - Contabilidade Consultiva & Inteligência Tributária", path: "/portfolio/vektor" },
+          { text: "CrediCompare - Simulador de Financiamento Imobiliário Multibancos", path: "/portfolio/credito-imobiliario" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -537,6 +540,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma Vektor Contabilidade">
         <VektorApp onBackToPortfolio={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.40: Standalone Simulador de Financiamento Imobiliário Multibancos Prototype
+  if (currentPath === "/portfolio/credito-imobiliario" || currentPath === "/simulador-imobiliario" || currentPath === "/credito-imobiliario" || currentPath === "/financiamento" || currentPath === "/simulador-bancos") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar o Simulador de Financiamento Imobiliário Multibancos">
+        <SimuladorCreditoImobiliarioApp onBackToPortfolio={() => navigateTo("/")} />
       </ErrorBoundary>
     );
   }
@@ -857,6 +869,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-vektor">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Vektor Contabilidade">
                 <VektorSection onOpenPrototype={() => navigateTo("/portfolio/vektor")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.28. Simulador de Financiamento Imobiliário Multibancos Case Section (Case 40) */}
+            <section className="scroll-mt-24" id="project-credito-imobiliario">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Simulador Imobiliário">
+                <SimuladorCreditoImobiliarioSection onOpenPrototype={() => navigateTo("/portfolio/credito-imobiliario")} />
               </ErrorBoundary>
             </section>
 
