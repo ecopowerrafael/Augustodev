@@ -88,6 +88,8 @@ import { SimuladorCreditoImobiliarioApp } from "./pages/SimuladorCreditoImobilia
 import { SimuladorCreditoImobiliarioSection } from "./components/SimuladorCreditoImobiliarioSection";
 import NeuroAprendeApp from "./pages/NeuroAprendeApp";
 import { NeuroAprendeSection } from "./components/NeuroAprendeSection";
+import { CobrancaFlowApp } from "./components/cobrancaflow/CobrancaFlowApp";
+import { CobrancaFlowSection } from "./components/CobrancaFlowSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -256,6 +258,7 @@ export default function App() {
           { text: "Vektor - Contabilidade Consultiva & Inteligência Tributária", path: "/portfolio/vektor" },
           { text: "CrediCompare - Simulador de Financiamento Imobiliário Multibancos", path: "/portfolio/credito-imobiliario" },
           { text: "NeuroAprende Games - Plataforma de Jogos Educativos para Neurodivergentes", path: "/portfolio/neuroaprende" },
+          { text: "CobrancaFlow - Agenda de Cobranças & Réguas Automáticas WhatsApp", path: "/portfolio/cobrancaflow" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -561,6 +564,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma NeuroAprende Games">
         <NeuroAprendeApp onBackToPortfolio={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.42: Standalone CobrancaFlow System Prototype
+  if (currentPath === "/portfolio/cobrancaflow" || currentPath === "/cobrancaflow" || currentPath === "/agenda-de-cobrancas" || currentPath === "/sistema-de-cobrancas") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar o protótipo CobrancaFlow">
+        <CobrancaFlowApp />
       </ErrorBoundary>
     );
   }
@@ -895,6 +907,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-neuroaprende">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo NeuroAprende Games">
                 <NeuroAprendeSection onOpenPrototype={() => navigateTo("/portfolio/neuroaprende")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.30. CobrancaFlow WhatsApp Debt Management System Case Section (Case 42) */}
+            <section className="scroll-mt-24" id="project-cobrancaflow">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo CobrancaFlow">
+                <CobrancaFlowSection onOpenPrototype={() => navigateTo("/portfolio/cobrancaflow")} />
               </ErrorBoundary>
             </section>
 
