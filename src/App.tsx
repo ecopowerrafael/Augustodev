@@ -92,6 +92,8 @@ import { CobrancaFlowApp } from "./components/cobrancaflow/CobrancaFlowApp";
 import { CobrancaFlowSection } from "./components/CobrancaFlowSection";
 import { RHConnectApp } from "./components/rhconnect/RHConnectApp";
 import { RHConnectSection } from "./components/RHConnectSection";
+import { AloDiariaApp } from "./components/aloDiaria/AloDiariaApp";
+import { AloDiariaSection } from "./components/AloDiariaSection";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -262,6 +264,7 @@ export default function App() {
           { text: "NeuroAprende Games - Plataforma de Jogos Educativos para Neurodivergentes", path: "/portfolio/neuroaprende" },
           { text: "CobrancaFlow - Agenda de Cobranças & Réguas Automáticas WhatsApp", path: "/portfolio/cobrancaflow" },
           { text: "RH Connect - Plataforma Inteligente de Recrutamento & Seleção com IA", path: "/portfolio/rh-connect" },
+          { text: "Alô Diária Dona Maria - Plataforma de Diárias & Serviços Domésticos", path: "/portfolio/alo-diaria-dona-maria" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -585,6 +588,15 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma RH Connect">
         <RHConnectApp />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.44: Standalone Alô Diária Dona Maria System Prototype
+  if (currentPath === "/portfolio/alo-diaria-dona-maria" || currentPath === "/alo-diaria" || currentPath === "/dona-maria" || currentPath === "/diarias" || currentPath === "/alo-diaria-dona-maria") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a plataforma Alô Diária Dona Maria">
+        <AloDiariaApp />
       </ErrorBoundary>
     );
   }
@@ -933,6 +945,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-rh-connect">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo RH Connect">
                 <RHConnectSection onOpenPrototype={() => navigateTo("/portfolio/rh-connect")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.32. Alô Diária Dona Maria Domestic Services Case Section (Case 44) */}
+            <section className="scroll-mt-24" id="project-alo-diaria">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Alô Diária Dona Maria">
+                <AloDiariaSection onOpenPrototype={() => navigateTo("/portfolio/alo-diaria-dona-maria")} />
               </ErrorBoundary>
             </section>
 
