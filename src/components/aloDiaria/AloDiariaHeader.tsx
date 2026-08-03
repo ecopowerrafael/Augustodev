@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserRole, ClientTab, DiaristaTab, AdminTab } from '../../types/aloDiaria';
+import { AloDiariaLogo } from './AloDiariaLogo';
 import { 
   Sparkles, 
   Search, 
@@ -24,7 +25,7 @@ import {
   MapPin, 
   Bell, 
   ShieldCheck,
-  CheckCircle2,
+  Building2,
   PhoneCall
 } from 'lucide-react';
 
@@ -60,36 +61,25 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
   onBackToPortfolio
 }) => {
   return (
-    <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs font-sans">
+    <header className="bg-white border-b border-purple-100 sticky top-0 z-40 shadow-sm font-sans">
       {/* Top Bar with Brand & Role Switcher */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         
         {/* Brand Logo */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onRoleChange('cliente')}>
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-600 via-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-md shadow-teal-500/20 font-black text-xl tracking-tight">
-              <span>M</span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-lg text-slate-900 tracking-tight">Alô Diária</span>
-                <span className="px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 text-[10px] font-bold border border-teal-200">
-                  Dona Maria
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 font-medium">Serviços Domésticos & Diárias Verificadas</p>
-            </div>
+          <div className="cursor-pointer" onClick={() => onRoleChange('cliente')}>
+            <AloDiariaLogo size="md" />
           </div>
 
           {/* Mobile Notification & Role Badge */}
           <div className="flex md:hidden items-center space-x-2">
             <button 
               onClick={onOpenNotifications}
-              className="p-2 rounded-xl bg-slate-100 text-slate-600 relative hover:bg-slate-200 transition cursor-pointer"
+              className="p-2 rounded-xl bg-purple-50 text-purple-900 relative hover:bg-purple-100 transition cursor-pointer"
             >
-              <Bell className="w-5 h-5" />
+              <Bell className="w-5 h-5 text-[#4C1D95]" />
               {unreadNotifications > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#EC4899] text-white text-[9px] font-bold flex items-center justify-center">
                   {unreadNotifications}
                 </span>
               )}
@@ -97,18 +87,19 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
           </div>
         </div>
 
-        {/* Center: Location selector & Role Selector Pills */}
+        {/* Center/Right: Location selector & Role Selector Pills */}
         <div className="flex flex-wrap items-center justify-between md:justify-end gap-3">
           
           {/* Location Badge Dropdown */}
-          <div className="flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs font-semibold text-emerald-800">
-            <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <div className="flex items-center space-x-1.5 px-3 py-1.5 bg-purple-50 border border-purple-200 rounded-xl text-xs font-semibold text-[#4C1D95]">
+            <MapPin className="w-3.5 h-3.5 text-[#EC4899] shrink-0" />
             <span className="text-slate-500 font-normal">Local:</span>
             <select 
               value={activeLocation} 
               onChange={(e) => setActiveLocation(e.target.value)}
-              className="bg-transparent font-bold text-emerald-900 focus:outline-none cursor-pointer"
+              className="bg-transparent font-bold text-[#4C1D95] focus:outline-none cursor-pointer"
             >
+              <option value="São Paulo - Vila Mariana">São Paulo - Vila Mariana</option>
               <option value="São Paulo - Moema">São Paulo - Moema</option>
               <option value="São Paulo - Pinheiros">São Paulo - Pinheiros</option>
               <option value="Campinas - SP">Campinas - SP</option>
@@ -117,13 +108,13 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
           </div>
 
           {/* Role Switcher Pills */}
-          <div className="p-1 bg-slate-100 border border-slate-200 rounded-2xl flex items-center space-x-1">
+          <div className="p-1 bg-purple-50/80 border border-purple-200 rounded-2xl flex items-center space-x-1">
             <button
               onClick={() => onRoleChange('cliente')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 cursor-pointer ${
                 currentRole === 'cliente'
-                  ? 'bg-white text-teal-700 shadow-xs border border-slate-200/80'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#4C1D95] text-white shadow-sm'
+                  : 'text-slate-600 hover:text-[#4C1D95]'
               }`}
             >
               <User className="w-3.5 h-3.5" />
@@ -132,21 +123,21 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
 
             <button
               onClick={() => onRoleChange('diarista')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 cursor-pointer ${
                 currentRole === 'diarista'
-                  ? 'bg-white text-emerald-700 shadow-xs border border-slate-200/80'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#4C1D95] text-white shadow-sm'
+                  : 'text-slate-600 hover:text-[#4C1D95]'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-500" />
+              <Sparkles className="w-3.5 h-3.5 text-[#EC4899]" />
               <span>Diarista</span>
             </button>
 
             <button
               onClick={() => onRoleChange('admin')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition flex items-center space-x-1.5 cursor-pointer ${
                 currentRole === 'admin'
-                  ? 'bg-slate-900 text-white shadow-xs'
+                  ? 'bg-slate-900 text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -159,12 +150,12 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
           <div className="hidden md:flex items-center space-x-2">
             <button 
               onClick={onOpenNotifications}
-              className="p-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition relative cursor-pointer"
+              className="p-2 rounded-xl bg-purple-50 text-[#4C1D95] hover:bg-purple-100 transition relative cursor-pointer"
               title="Notificações"
             >
-              <Bell className="w-4 h-4" />
+              <Bell className="w-4 h-4 text-[#4C1D95]" />
               {unreadNotifications > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#EC4899] text-white text-[9px] font-bold flex items-center justify-center">
                   {unreadNotifications}
                 </span>
               )}
@@ -185,7 +176,7 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
       </div>
 
       {/* Role Navigation Bar Tabs */}
-      <div className="bg-slate-50 border-t border-slate-200/80 px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar">
+      <div className="bg-purple-50/50 border-t border-purple-100 px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto flex items-center space-x-1 py-1.5 min-w-max">
           
           {/* CLIENT TABS */}
@@ -203,13 +194,13 @@ export const AloDiariaHeader: React.FC<AloDiariaHeaderProps> = ({
           {currentRole === 'diarista' && (
             <>
               <TabButton active={diaristaTab === 'dashboard'} onClick={() => setDiaristaTab('dashboard')} icon={LayoutDashboard} label="Dashboard" />
-              <TabButton active={diaristaTab === 'solicitacoes'} onClick={() => setDiaristaTab('solicitacoes')} icon={Inbox} label="Solicitações" badge="2 Novas" />
+              <TabButton active={diaristaTab === 'solicitacoes'} onClick={() => setDiaristaTab('solicitacoes')} icon={Inbox} label="Solicitações" badge="1 Nova" />
               <TabButton active={diaristaTab === 'agenda'} onClick={() => setDiaristaTab('agenda')} icon={Calendar} label="Minha Agenda" />
               <TabButton active={diaristaTab === 'servico_ativo'} onClick={() => setDiaristaTab('servico_ativo')} icon={Clock} label="Diária em Andamento" />
               <TabButton active={diaristaTab === 'carteira'} onClick={() => setDiaristaTab('carteira')} icon={Wallet} label="Carteira & Ganhos" />
               <TabButton active={diaristaTab === 'historico'} onClick={() => setDiaristaTab('historico')} icon={History} label="Histórico Concluído" />
               <TabButton active={diaristaTab === 'perfil_publico'} onClick={() => setDiaristaTab('perfil_publico')} icon={Eye} label="Perfil Público" />
-              <TabButton active={diaristaTab === 'cadastro_status'} onClick={() => setDiaristaTab('cadastro_status')} icon={FileCheck} label="Status Cadastro" badge="Aprovada" />
+              <TabButton active={diaristaTab === 'cadastro_status'} onClick={() => setDiaristaTab('cadastro_status')} icon={FileCheck} label="Cadastro (15 Passos)" badge="Aprovada" />
             </>
           )}
 
@@ -249,15 +240,15 @@ const TabButton: React.FC<TabButtonProps> = ({ active, onClick, icon: Icon, labe
       onClick={onClick}
       className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer shrink-0 ${
         active
-          ? 'bg-teal-600 text-white shadow-xs'
-          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+          ? 'bg-[#4C1D95] text-white shadow-xs'
+          : 'text-slate-600 hover:text-[#4C1D95] hover:bg-purple-100/60'
       }`}
     >
       <Icon className="w-3.5 h-3.5" />
       <span>{label}</span>
       {badge && (
         <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-extrabold ${
-          active ? 'bg-white/20 text-white' : 'bg-teal-100 text-teal-800'
+          active ? 'bg-[#EC4899] text-white' : 'bg-purple-100 text-[#4C1D95]'
         }`}>
           {badge}
         </span>

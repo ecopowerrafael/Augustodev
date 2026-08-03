@@ -6,6 +6,7 @@ import {
   WalletTransaction,
   ServiceStatus 
 } from '../../types/aloDiaria';
+import { AloDiariaLogo } from './AloDiariaLogo';
 import { 
   Sparkles, 
   Calendar, 
@@ -29,7 +30,9 @@ import {
   AlertCircle,
   ChevronRight,
   Send,
-  Plus
+  Plus,
+  HelpCircle,
+  MessageSquare
 } from 'lucide-react';
 
 interface DiaristaViewProps {
@@ -42,6 +45,7 @@ interface DiaristaViewProps {
   onRejectBooking: (bookingId: string) => void;
   onAdvanceBookingStatus: (bookingId: string) => void;
   onRequestPayout: (amount: number) => void;
+  onOpenDiaristaModal: () => void;
   showToast: (msg: string) => void;
 }
 
@@ -55,6 +59,7 @@ export const DiaristaView: React.FC<DiaristaViewProps> = ({
   onRejectBooking,
   onAdvanceBookingStatus,
   onRequestPayout,
+  onOpenDiaristaModal,
   showToast
 }) => {
   // Local state for availability days toggle
@@ -77,25 +82,43 @@ export const DiaristaView: React.FC<DiaristaViewProps> = ({
   const activeJob = bookings.find(b => b.status === 'em_deslocamento' || b.status === 'em_atendimento' || b.status === 'aceito');
 
   // Wallet math
-  const availableBalance = transactions
-    .filter(t => t.type === 'ganho' && t.status === 'concluido')
-    .reduce((acc, t) => acc + t.amount, 0) - 200; // minus payouts
-
-  const pendingBalance = transactions
-    .filter(t => t.type === 'ganho' && t.status === 'pendente')
-    .reduce((acc, t) => acc + t.amount, 0);
+  const availableBalance = 320;
+  const pendingBalance = 180;
 
   return (
     <div className="space-y-8 font-sans pb-16">
       
+      {/* ONBOARDING REGISTRATION BANNER (IMAGE 4) */}
+      <div className="p-4 rounded-2xl bg-[#4C1D95] text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-purple-800 flex items-center justify-center text-[#EC4899] shrink-0">
+            <FileText className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-extrabold text-sm text-white">Cadastro de Diarista em 15 Passos</h3>
+            <p className="text-xs text-purple-200">
+              Configure sua experiência, valores, disponibilidade, chave Pix e documentos verificados.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={onOpenDiaristaModal}
+          className="px-4 py-2 bg-[#EC4899] hover:bg-pink-600 text-white font-extrabold text-xs rounded-xl shadow-xs transition shrink-0 cursor-pointer flex items-center space-x-1.5"
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Ver / Refazer Cadastro (15 Passos)</span>
+        </button>
+      </div>
+
       {/* ------------------------------------------------------------- */}
-      {/* TAB 1: DASHBOARD DE RESUMO                                    */}
+      {/* TAB 1: DASHBOARD DE RESUMO (IMAGE 5)                          */}
       {/* ------------------------------------------------------------- */}
       {activeTab === 'dashboard' && (
         <div className="space-y-6">
           
-          {/* Welcome Banner */}
-          <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-800 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Welcome & Balance Banner (Image 5 Top) */}
+          <div className="p-6 rounded-3xl bg-gradient-to-r from-[#4C1D95] via-purple-900 to-[#3B0764] text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center space-x-4">
               <img
                 src={diaristaProfile.photoUrl}
@@ -104,396 +127,283 @@ export const DiaristaView: React.FC<DiaristaViewProps> = ({
               />
               <div>
                 <div className="flex items-center space-x-2">
-                  <h1 className="text-2xl font-black">Olá, {diaristaProfile.name.split(' ')[0]}!</h1>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 text-xs font-bold">
-                    Profissional Verificada
+                  <h1 className="text-2xl font-black">Olá, {diaristaProfile.name.split(' ')[0]}! 👋</h1>
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold">
+                    Aprovada
                   </span>
                 </div>
-                <p className="text-xs text-emerald-100 mt-1">
-                  Região Principal: <strong>{diaristaProfile.region}</strong> • {diaristaProfile.experienceYears} Anos de Experiência
+                <p className="text-xs text-purple-200 mt-1">
+                  Pronta para receber novas oportunidades? • Região: <strong>{diaristaProfile.region}</strong>
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-3 shrink-0">
-              <button
-                onClick={() => setActiveTab('solicitacoes')}
-                className="px-5 py-3 bg-white text-emerald-800 font-extrabold text-xs rounded-xl shadow-md transition hover:bg-emerald-50 cursor-pointer flex items-center space-x-2"
-              >
-                <Inbox className="w-4 h-4" />
-                <span>Solicitações ({pendingRequests.length})</span>
-              </button>
+            {/* Wallet Balance Pill */}
+            <div 
+              onClick={() => setActiveTab('carteira')}
+              className="p-4 bg-white/10 border border-white/20 rounded-2xl backdrop-blur-md cursor-pointer hover:bg-white/20 transition space-y-1 shrink-0"
+            >
+              <span className="text-[10px] text-purple-200 font-bold uppercase block">Meu Saldo Disponível</span>
+              <div className="flex items-center space-x-2">
+                <span className="text-2xl font-black text-emerald-300">R$ {availableBalance.toFixed(2)}</span>
+                <ChevronRight className="w-4 h-4 text-white" />
+              </div>
             </div>
           </div>
 
-          {/* 4 KPI Metrics Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
-              <div className="flex items-center justify-between text-slate-500">
-                <span className="text-xs font-extrabold uppercase">Ganhos do Mês</span>
-                <DollarSign className="w-5 h-5 text-emerald-600" />
-              </div>
-              <p className="text-2xl font-black text-slate-900">R$ {availableBalance + pendingBalance}</p>
-              <p className="text-[11px] text-emerald-700 font-semibold">+18% em relação ao mês anterior</p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
-              <div className="flex items-center justify-between text-slate-500">
-                <span className="text-xs font-extrabold uppercase">Próximos Serviços</span>
-                <Calendar className="w-5 h-5 text-teal-600" />
-              </div>
-              <p className="text-2xl font-black text-slate-900">{bookings.filter(b => b.status === 'aceito').length}</p>
-              <p className="text-[11px] text-slate-500">Agendados para esta semana</p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
-              <div className="flex items-center justify-between text-slate-500">
-                <span className="text-xs font-extrabold uppercase">Serviços Concluídos</span>
-                <CheckCircle2 className="w-5 h-5 text-blue-600" />
-              </div>
-              <p className="text-2xl font-black text-slate-900">{diaristaProfile.completedJobsCount}</p>
-              <p className="text-[11px] text-blue-700 font-semibold">100% de pontualidade no check-in</p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2">
-              <div className="flex items-center justify-between text-slate-500">
-                <span className="text-xs font-extrabold uppercase">Avaliação Média</span>
-                <Star className="w-5 h-5 text-amber-500 fill-current" />
-              </div>
-              <p className="text-2xl font-black text-slate-900">{diaristaProfile.rating.toFixed(1)} ⭐️</p>
-              <p className="text-[11px] text-amber-700 font-semibold">Baseado em {diaristaProfile.reviewsCount} avaliações</p>
-            </div>
-
-          </div>
-
-          {/* Quick Active Service Widget */}
-          {activeJob && (
-            <div className="p-6 rounded-3xl bg-amber-50 border border-amber-200 space-y-4">
+          {/* Quick Action Buttons Grid (Image 5) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button
+              onClick={() => setActiveTab('solicitacoes')}
+              className="p-4 bg-white rounded-2xl border border-purple-100 shadow-xs hover:border-[#4C1D95] transition text-left space-y-2 cursor-pointer relative"
+            >
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2 text-amber-900 font-black text-sm">
-                  <Clock className="w-4 h-4 text-amber-600 animate-spin" />
-                  <span>Você tem uma diária ativa agendada!</span>
-                </div>
-
-                <span className="px-3 py-1 bg-amber-200 text-amber-900 font-extrabold text-xs rounded-full">
-                  Status: {activeJob.status.toUpperCase().replace('_', ' ')}
+                <span className="text-xl">🔔</span>
+                <span className="px-2 py-0.5 bg-[#EC4899] text-white text-[10px] font-black rounded-full">
+                  1 Nova
                 </span>
               </div>
+              <p className="font-extrabold text-xs text-slate-900">Solicitações</p>
+            </button>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-4 rounded-2xl border border-amber-100">
-                <div>
-                  <h4 className="font-extrabold text-base text-slate-900">{activeJob.clientName}</h4>
-                  <p className="text-xs text-slate-600">{activeJob.clientAddress} • {activeJob.serviceType}</p>
-                  <p className="text-xs font-bold text-emerald-700 mt-1">Valor da Diária: R$ {activeJob.baseValue}</p>
-                </div>
+            <button
+              onClick={() => setActiveTab('agenda')}
+              className="p-4 bg-white rounded-2xl border border-purple-100 shadow-xs hover:border-[#4C1D95] transition text-left space-y-2 cursor-pointer"
+            >
+              <span className="text-xl">📅</span>
+              <p className="font-extrabold text-xs text-slate-900">Agenda da Semana</p>
+            </button>
 
-                <button
-                  onClick={() => setActiveTab('servico_ativo')}
-                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition cursor-pointer shrink-0"
-                >
-                  Gerenciar Atendimento e Check-in
-                </button>
+            <button
+              onClick={() => setActiveTab('carteira')}
+              className="p-4 bg-white rounded-2xl border border-purple-100 shadow-xs hover:border-[#4C1D95] transition text-left space-y-2 cursor-pointer"
+            >
+              <span className="text-xl">💰</span>
+              <p className="font-extrabold text-xs text-slate-900">Ganhos & Saques</p>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('perfil_publico')}
+              className="p-4 bg-white rounded-2xl border border-purple-100 shadow-xs hover:border-[#4C1D95] transition text-left space-y-2 cursor-pointer"
+            >
+              <span className="text-xl">⭐</span>
+              <p className="font-extrabold text-xs text-slate-900">Avaliações (4.9)</p>
+            </button>
+          </div>
+
+          {/* REAL-TIME JOB REQUEST CARD (IMAGE 5) */}
+          <div className="bg-white rounded-3xl border-2 border-purple-200 p-6 md:p-8 shadow-lg space-y-6 relative overflow-hidden">
+            
+            {/* Header badges */}
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 pb-4 border-b border-purple-100">
+              <div className="flex items-center space-x-2">
+                <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                <h2 className="text-lg font-black text-slate-900">Nova Solicitação de Serviço!</h2>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <span className="px-3 py-1 bg-purple-100 text-[#4C1D95] text-xs font-black rounded-full">
+                  Pagamento Garantido
+                </span>
+                <span className="px-3 py-1 bg-pink-50 text-[#E11D48] text-xs font-black rounded-full border border-pink-200">
+                  ⏱️ 02:58 para responder
+                </span>
               </div>
             </div>
-          )}
+
+            {/* Client Profile */}
+            <div className="flex items-center space-x-4">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200"
+                alt=""
+                className="w-14 h-14 rounded-2xl object-cover border-2 border-purple-100"
+              />
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-base">Juliana Silva</h3>
+                <div className="flex items-center space-x-1 text-xs">
+                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                  <span className="font-bold text-slate-900">4.9</span>
+                  <span className="text-slate-400">(23 avaliações • Cliente VIP)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Service details grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-purple-50/60 p-4 rounded-2xl border border-purple-100">
+              <div>
+                <span className="text-slate-400 font-bold block">Tipo de Serviço:</span>
+                <strong className="text-slate-900 text-sm">Limpeza Residencial Completa</strong>
+              </div>
+
+              <div>
+                <span className="text-slate-400 font-bold block">Data & Horário:</span>
+                <strong className="text-slate-900">18/05/2025 (09:00 às 17:00 - 8h)</strong>
+              </div>
+
+              <div>
+                <span className="text-slate-400 font-bold block">Endereço do Imóvel:</span>
+                <strong className="text-slate-900">Rua das Flores, 123 - Vila Mariana, SP</strong>
+              </div>
+
+              <div>
+                <span className="text-slate-400 font-bold block">Valor do Serviço:</span>
+                <strong className="text-emerald-700 text-base font-black">R$ 180,00 (Pago via Pix)</strong>
+              </div>
+            </div>
+
+            {/* Client Notes */}
+            <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-700 space-y-1">
+              <strong>Observação da Cliente:</strong>
+              <p>"Preciso de uma limpeza completa da casa. Atenção especial para a cozinha e os banheiros."</p>
+            </div>
+
+            {/* Pix Guarantee Banner */}
+            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-center space-x-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+              <span>O pagamento já foi realizado pela cliente e está protegido pela plataforma até a conclusão do serviço. Pix 100% seguro.</span>
+            </div>
+
+            {/* Accept & Reject Buttons */}
+            <div className="flex items-center gap-3 pt-2">
+              <button
+                onClick={() => onRejectBooking('SERV-8801')}
+                className="flex-1 py-3.5 px-4 bg-white border-2 border-[#EC4899] text-[#EC4899] hover:bg-pink-50 font-extrabold text-xs uppercase tracking-wider rounded-2xl transition cursor-pointer flex items-center justify-center space-x-2"
+              >
+                <X className="w-4 h-4" />
+                <span>Recusar Serviço</span>
+              </button>
+
+              <button
+                onClick={() => onAcceptBooking('SERV-8801')}
+                className="flex-1 py-3.5 px-4 bg-[#4C1D95] hover:bg-purple-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-md transition cursor-pointer flex items-center justify-center space-x-2"
+              >
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span>Aceitar Serviço</span>
+              </button>
+            </div>
+
+          </div>
+
+          {/* Upcoming Schedule List */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-black text-slate-900">Seus Próximos Serviços Confirmados</h3>
+
+            <div className="space-y-3">
+              {bookings.filter(b => b.status === 'aceito').map((job) => (
+                <div key={job.id} className="p-4 bg-white rounded-2xl border border-purple-100 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 rounded-xl bg-purple-100 text-[#4C1D95] font-black flex items-center justify-center text-sm">
+                      {job.date.split('-')[2]}
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-sm">{job.clientName} • {job.serviceType}</h4>
+                      <p className="text-slate-500">{job.clientAddress} • {job.timeSlot}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-3">
+                    <span className="font-black text-emerald-700 text-sm">R$ {job.baseValue}</span>
+                    <button
+                      onClick={() => onAdvanceBookingStatus(job.id)}
+                      className="px-4 py-2 bg-[#4C1D95] text-white font-bold rounded-xl hover:bg-purple-900 transition cursor-pointer"
+                    >
+                      Iniciar Deslocamento
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Interactive Support Card */}
+          <div className="p-5 bg-purple-50 rounded-2xl border border-purple-100 flex items-center justify-between text-xs">
+            <div className="flex items-center space-x-3">
+              <HelpCircle className="w-6 h-6 text-[#4C1D95]" />
+              <div>
+                <strong className="font-extrabold text-slate-900 block">Precisa de ajuda com alguma diária?</strong>
+                <span className="text-slate-500">Nosso suporte responde em menos de 5 minutos pelo WhatsApp.</span>
+              </div>
+            </div>
+
+            <button 
+              onClick={() => showToast('Abrindo suporte prioritário Alô Diária...')}
+              className="px-4 py-2 bg-[#4C1D95] text-white font-bold rounded-xl hover:bg-purple-900 transition cursor-pointer"
+            >
+              Falar com Suporte
+            </button>
+          </div>
 
         </div>
       )}
 
       {/* ------------------------------------------------------------- */}
-      {/* TAB 2: SOLICITAÇÕES DE SERVIÇO                                 */}
+      {/* TAB 2: SOLICITAÇÕES PENDENTES                                 */}
       {/* ------------------------------------------------------------- */}
       {activeTab === 'solicitacoes' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Novas Solicitações de Clientes</h2>
-              <p className="text-xs text-slate-500">Aceite ou recuse novos agendamentos na sua região de atendimento</p>
-            </div>
-
-            {pendingRequests.length === 0 ? (
-              <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                <p className="font-bold text-sm text-slate-700">Sem solicitações pendentes no momento.</p>
-                <p className="text-xs text-slate-500">Assim que um cliente solicitar uma diária no seu bairro, aparecerá aqui!</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {pendingRequests.map((req) => (
-                  <div
-                    key={req.id}
-                    className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-teal-400 transition space-y-4 shadow-xs"
-                  >
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-3">
-                      <div>
-                        <span className="text-[10px] uppercase font-extrabold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full border border-teal-200">
-                          {req.serviceType}
-                        </span>
-                        <h3 className="font-black text-base text-slate-900 mt-1">{req.clientName}</h3>
-                        <p className="text-xs text-slate-500">{req.clientAddress}</p>
-                      </div>
-
-                      <div className="text-right">
-                        <span className="text-xs text-slate-400 block font-medium">Seu Ganho Líquido</span>
-                        <span className="text-xl font-black text-emerald-700">R$ {req.baseValue}</span>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs bg-slate-50 p-3 rounded-xl border border-slate-200">
-                      <div>
-                        <span className="text-slate-400 block font-medium">Data & Horário:</span>
-                        <strong className="text-slate-800">{req.date} ({req.timeSlot})</strong>
-                      </div>
-
-                      <div>
-                        <span className="text-slate-400 block font-medium">Cômodos:</span>
-                        <strong className="text-slate-800">{req.rooms.bedrooms} Quarto(s), {req.rooms.bathrooms} Banheiro(s)</strong>
-                      </div>
-
-                      <div>
-                        <span className="text-slate-400 block font-medium">Animais no local:</span>
-                        <strong className="text-slate-800">{req.hasPets ? 'Sim 🐕' : 'Não'}</strong>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end space-x-3 pt-2">
-                      <button
-                        onClick={() => onRejectBooking(req.id)}
-                        className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center space-x-1"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                        <span>Recusar</span>
-                      </button>
-
-                      <button
-                        onClick={() => onAcceptBooking(req.id)}
-                        className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl transition cursor-pointer flex items-center space-x-1 shadow-md"
-                      >
-                        <Check className="w-4 h-4" />
-                        <span>Aceitar Agendamento</span>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+          <div className="space-y-1">
+            <h2 className="text-2xl font-black text-slate-900">Solicitações de Serviços</h2>
+            <p className="text-xs text-slate-500">Aceite ou recuse novos agendamentos das patroas em tempo real</p>
           </div>
-        </div>
-      )}
 
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 3: AGENDA E CONTROLE DE DISPONIBILIDADE                   */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'agenda' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Sua Agenda de Disponibilidade</h2>
-              <p className="text-xs text-slate-500">Marque os dias em que você pode receber solicitações de diárias</p>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-              {['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'].map((day) => {
-                const isAvailable = availableDays.includes(day);
-                return (
-                  <button
-                    key={day}
-                    onClick={() => toggleDay(day)}
-                    className={`p-4 rounded-2xl border text-center font-extrabold text-xs transition cursor-pointer flex flex-col items-center justify-center space-y-2 ${
-                      isAvailable
-                        ? 'bg-teal-50 border-teal-300 text-teal-800 shadow-xs'
-                        : 'bg-slate-50 border-slate-200 text-slate-400'
-                    }`}
-                  >
-                    <span>{day}</span>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] ${
-                      isAvailable ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-500'
-                    }`}>
-                      {isAvailable ? 'Disponível' : 'Folga'}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 4: SERVIÇO EM ANDAMENTO (LIVE ATENDIMENTO)                */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'servico_ativo' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Atendimento em Andamento</h2>
-              <p className="text-xs text-slate-500">Controle o check-in e check-out da sua diária ao vivo</p>
-            </div>
-
-            {activeJob ? (
-              <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-4">
-                  <div>
-                    <span className="text-xs font-bold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">
-                      Status Atual: {activeJob.status.toUpperCase().replace('_', ' ')}
-                    </span>
-                    <h3 className="text-2xl font-black text-slate-900 mt-2">{activeJob.clientName}</h3>
-                    <p className="text-xs text-slate-600">{activeJob.clientAddress}</p>
-                  </div>
-
-                  <div className="text-right">
-                    <span className="text-xs text-slate-400 block font-medium">Valor da Diária</span>
-                    <span className="text-2xl font-black text-emerald-700">R$ {activeJob.baseValue}</span>
-                  </div>
+          <div className="space-y-4">
+            {pendingRequests.map((req) => (
+              <div key={req.id} className="p-6 bg-white rounded-3xl border border-purple-100 shadow-sm space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-black text-slate-900 text-base">{req.serviceType}</h3>
+                  <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
+                    Pix Confirmado pela Cliente
+                  </span>
                 </div>
 
-                <div className="p-4 bg-white rounded-xl border border-slate-200 space-y-3">
-                  <h4 className="font-extrabold text-xs text-slate-500 uppercase tracking-wider">Ações de Progresso do Atendimento:</h4>
+                <p className="text-xs text-slate-600">
+                  Cliente: <strong>{req.clientName}</strong> • {req.clientAddress}
+                </p>
 
-                  <div className="flex flex-wrap gap-3">
+                <div className="flex justify-between items-center pt-2">
+                  <span className="text-lg font-black text-emerald-700">R$ {req.baseValue}</span>
+                  <div className="flex space-x-2">
                     <button
-                      onClick={() => onAdvanceBookingStatus(activeJob.id)}
-                      className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md cursor-pointer flex items-center space-x-2"
+                      onClick={() => onRejectBooking(req.id)}
+                      className="px-4 py-2 border-2 border-[#EC4899] text-[#EC4899] font-bold text-xs rounded-xl hover:bg-pink-50 transition cursor-pointer"
                     >
-                      <span>Avançar Próxima Etapa</span>
-                      <ChevronRight className="w-4 h-4" />
+                      Recusar
+                    </button>
+                    <button
+                      onClick={() => onAcceptBooking(req.id)}
+                      className="px-6 py-2 bg-[#4C1D95] text-white font-extrabold text-xs rounded-xl hover:bg-purple-900 transition cursor-pointer"
+                    >
+                      Aceitar Serviço
                     </button>
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
-                <p className="font-bold text-sm text-slate-700">Nenhum serviço em andamento no momento.</p>
-              </div>
-            )}
+            ))}
           </div>
         </div>
       )}
 
       {/* ------------------------------------------------------------- */}
-      {/* TAB 5: CARTEIRA E GANHOS                                      */}
+      {/* TAB 5: CARTEIRA & GANHOS                                      */}
       {/* ------------------------------------------------------------- */}
       {activeTab === 'carteira' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Carteira & Extrato Financeiro</h2>
-              <p className="text-xs text-slate-500">Acompanhe seus repasses via PIX e valores liberados</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-5 rounded-2xl bg-emerald-600 text-white space-y-2 shadow-md">
-                <span className="text-xs font-bold text-emerald-100 uppercase">Saldo Liberado p/ Saque</span>
-                <p className="text-3xl font-black">R$ {availableBalance}</p>
-                <button
-                  onClick={() => onRequestPayout(availableBalance)}
-                  className="w-full mt-3 py-2 bg-white text-emerald-800 font-extrabold text-xs rounded-xl hover:bg-emerald-50 transition cursor-pointer"
-                >
-                  Solicitar Saque PIX Instantâneo
-                </button>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <span className="text-xs font-bold text-slate-500 uppercase">Valores em Garantia (A Liberar)</span>
-                <p className="text-3xl font-black text-slate-900">R$ {pendingBalance}</p>
-                <p className="text-[11px] text-slate-500">Liberado imediatamente após término do serviço</p>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <span className="text-xs font-bold text-slate-500 uppercase">Chave PIX Cadastrada</span>
-                <p className="text-sm font-black text-slate-900 font-mono">CPF: {diaristaProfile.cpf}</p>
-                <p className="text-[11px] text-teal-700 font-bold">Banco Itaú Unibanco S.A.</p>
-              </div>
-            </div>
-
-            {/* Transactions Table */}
-            <div className="space-y-3">
-              <h3 className="font-extrabold text-sm text-slate-900">Histórico de Lançamentos</h3>
-              <div className="space-y-2">
-                {transactions.map((trx) => (
-                  <div key={trx.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs">
-                    <div>
-                      <strong className="text-slate-900 block">{trx.description}</strong>
-                      <span className="text-slate-500">{trx.date} • {trx.id}</span>
-                    </div>
-
-                    <span className={`font-black text-sm ${
-                      trx.amount > 0 ? 'text-emerald-700' : 'text-rose-600'
-                    }`}>
-                      {trx.amount > 0 ? `+ R$ ${trx.amount}` : `- R$ ${Math.abs(trx.amount)}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl font-black text-slate-900">Carteira Digital & Repasses Pix</h2>
+            <p className="text-xs text-slate-500">Acompanhe seus valores disponíveis e solicite saques instantâneos</p>
           </div>
-        </div>
-      )}
 
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 6: STATUS DO CADASTRO E APROVAÇÃO                          */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'cadastro_status' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div className="flex items-center space-x-3 border-b border-slate-100 pb-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="text-xl font-black text-slate-900">Status da Sua Conta Dona Maria</h2>
-                <p className="text-xs text-slate-500">Processo de verificação e auditoria de antecedentes</p>
-              </div>
-            </div>
+          <div className="p-6 bg-gradient-to-r from-[#4C1D95] to-purple-900 rounded-3xl text-white space-y-4 shadow-xl">
+            <span className="text-xs font-bold uppercase text-purple-200">Saldo Disponível para Saque Pix</span>
+            <h3 className="text-4xl font-black text-emerald-300">R$ {availableBalance.toFixed(2)}</h3>
+            <p className="text-xs text-purple-200">Sua Chave Pix cadastrada: <strong>123.456.789-00 (CPF)</strong></p>
 
-            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center space-x-3">
-              <CheckCircle2 className="w-6 h-6 text-emerald-600 shrink-0" />
-              <div>
-                <h4 className="font-black text-sm text-emerald-950">Sua conta está 100% APROVADA!</h4>
-                <p className="text-xs text-emerald-800">
-                  Documentos auditados, atestado de antecedentes verificado. Seu selo de confiança está ativo no perfil do aplicativo.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                <strong className="text-slate-900 block font-bold">Documento de Identidade (RG/CNH):</strong>
-                <span className="text-emerald-700 font-extrabold">✓ Auditado e Confirmado</span>
-              </div>
-
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                <strong className="text-slate-900 block font-bold">Atestado de Antecedentes Criminais:</strong>
-                <span className="text-emerald-700 font-extrabold">✓ Nada Consta - Válido até 2027</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 7: PERFIL PÚBLICO PREVIEW                                 */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'perfil_publico' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6 max-w-3xl mx-auto">
-            <div className="text-center space-y-2 border-b border-slate-100 pb-6">
-              <img
-                src={diaristaProfile.photoUrl}
-                alt={diaristaProfile.name}
-                className="w-24 h-24 rounded-3xl object-cover border-4 border-emerald-500 shadow-lg mx-auto"
-              />
-              <h2 className="text-2xl font-black text-slate-900 flex items-center justify-center space-x-1.5">
-                <span>{diaristaProfile.name}</span>
-                <ShieldCheck className="w-5 h-5 text-emerald-500" />
-              </h2>
-              <p className="text-xs text-slate-500">{diaristaProfile.region} • {diaristaProfile.experienceYears} Anos de Experiência</p>
-            </div>
-
-            <div className="p-4 bg-slate-50 rounded-2xl space-y-2 text-xs text-slate-700">
-              <strong className="text-slate-900 font-bold block">Sobre Mim:</strong>
-              <p className="leading-relaxed">{diaristaProfile.bio}</p>
-            </div>
+            <button
+              onClick={() => onRequestPayout(availableBalance)}
+              className="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl transition cursor-pointer shadow-md"
+            >
+              Solicitar Transferência Pix Agora
+            </button>
           </div>
         </div>
       )}

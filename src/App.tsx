@@ -94,6 +94,7 @@ import { RHConnectApp } from "./components/rhconnect/RHConnectApp";
 import { RHConnectSection } from "./components/RHConnectSection";
 import { AloDiariaApp } from "./components/aloDiaria/AloDiariaApp";
 import { AloDiariaSection } from "./components/AloDiariaSection";
+import CasosDeSucesso from "./pages/CasosDeSucesso";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 // SEO Framework Imports
@@ -222,6 +223,7 @@ export default function App() {
       {
         title: "06 // PORTFÓLIO & CASOS",
         links: [
+          { text: "★ Casos de Sucesso (Lojas Oficiais)", path: "/casos-de-sucesso" },
           { text: "Website Advocacia Premium", path: "/portfolio/advogado" },
           { text: "Website Imobiliária Luxo", path: "/portfolio/imobiliaria" },
           { text: "Möbius Studio de Arquitetura", path: "/portfolio/arquiteto" },
@@ -601,6 +603,15 @@ export default function App() {
     );
   }
 
+  // CASE 0.45: Standalone Casos de Sucesso Page
+  if (currentPath === "/casos-de-sucesso" || currentPath === "/casos" || currentPath === "/casos-sucesso" || currentPath === "/portfolio/casos-de-sucesso") {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar a página de Casos de Sucesso">
+        <CasosDeSucesso onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
   // CASE 1: Path matches one of our 23 SEO-optimized friendly URLs
   if (isSeoPage) {
     return (
@@ -638,6 +649,12 @@ export default function App() {
                   className="px-4 py-2 rounded-lg font-mono text-[10px] uppercase tracking-wider text-white/50 border border-transparent hover:text-[#00FF41] cursor-pointer flex items-center space-x-1"
                 >
                   <span>← VOLTAR PARA HOME</span>
+                </button>
+                <button
+                  onClick={() => navigateTo("/casos-de-sucesso")}
+                  className="px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase tracking-wider text-[#00FF41] bg-[#00FF41]/10 border border-[#00FF41]/30 hover:bg-[#00FF41]/20 cursor-pointer flex items-center space-x-1 font-bold"
+                >
+                  <span>★ CASOS DE SUCESSO</span>
                 </button>
               </nav>
 
@@ -715,22 +732,37 @@ export default function App() {
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center space-x-1">
               {[
+                { label: "Casos de Sucesso", path: "/casos-de-sucesso" },
                 { label: "Cases", id: "project-delivery" },
                 { label: "SEO", id: "seo-optimization" },
                 { label: "Expertise", id: "expertise-grid" },
                 { label: "Contato", id: "contact" },
               ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                    activeTab === item.id
-                      ? "bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/30"
-                      : "text-white/50 border border-transparent hover:text-[#00FF41]"
-                  }`}
-                >
-                  {item.label}
-                </button>
+                item.path ? (
+                  <button
+                    key={item.path}
+                    onClick={() => navigateTo(item.path)}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center space-x-1 ${
+                      currentPath === item.path
+                        ? "bg-[#00FF41]/20 text-[#00FF41] border border-[#00FF41]/50 shadow-[0_0_10px_rgba(0,255,65,0.3)] font-bold"
+                        : "bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/30 hover:bg-[#00FF41]/20 text-[#00FF41] font-bold"
+                    }`}
+                  >
+                    <span>★ {item.label}</span>
+                  </button>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id!)}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-[10px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                      activeTab === item.id
+                        ? "bg-[#00FF41]/10 text-[#00FF41] border border-[#00FF41]/30"
+                        : "text-white/50 border border-transparent hover:text-[#00FF41]"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
             </nav>
 

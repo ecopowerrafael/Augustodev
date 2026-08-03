@@ -8,6 +8,7 @@ import {
   RoomDetails,
   ServiceStatus
 } from '../../types/aloDiaria';
+import { AloDiariaLogo } from './AloDiariaLogo';
 import { 
   Sparkles, 
   Search, 
@@ -34,11 +35,15 @@ import {
   Flame,
   Shirt,
   Home as HomeIcon,
-  Grid,
+  Building2,
   Filter,
   Check,
   Award,
-  ThumbsUp
+  ThumbsUp,
+  Copy,
+  MessageSquare,
+  HelpCircle,
+  ArrowRight
 } from 'lucide-react';
 
 interface ClientViewProps {
@@ -54,6 +59,7 @@ interface ClientViewProps {
   onOpenPaymentModal: (booking: ServiceBooking) => void;
   onOpenRatingModal: (booking: ServiceBooking) => void;
   onAdvanceBookingStatus: (bookingId: string) => void;
+  onOpenEmpresaModal: () => void;
   showToast: (msg: string) => void;
 }
 
@@ -70,16 +76,23 @@ export const ClientView: React.FC<ClientViewProps> = ({
   onOpenPaymentModal,
   onOpenRatingModal,
   onAdvanceBookingStatus,
+  onOpenEmpresaModal,
   showToast
 }) => {
   // Search & Filter state for Diaristas search tab
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('Todas');
-  const [maxDistance, setMaxDistance] = useState<number>(10);
+  const [maxDistance, setMaxDistance] = useState<number>(15);
   const [minRating, setMinRating] = useState<number>(4.0);
 
   // Favorite diaristas state
   const [favorites, setFavorites] = useState<string[]>(['dia-101', 'dia-103']);
+
+  // Checkout & Pix Payment State (Image 3 & Image 6)
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [checkoutStep, setCheckoutStep] = useState<1 | 2 | 3>(1); // 1: Review, 2: Pix QR Code, 3: Approved & Tracking
+  const [timerSeconds, setTimerSeconds] = useState(899); // 14:59
+  const [copiedPixKey, setCopiedPixKey] = useState(false);
 
   const toggleFavorite = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -105,9 +118,51 @@ export const ClientView: React.FC<ClientViewProps> = ({
   // Latest active booking for live tracking
   const activeBooking = bookings.find(b => b.status !== 'finalizado' && b.status !== 'cancelado') || bookings[0];
 
+  const formatTimer = (sec: number) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')} min`;
+  };
+
+  const copyPixCode = () => {
+    setCopiedPixKey(true);
+    showToast('Chave Pix copia e cola copiada para a área de transferência!');
+    setTimeout(() => setCopiedPixKey(false), 3000);
+  };
+
   return (
     <div className="space-y-8 font-sans pb-16">
       
+      {/* ------------------------------------------------------------- */}
+      {/* ONBOARDING PERFIL SELECTOR BANNER (IMAGE 2)                  */}
+      {/* ------------------------------------------------------------- */}
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-900 via-[#4C1D95] to-purple-800 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 rounded-xl bg-[#EC4899]/20 flex items-center justify-center text-[#EC4899] shrink-0 border border-[#EC4899]/30">
+            <Building2 className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center space-x-2">
+              <h3 className="font-extrabold text-sm text-white">Você é Cliente Residencial ou Empresa?</h3>
+              <span className="px-2 py-0.5 rounded-full bg-[#EC4899] text-white text-[10px] font-black">
+                Novidade
+              </span>
+            </div>
+            <p className="text-xs text-purple-200">
+              Contrate diaristas para sua casa ou cadastre seu estabelecimento (Restaurante, Hotel, Clínica, etc).
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={onOpenEmpresaModal}
+          className="px-4 py-2 bg-white text-[#4C1D95] hover:bg-purple-50 font-black text-xs rounded-xl shadow-xs transition shrink-0 cursor-pointer flex items-center space-x-1.5"
+        >
+          <Building2 className="w-3.5 h-3.5 text-[#EC4899]" />
+          <span>Cadastrar Minha Empresa</span>
+        </button>
+      </div>
+
       {/* ------------------------------------------------------------- */}
       {/* TAB 1: HOME / TELA INICIAL                                    */}
       {/* ------------------------------------------------------------- */}
@@ -115,12 +170,12 @@ export const ClientView: React.FC<ClientViewProps> = ({
         <div className="space-y-8">
           
           {/* Main Hero Banner */}
-          <div className="relative rounded-3xl bg-gradient-to-r from-teal-800 via-teal-700 to-emerald-800 p-6 sm:p-10 text-white overflow-hidden shadow-xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative rounded-3xl bg-gradient-to-r from-[#4C1D95] via-purple-900 to-[#3B0764] p-6 sm:p-10 text-white overflow-hidden shadow-xl border border-purple-800/50">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#EC4899]/10 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 max-w-2xl space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-teal-100 text-xs font-semibold backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-white/10 border border-white/20 rounded-full text-purple-100 text-xs font-semibold backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-[#EC4899]" />
                 <span>Diárias com garantia & profissionais verificadas</span>
               </div>
 
@@ -128,129 +183,151 @@ export const ClientView: React.FC<ClientViewProps> = ({
                 Sua casa impecável com as melhores diaristas da sua região.
               </h1>
 
-              <p className="text-sm text-teal-100 leading-relaxed">
+              <p className="text-sm text-purple-200 leading-relaxed">
                 Agendamento simples em menos de 2 minutos. Profissionais com antecedente criminal verificado, avaliação 5 estrelas e seguro de proteção inclusos.
               </p>
 
-              {/* Quick Search Card inside Hero */}
-              <div className="pt-2">
-                <div className="bg-white p-3 rounded-2xl shadow-lg border border-teal-100 flex flex-col md:flex-row items-stretch gap-2 text-slate-800">
-                  <div className="flex-1 flex items-center space-x-2 px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
-                    <MapPin className="w-4 h-4 text-teal-600 shrink-0" />
-                    <input 
-                      type="text" 
-                      defaultValue={activeLocation} 
-                      className="bg-transparent text-xs font-medium w-full focus:outline-none"
-                      placeholder="Qual o seu endereço?"
-                    />
-                  </div>
+              {/* Quick Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <button
+                  onClick={() => onOpenBookingWizard()}
+                  className="px-6 py-3.5 bg-[#EC4899] hover:bg-pink-600 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-lg transition flex items-center space-x-2 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Agendar Diária Agora</span>
+                </button>
 
-                  <div className="flex-1 flex items-center space-x-2 px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
-                    <Calendar className="w-4 h-4 text-teal-600 shrink-0" />
-                    <input 
-                      type="date" 
-                      defaultValue="2026-08-04"
-                      className="bg-transparent text-xs font-medium w-full focus:outline-none"
-                    />
-                  </div>
-
-                  <button 
-                    onClick={() => onOpenBookingWizard()}
-                    className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition shadow-md flex items-center justify-center space-x-2 cursor-pointer shrink-0"
-                  >
-                    <Search className="w-4 h-4" />
-                    <span>Buscar Diárias</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-medium text-teal-100/90">
-                <span className="flex items-center space-x-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-300" />
-                  <span>Documentos 100% Auditados</span>
-                </span>
-                <span className="flex items-center space-x-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-                  <span>Satisfação Garantida ou Refazemos</span>
-                </span>
+                <button
+                  onClick={() => setActiveTab('buscar')}
+                  className="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-xs rounded-2xl transition flex items-center space-x-2 cursor-pointer"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>Ver Profissionais Ativas</span>
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Available Slots & Counter Indicator */}
-          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold">
-                <Clock className="w-5 h-5 animate-pulse" />
-              </div>
-              <div>
-                <h4 className="font-extrabold text-sm text-emerald-950">
-                  18 Diaristas Disponíveis Hoje em Moema & Região
-                </h4>
-                <p className="text-xs text-emerald-700">
-                  Agende até as 17:00 para diárias de amanhã cedo. Sem taxa de cancelamento em até 24h.
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setActiveTab('buscar')}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-xs transition shrink-0 cursor-pointer"
-            >
-              Ver Diaristas Próximas
-            </button>
-          </div>
-
-          {/* Featured Services Section */}
+          {/* Quick Categories Grid */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-black text-slate-900 tracking-tight">Serviços em Destaque</h2>
-                <p className="text-xs text-slate-500">Escolha o tipo de diária ideal para o seu momento</p>
+                <h2 className="text-xl font-black text-slate-900 tracking-tight">Serviços Populares</h2>
+                <p className="text-xs text-slate-500">Escolha a modalidade perfeita para a necessidade do seu imóvel</p>
               </div>
+              <button 
+                onClick={() => onOpenBookingWizard()}
+                className="text-xs font-bold text-[#4C1D95] hover:text-purple-800 flex items-center space-x-1 cursor-pointer"
+              >
+                <span>Ver todos os serviços</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {categories.map((cat) => (
-                <div 
+                <div
                   key={cat.id}
-                  className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:shadow-md hover:border-teal-300 transition space-y-4 flex flex-col justify-between group"
+                  onClick={() => onOpenBookingWizard(cat)}
+                  className="p-5 rounded-2xl bg-white border border-purple-100/80 shadow-xs hover:shadow-md hover:border-[#4C1D95]/40 transition cursor-pointer space-y-3 group"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-11 h-11 rounded-2xl bg-teal-50 border border-teal-200 text-teal-700 flex items-center justify-center font-bold group-hover:bg-teal-600 group-hover:text-white transition">
-                        {cat.iconName === 'Sparkles' && <Sparkles className="w-5 h-5" />}
-                        {cat.iconName === 'Flame' && <Flame className="w-5 h-5" />}
-                        {cat.iconName === 'Shirt' && <Shirt className="w-5 h-5" />}
-                        {cat.iconName === 'Home' && <HomeIcon className="w-5 h-5" />}
-                        {cat.iconName === 'Grid' && <Grid className="w-5 h-5" />}
-                      </div>
+                  <div className="w-12 h-12 rounded-2xl bg-purple-50 group-hover:bg-[#4C1D95] text-[#4C1D95] group-hover:text-white transition flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-[#EC4899]" />
+                  </div>
 
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-extrabold text-slate-900 text-sm group-hover:text-[#4C1D95] transition">{cat.name}</h3>
                       {cat.popular && (
-                        <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-bold">
-                          Mais Solicitado 🔥
+                        <span className="px-2 py-0.5 rounded-full bg-pink-50 text-[#EC4899] text-[10px] font-bold border border-pink-200">
+                          Mais pedido
                         </span>
                       )}
                     </div>
+                    <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">{cat.description}</p>
+                  </div>
 
-                    <h3 className="font-extrabold text-base text-slate-900">{cat.name}</h3>
-                    <p className="text-xs text-slate-600 leading-relaxed">{cat.description}</p>
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <span className="text-slate-500">A partir de</span>
+                    <span className="font-black text-[#4C1D95]">R$ {cat.basePrice}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Featured Top Rated Diaristas */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-black text-slate-900 tracking-tight">Diaristas Recomendadas em {activeLocation.split('-')[1] || activeLocation}</h2>
+                <p className="text-xs text-slate-500">Profissionais verificadas com excelente avaliação das patroas</p>
+              </div>
+              <button 
+                onClick={() => setActiveTab('buscar')}
+                className="text-xs font-bold text-[#4C1D95] hover:text-purple-800 flex items-center space-x-1 cursor-pointer"
+              >
+                <span>Ver mais diaristas</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {diaristas.slice(0, 3).map((dia) => (
+                <div
+                  key={dia.id}
+                  onClick={() => onOpenDiaristaDetail(dia)}
+                  className="bg-white rounded-2xl border border-purple-100 p-5 shadow-xs hover:shadow-md transition cursor-pointer space-y-4 relative"
+                >
+                  <button
+                    onClick={(e) => toggleFavorite(dia.id, e)}
+                    className="absolute top-4 right-4 p-2 rounded-full bg-slate-50 hover:bg-pink-50 text-slate-400 hover:text-[#EC4899] transition cursor-pointer"
+                  >
+                    <Heart className={`w-4 h-4 ${favorites.includes(dia.id) ? 'fill-[#EC4899] text-[#EC4899]' : ''}`} />
+                  </button>
+
+                  <div className="flex items-center space-x-3.5">
+                    <img
+                      src={dia.photoUrl}
+                      alt={dia.name}
+                      className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-100"
+                    />
+                    <div>
+                      <div className="flex items-center space-x-1.5">
+                        <h3 className="font-extrabold text-slate-900 text-sm">{dia.name}</h3>
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                      </div>
+                      <p className="text-xs text-slate-500">{dia.neighborhood} ({dia.distanceKm} km)</p>
+                      <div className="flex items-center space-x-1 mt-1 text-xs">
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <span className="font-bold text-slate-900">{dia.rating}</span>
+                        <span className="text-slate-400">({dia.reviewsCount} avaliações)</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {dia.specialties.slice(0, 3).map((spec, i) => (
+                      <span key={i} className="px-2.5 py-0.5 rounded-lg bg-purple-50 text-[#4C1D95] text-[11px] font-semibold border border-purple-100">
+                        {spec}
+                      </span>
+                    ))}
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-slate-400 uppercase font-bold block">A partir de</span>
-                      <span className="text-lg font-black text-slate-900">R$ {cat.basePrice}</span>
-                      <span className="text-xs text-slate-500"> /diária</span>
+                      <span className="text-[10px] text-slate-400 block uppercase font-bold">Diária Média</span>
+                      <span className="font-black text-sm text-[#4C1D95]">R$ {dia.avgDailyRate}</span>
                     </div>
 
                     <button
-                      onClick={() => onOpenBookingWizard(cat)}
-                      className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-xl transition flex items-center space-x-1 cursor-pointer shadow-xs"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpenBookingWizard(undefined, dia);
+                      }}
+                      className="px-4 py-2 bg-[#4C1D95] hover:bg-purple-900 text-white font-extrabold text-xs rounded-xl transition cursor-pointer shadow-xs"
                     >
-                      <span>Solicitar</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
+                      Agendar Diária
                     </button>
                   </div>
                 </div>
@@ -258,98 +335,43 @@ export const ClientView: React.FC<ClientViewProps> = ({
             </div>
           </div>
 
-          {/* Promotions / Coupons Banner */}
-          <div className="p-6 rounded-3xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="space-y-2 text-center sm:text-left">
-              <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-extrabold uppercase tracking-wider backdrop-blur-md">
-                Cupom Primeira Diária 🎁
-              </span>
-              <h3 className="text-xl font-black">Ganhe R$ 20,00 de Desconto!</h3>
-              <p className="text-xs text-amber-100 max-w-xl">
-                Use o cupom <strong className="font-mono underline">DONAMARIA20</strong> na tela de agendamento e experimente a melhor faxina da sua região.
-              </p>
+          {/* HOW IT WORKS / ENTENDA COMO FUNCIONA (IMAGE 3 & IMAGE 6) */}
+          <div className="p-6 rounded-3xl bg-purple-50/80 border border-purple-100 space-y-4">
+            <div className="text-center max-w-xl mx-auto space-y-1">
+              <h3 className="font-black text-slate-900 text-lg">Entenda como funciona o Alô Diária</h3>
+              <p className="text-xs text-slate-600">Sua diária é 100% protegida do agendamento à conclusão do serviço</p>
             </div>
 
-            <button
-              onClick={() => onOpenBookingWizard()}
-              className="px-6 py-3 bg-white text-orange-600 hover:bg-orange-50 font-black text-xs uppercase tracking-wider rounded-2xl shadow-md transition cursor-pointer shrink-0"
-            >
-              Usar Cupom Agora
-            </button>
-          </div>
-
-          {/* Featured Top Diaristas Strip */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 tracking-tight">Diaristas Recomendadas</h2>
-                <p className="text-xs text-slate-500">Avaliações reais e selo de garantia de qualidade</p>
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 pt-2 text-center text-xs">
+              <div className="p-3 bg-white rounded-2xl border border-purple-100 space-y-1">
+                <span className="w-7 h-7 rounded-full bg-[#4C1D95] text-white font-bold inline-flex items-center justify-center text-xs">1</span>
+                <p className="font-bold text-slate-900 pt-1">Paga via Pix</p>
+                <p className="text-[11px] text-slate-500">Checkout rápido de 1 minuto</p>
               </div>
 
-              <button
-                onClick={() => setActiveTab('buscar')}
-                className="text-xs font-extrabold text-teal-700 hover:text-teal-800 flex items-center space-x-1 cursor-pointer"
-              >
-                <span>Ver todas</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+              <div className="p-3 bg-white rounded-2xl border border-purple-100 space-y-1">
+                <span className="w-7 h-7 rounded-full bg-[#4C1D95] text-white font-bold inline-flex items-center justify-center text-xs">2</span>
+                <p className="font-bold text-slate-900 pt-1">Valor Protegido</p>
+                <p className="text-[11px] text-slate-500">Guardado na plataforma</p>
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {diaristas.slice(0, 2).map((d) => (
-                <div 
-                  key={d.id}
-                  onClick={() => onOpenDiaristaDetail(d)}
-                  className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs hover:border-teal-400 hover:shadow-md transition cursor-pointer flex gap-4"
-                >
-                  <img 
-                    src={d.photoUrl} 
-                    alt={d.name}
-                    className="w-20 h-20 rounded-2xl object-cover shrink-0 border border-slate-200 shadow-xs" 
-                  />
+              <div className="p-3 bg-white rounded-2xl border border-purple-100 space-y-1">
+                <span className="w-7 h-7 rounded-full bg-[#4C1D95] text-white font-bold inline-flex items-center justify-center text-xs">3</span>
+                <p className="font-bold text-slate-900 pt-1">Diarista Aceita</p>
+                <p className="text-[11px] text-slate-500">Confirmação em tempo real</p>
+              </div>
 
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-extrabold text-sm text-slate-900 flex items-center space-x-1.5">
-                          <span>{d.name}</span>
-                          <span title="Verificada"><ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" /></span>
-                        </h4>
-                        <p className="text-xs text-slate-500">{d.neighborhood} • {d.distanceKm} km</p>
-                      </div>
+              <div className="p-3 bg-white rounded-2xl border border-purple-100 space-y-1">
+                <span className="w-7 h-7 rounded-full bg-[#4C1D95] text-white font-bold inline-flex items-center justify-center text-xs">4</span>
+                <p className="font-bold text-slate-900 pt-1">Serviço Realizado</p>
+                <p className="text-[11px] text-slate-500">Profissional na sua casa</p>
+              </div>
 
-                      <button 
-                        onClick={(e) => toggleFavorite(d.id, e)}
-                        className={`p-1.5 rounded-full transition cursor-pointer ${
-                          favorites.includes(d.id) ? 'text-rose-500 bg-rose-50' : 'text-slate-300 hover:text-slate-400'
-                        }`}
-                      >
-                        <Heart className="w-4 h-4 fill-current" />
-                      </button>
-                    </div>
-
-                    <div className="flex items-center space-x-3 text-xs">
-                      <span className="flex items-center text-amber-500 font-extrabold">
-                        <Star className="w-3.5 h-3.5 fill-current mr-1" />
-                        {d.rating.toFixed(1)} <span className="text-slate-400 font-normal ml-1">({d.reviewsCount})</span>
-                      </span>
-
-                      <span className="text-slate-300">•</span>
-                      <span className="text-slate-600 font-semibold">{d.experienceYears} anos de exp.</span>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-1">
-                      <span className="font-black text-slate-900 text-sm">
-                        R$ {d.avgDailyRate} <span className="text-[10px] text-slate-500 font-normal">/diária</span>
-                      </span>
-
-                      <button className="px-3 py-1 bg-teal-50 text-teal-700 font-bold text-xs rounded-lg hover:bg-teal-100 transition">
-                        Ver Agenda
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              <div className="p-3 bg-white rounded-2xl border border-purple-100 space-y-1">
+                <span className="w-7 h-7 rounded-full bg-emerald-600 text-white font-bold inline-flex items-center justify-center text-xs">5</span>
+                <p className="font-bold text-slate-900 pt-1">Liberação do Valor</p>
+                <p className="text-[11px] text-slate-500">Pix repassado à diarista</p>
+              </div>
             </div>
           </div>
 
@@ -357,152 +379,100 @@ export const ClientView: React.FC<ClientViewProps> = ({
       )}
 
       {/* ------------------------------------------------------------- */}
-      {/* TAB 2: BUSCA E FILTRO DE DIARISTAS                            */}
+      {/* TAB 2: BUSCAR DIARISTAS                                       */}
       {/* ------------------------------------------------------------- */}
       {activeTab === 'buscar' && (
         <div className="space-y-6">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-              <div>
-                <h2 className="text-xl font-black text-slate-900 tracking-tight">Buscar Diaristas em SP</h2>
-                <p className="text-xs text-slate-500">Encontre profissionais auditadas e disponíveis para contratação direta</p>
-              </div>
+          <div className="space-y-1">
+            <h2 className="text-2xl font-black text-slate-900">Buscar Diaristas Próximas</h2>
+            <p className="text-xs text-slate-500">Filtre por distância, especialidade ou reputação das patroas</p>
+          </div>
 
-              {/* Search input */}
-              <div className="relative min-w-[280px]">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+          {/* Search bar & Filter controls */}
+          <div className="p-4 bg-white rounded-2xl border border-purple-100 space-y-4 shadow-xs">
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="flex-1 flex items-center space-x-2 px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl">
+                <Search className="w-4 h-4 text-slate-400 shrink-0" />
                 <input
                   type="text"
-                  placeholder="Buscar por nome ou bairro..."
+                  placeholder="Buscar por nome ou bairro (ex: Moema, Pinheiros)..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-teal-500"
+                  className="bg-transparent text-xs w-full focus:outline-none font-medium"
                 />
               </div>
-            </div>
 
-            {/* Filter controls */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-semibold">
-              <div>
-                <label className="text-slate-500 block mb-1">Especialidade</label>
+              <div className="flex items-center space-x-2">
                 <select
                   value={selectedSpecialty}
                   onChange={(e) => setSelectedSpecialty(e.target.value)}
-                  className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none cursor-pointer"
                 >
                   <option value="Todas">Todas as Especialidades</option>
-                  <option value="Faxina Completa">Faxina Completa</option>
-                  <option value="Passadeira de Roupas">Passadeira de Roupas</option>
-                  <option value="Cuidado com Pets">Gosta de Pets</option>
-                  <option value="Organização de Armários">Personal Organizer</option>
+                  <option value="Faxina Residencial">Faxina Residencial</option>
+                  <option value="Limpeza Pesada">Limpeza Pesada</option>
+                  <option value="Passar Roupas">Passar Roupas</option>
+                  <option value="Cozinhar">Cozinhar</option>
+                  <option value="Organização">Organização</option>
                 </select>
-              </div>
 
-              <div>
-                <label className="text-slate-500 block mb-1">Distância Máxima ({maxDistance} km)</label>
-                <input
-                  type="range"
-                  min={1}
-                  max={20}
+                <select
                   value={maxDistance}
                   onChange={(e) => setMaxDistance(Number(e.target.value))}
-                  className="w-full accent-teal-600"
-                />
-              </div>
-
-              <div>
-                <label className="text-slate-500 block mb-1">Nota Mínima ({minRating.toFixed(1)} ⭐️)</label>
-                <select
-                  value={minRating}
-                  onChange={(e) => setMinRating(Number(e.target.value))}
-                  className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none"
+                  className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 focus:outline-none cursor-pointer"
                 >
-                  <option value={4.0}>4.0 + Estrelas</option>
-                  <option value={4.5}>4.5 + Estrelas</option>
-                  <option value={4.8}>4.8 + Estrelas (Super Diaristas)</option>
-                  <option value={5.0}>Apenas 5.0 Estrelas</option>
+                  <option value={5}>Até 5 km</option>
+                  <option value={10}>Até 10 km</option>
+                  <option value={15}>Até 15 km</option>
+                  <option value={30}>Até 30 km</option>
                 </select>
               </div>
             </div>
           </div>
 
-          {/* Diaristas List Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredDiaristas.map((d) => (
+          {/* Results Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {filteredDiaristas.map((dia) => (
               <div
-                key={d.id}
-                className="bg-white rounded-2xl border border-slate-200 shadow-xs hover:border-teal-400 hover:shadow-md transition overflow-hidden flex flex-col justify-between"
+                key={dia.id}
+                onClick={() => onOpenDiaristaDetail(dia)}
+                className="bg-white rounded-2xl border border-purple-100 p-5 shadow-xs hover:shadow-md transition cursor-pointer space-y-4 relative"
               >
-                <div className="p-5 space-y-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={d.photoUrl}
-                        alt={d.name}
-                        className="w-14 h-14 rounded-2xl object-cover border border-slate-200 shadow-xs"
-                      />
-                      <div>
-                        <h3 className="font-extrabold text-sm text-slate-900 flex items-center space-x-1">
-                          <span>{d.name}</span>
-                          <span title="Verificada"><ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" /></span>
-                        </h3>
-                        <p className="text-xs text-slate-500">{d.neighborhood} • {d.distanceKm} km</p>
-                      </div>
+                <div className="flex items-center space-x-3.5">
+                  <img
+                    src={dia.photoUrl}
+                    alt={dia.name}
+                    className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-100"
+                  />
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <h3 className="font-extrabold text-slate-900 text-sm">{dia.name}</h3>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                     </div>
-
-                    <button
-                      onClick={(e) => toggleFavorite(d.id, e)}
-                      className={`p-1.5 rounded-full transition cursor-pointer ${
-                        favorites.includes(d.id) ? 'text-rose-500 bg-rose-50' : 'text-slate-300 hover:text-slate-400'
-                      }`}
-                    >
-                      <Heart className="w-4 h-4 fill-current" />
-                    </button>
-                  </div>
-
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                    {d.bio}
-                  </p>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {d.specialties.slice(0, 3).map((sp, idx) => (
-                      <span key={idx} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-bold">
-                        {sp}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="pt-2 flex items-center justify-between text-xs border-t border-slate-100">
-                    <div className="flex items-center space-x-1 text-amber-500 font-extrabold">
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      <span>{d.rating.toFixed(1)}</span>
-                      <span className="text-slate-400 font-normal">({d.reviewsCount} avaliações)</span>
+                    <p className="text-xs text-slate-500">{dia.neighborhood} ({dia.distanceKm} km)</p>
+                    <div className="flex items-center space-x-1 mt-1 text-xs">
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      <span className="font-bold text-slate-900">{dia.rating}</span>
+                      <span className="text-slate-400">({dia.reviewsCount} avaliações)</span>
                     </div>
-
-                    <span className="text-slate-600 font-medium">{d.experienceYears} anos exp.</span>
                   </div>
                 </div>
 
-                <div className="bg-slate-50 p-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-bold block">Valor Médio</span>
-                    <span className="text-base font-black text-slate-900">R$ {d.avgDailyRate}</span>
+                    <span className="text-[10px] text-slate-400 block uppercase font-bold">Diária Média</span>
+                    <span className="font-black text-sm text-[#4C1D95]">R$ {dia.avgDailyRate}</span>
                   </div>
 
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => onOpenDiaristaDetail(d)}
-                      className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-100 transition"
-                    >
-                      Perfil
-                    </button>
-                    <button
-                      onClick={() => onOpenBookingWizard(undefined, d)}
-                      className="px-3 py-1.5 bg-teal-600 text-white font-bold text-xs rounded-xl hover:bg-teal-700 transition"
-                    >
-                      Agendar
-                    </button>
-                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenBookingWizard(undefined, dia);
+                    }}
+                    className="px-4 py-2 bg-[#4C1D95] hover:bg-purple-900 text-white font-extrabold text-xs rounded-xl transition cursor-pointer shadow-xs"
+                  >
+                    Agendar
+                  </button>
                 </div>
               </div>
             ))}
@@ -511,318 +481,310 @@ export const ClientView: React.FC<ClientViewProps> = ({
       )}
 
       {/* ------------------------------------------------------------- */}
-      {/* TAB 3: ACOMPANHAMENTO AO VIVO DO AGENDAMENTO                   */}
+      {/* TAB 3: ACOMPANHAR AO VIVO / CHECKOUT MODAL (IMAGES 3 & 6)     */}
       {/* ------------------------------------------------------------- */}
       {activeTab === 'agendamentos' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-              <div>
-                <div className="inline-flex items-center space-x-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-full border border-emerald-200 mb-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Acompanhamento em Tempo Real</span>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-black text-slate-900">Acompanhamento de Diárias ao Vivo</h2>
+              <p className="text-xs text-slate-500">Status em tempo real da sua solicitação e repasse seguro Pix</p>
+            </div>
+
+            <button
+              onClick={() => setCheckoutModalOpen(true)}
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl transition cursor-pointer shadow-sm flex items-center space-x-1.5"
+            >
+              <QrCode className="w-4 h-4" />
+              <span>Simular Checkout Pix (Image 3)</span>
+            </button>
+          </div>
+
+          {/* Active Job Card */}
+          {activeBooking && (
+            <div className="bg-white rounded-3xl border border-purple-100 p-6 md:p-8 shadow-md space-y-6">
+              
+              {/* Header Status Bar */}
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 pb-4 border-b border-purple-100">
+                <div>
+                  <span className="text-xs text-slate-400 font-bold uppercase">Código do Agendamento: {activeBooking.id}</span>
+                  <h3 className="text-xl font-black text-slate-900">{activeBooking.serviceType}</h3>
                 </div>
-                <h2 className="text-2xl font-black text-slate-900 tracking-tight">Status da Diária #{activeBooking.id}</h2>
-                <p className="text-xs text-slate-500">Acompanhe a chegada e o andamento dos serviços na sua residência</p>
+
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-black">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Pagamento Protegido via Pix (100% Seguro)</span>
+                </div>
               </div>
 
-              <div className="text-right">
-                <span className="text-xs text-slate-400 block font-medium">Data Agendada</span>
-                <span className="font-extrabold text-sm text-slate-900">{activeBooking.date} • {activeBooking.timeSlot}</span>
+              {/* Status Timeline */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black text-slate-700 uppercase">Linha do Tempo em Tempo Real</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-bold">
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 flex items-center space-x-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>1. Pix Confirmado</span>
+                  </div>
+
+                  <div className={`p-3 rounded-xl border flex items-center space-x-2 ${
+                    activeBooking.status === 'solicitado' 
+                      ? 'bg-purple-50 border-[#4C1D95] text-[#4C1D95]' 
+                      : 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                  }`}>
+                    <Clock className="w-4 h-4 text-[#4C1D95] shrink-0" />
+                    <span>2. Aguardando Diarista</span>
+                  </div>
+
+                  <div className={`p-3 rounded-xl border flex items-center space-x-2 ${
+                    activeBooking.status === 'em_atendimento' 
+                      ? 'bg-purple-50 border-[#4C1D95] text-[#4C1D95]' 
+                      : 'bg-slate-50 border-slate-200 text-slate-400'
+                  }`}>
+                    <HomeIcon className="w-4 h-4 shrink-0" />
+                    <span>3. Em Andamento</span>
+                  </div>
+
+                  <div className={`p-3 rounded-xl border flex items-center space-x-2 ${
+                    activeBooking.status === 'finalizado' 
+                      ? 'bg-emerald-50 border-emerald-200 text-emerald-900' 
+                      : 'bg-slate-50 border-slate-200 text-slate-400'
+                  }`}>
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span>4. Finalizado & Liberado</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Diarista Info & Next Action */}
+              <div className="p-5 bg-purple-50/60 rounded-2xl border border-purple-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div className="flex items-center space-x-4">
+                  <img
+                    src={activeBooking.diaristaPhoto || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200'}
+                    alt=""
+                    className="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-xs"
+                  />
+                  <div>
+                    <h5 className="font-extrabold text-slate-900 text-sm">{activeBooking.diaristaName || 'Maria de Fátima'}</h5>
+                    <p className="text-xs text-slate-500">Profissional Alô Diária • WhatsApp: {activeBooking.diaristaPhone || '(11) 99876-5432'}</p>
+                    <p className="text-xs text-slate-700 font-medium mt-0.5">📅 {activeBooking.date} • ⏰ {activeBooking.timeSlot}</p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => onAdvanceBookingStatus(activeBooking.id)}
+                  className="px-5 py-2.5 bg-[#4C1D95] hover:bg-purple-900 text-white text-xs font-black rounded-xl transition shadow-xs cursor-pointer"
+                >
+                  Avançar Status do Serviço
+                </button>
+              </div>
+
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ------------------------------------------------------------- */}
+      {/* CHECKOUT & PIX PAYMENT MODAL (IMAGE 3 & IMAGE 6)              */}
+      {/* ------------------------------------------------------------- */}
+      {checkoutModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto font-sans">
+          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative border border-purple-100">
+            
+            <button
+              onClick={() => setCheckoutModalOpen(false)}
+              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* 4-Step Checkout Header (Image 3) */}
+            <div className="space-y-3 border-b border-purple-100 pb-4">
+              <AloDiariaLogo size="sm" />
+              
+              <div className="flex items-center justify-between text-xs font-black">
+                <span className={checkoutStep >= 1 ? 'text-[#4C1D95]' : 'text-slate-400'}>1. Serviço</span>
+                <span>→</span>
+                <span className={checkoutStep >= 2 ? 'text-[#4C1D95]' : 'text-slate-400'}>2. Pagamento Pix</span>
+                <span>→</span>
+                <span className={checkoutStep === 3 ? 'text-emerald-600' : 'text-slate-400'}>3. Confirmação</span>
               </div>
             </div>
 
-            {/* Interactive Progress Pipeline Bar */}
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <h4 className="font-extrabold text-xs text-slate-500 uppercase tracking-wider">Etapas do Atendimento</h4>
+            {/* STEP 1: REVIEW SERVICE DETAILS (IMAGE 3 LEFT) */}
+            {checkoutStep === 1 && (
+              <div className="space-y-5 text-xs">
+                
+                {/* Diarista profile summary */}
+                <div className="p-4 rounded-2xl bg-purple-50/70 border border-purple-100 flex items-center space-x-3.5">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
+                    alt=""
+                    className="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-xs"
+                  />
+                  <div>
+                    <div className="flex items-center space-x-1.5">
+                      <h4 className="font-extrabold text-slate-900 text-sm">Maria Oliveira</h4>
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                    </div>
+                    <p className="text-slate-500">⭐️ 4.9 (128 avaliações) • Profissional Verificada</p>
+                    <p className="text-[#4C1D95] font-bold mt-0.5">Limpeza Residencial Completa</p>
+                  </div>
+                </div>
 
-              <div className="grid grid-cols-5 gap-2 text-center text-xs">
-                
-                <StatusStep 
-                  label="Solicitado" 
-                  stepStatus="solicitado" 
-                  currentStatus={activeBooking.status} 
-                  icon={Calendar} 
-                />
-                
-                <StatusStep 
-                  label="Aceito" 
-                  stepStatus="aceito" 
-                  currentStatus={activeBooking.status} 
-                  icon={CheckCircle2} 
-                />
-                
-                <StatusStep 
-                  label="Deslocamento" 
-                  stepStatus="em_deslocamento" 
-                  currentStatus={activeBooking.status} 
-                  icon={Clock} 
-                />
-                
-                <StatusStep 
-                  label="Em Atendimento" 
-                  stepStatus="em_atendimento" 
-                  currentStatus={activeBooking.status} 
-                  icon={Sparkles} 
-                />
+                {/* Service Details */}
+                <div className="space-y-2 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="flex justify-between text-slate-700">
+                    <span>Data do Serviço:</span>
+                    <strong>18/05/2025 (Domingo)</strong>
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>Horário do Turno:</span>
+                    <strong>09:00 às 17:00 (8 Horas)</strong>
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>Local da Faxina:</span>
+                    <strong>Rua das Flores, 123 - Vila Mariana, SP</strong>
+                  </div>
+                </div>
 
-                <StatusStep 
-                  label="Finalizado" 
-                  stepStatus="finalizado" 
-                  currentStatus={activeBooking.status} 
-                  icon={Award} 
-                />
+                {/* Price Summary */}
+                <div className="p-4 rounded-2xl bg-purple-50 border border-purple-100 space-y-2">
+                  <div className="flex justify-between text-slate-700">
+                    <span>Valor da Diária:</span>
+                    <span>R$ 180,00</span>
+                  </div>
+                  <div className="flex justify-between text-slate-700">
+                    <span>Proteção Alô Diária / Taxa:</span>
+                    <span>R$ 9,90</span>
+                  </div>
+                  <div className="pt-2 border-t border-purple-200 flex justify-between font-black text-base text-slate-900">
+                    <span>Total a Pagar:</span>
+                    <span className="text-[#4C1D95]">R$ 189,90</span>
+                  </div>
+                </div>
 
+                {/* Security Guarantee Box */}
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center space-x-2 text-emerald-900">
+                  <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+                  <div>
+                    <strong className="block font-bold">Seu pagamento está 100% protegido!</strong>
+                    <span className="text-[11px] text-slate-600">O dinheiro só é liberado para a profissional após a conclusão do serviço na sua casa.</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setCheckoutStep(2)}
+                  className="w-full py-3.5 bg-[#4C1D95] hover:bg-purple-900 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-md transition cursor-pointer flex items-center justify-center space-x-2"
+                >
+                  <QrCode className="w-4 h-4" />
+                  <span>Pagar com Pix Seguro</span>
+                </button>
               </div>
+            )}
 
-              {/* Status Simulation Bar for Testing */}
-              <div className="p-3 bg-white rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <span className="font-bold text-slate-700">Simulação Interativa do Protótipo:</span>
-                <div className="flex flex-wrap items-center gap-1.5">
+            {/* STEP 2: REAL PIX QR CODE & TIMER (IMAGE 3 MIDDLE) */}
+            {checkoutStep === 2 && (
+              <div className="space-y-5 text-xs text-center">
+                
+                {/* Timer Banner */}
+                <div className="p-3 bg-pink-50 border border-pink-200 rounded-2xl flex items-center justify-center space-x-2 text-[#E11D48] font-black">
+                  <Clock className="w-4 h-4 animate-pulse" />
+                  <span>Tempo para conclusão: {formatTimer(timerSeconds)}</span>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-slate-500 block">Valor Total do Pix:</span>
+                  <span className="text-3xl font-black text-[#4C1D95]">R$ 189,90</span>
+                </div>
+
+                {/* Simulated QR Code SVG */}
+                <div className="w-48 h-48 bg-white p-3 rounded-2xl border-2 border-purple-200 mx-auto shadow-inner flex items-center justify-center">
+                  <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900 fill-current">
+                    <path d="M0 0h30v30H0zM10 10h10v10H10zM70 0h30v30H70zM80 10h10v10H80zM0 70h30v30H0zM10 80h10v10H10zM35 5h10v10H35zM50 20h15v10H50zM35 35h30v10H35zM75 40h20v15H75zM40 55h20v20H40zM70 70h25v25H70z" />
+                  </svg>
+                </div>
+
+                {/* Copia e Cola Key */}
+                <button
+                  onClick={copyPixCode}
+                  className="w-full py-2.5 px-4 bg-purple-50 border border-purple-200 text-[#4C1D95] font-extrabold rounded-xl transition hover:bg-purple-100 cursor-pointer flex items-center justify-center space-x-2"
+                >
+                  <Copy className="w-4 h-4" />
+                  <span>{copiedPixKey ? '✓ Chave Copiada!' : 'Copiar Chave Pix Copia e Cola'}</span>
+                </button>
+
+                <div className="p-3 bg-slate-50 rounded-xl text-left text-slate-600 space-y-1">
+                  <strong>Instruções de Pagamento:</strong>
+                  <ol className="list-decimal list-inside space-y-0.5">
+                    <li>Abra o aplicativo do seu banco preferido</li>
+                    <li>Escolha a opção Pix e escaneie o código ou cole a chave</li>
+                    <li>Confirme o valor de R$ 189,90 e conclua o pagamento</li>
+                  </ol>
+                </div>
+
+                <button
+                  onClick={() => setCheckoutStep(3)}
+                  className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider rounded-2xl shadow-md transition cursor-pointer flex items-center justify-center space-x-2"
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Já paguei, verificar pagamento</span>
+                </button>
+              </div>
+            )}
+
+            {/* STEP 3: PAYMENT APPROVED & LIVE TRACKING (IMAGE 3 RIGHT & IMAGE 6) */}
+            {checkoutStep === 3 && (
+              <div className="space-y-5 text-xs text-center">
+                <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                  <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                </div>
+
+                <h3 className="text-2xl font-black text-slate-900">Pagamento Aprovado!</h3>
+
+                <p className="text-slate-600 leading-relaxed max-w-md mx-auto">
+                  Seu pagamento de <strong className="text-slate-900">R$ 189,90</strong> está reservado e protegido pelo Alô Diária. A profissional <strong className="text-[#4C1D95]">Maria Oliveira</strong> foi notificada e tem até 3 minutos para aceitar a diária.
+                </p>
+
+                {/* Real time timeline */}
+                <div className="p-4 bg-purple-50 rounded-2xl border border-purple-100 text-left space-y-2">
+                  <h4 className="font-black text-[#4C1D95] uppercase">Status da Diária:</h4>
+                  <div className="space-y-1.5 font-bold">
+                    <div className="flex items-center space-x-2 text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>✓ Pagamento confirmado via Pix</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-[#4C1D95]">
+                      <Clock className="w-4 h-4 animate-pulse" />
+                      <span>⏳ Aguardando confirmação da diarista</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
                   <button
-                    onClick={() => onAdvanceBookingStatus(activeBooking.id)}
-                    className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg transition shadow-xs cursor-pointer"
+                    onClick={() => {
+                      setCheckoutModalOpen(false);
+                      setActiveTab('agendamentos');
+                    }}
+                    className="flex-1 py-3 bg-[#4C1D95] hover:bg-purple-900 text-white font-extrabold rounded-xl transition cursor-pointer"
                   >
-                    Avançar Etapa Atual ➔
+                    Acompanhar ao Vivo
+                  </button>
+
+                  <button
+                    onClick={() => setCheckoutModalOpen(false)}
+                    className="py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition cursor-pointer"
+                  >
+                    Fechar
                   </button>
                 </div>
               </div>
-            </div>
+            )}
 
-            {/* Assigned Diarista Details */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              
-              <div className="md:col-span-2 p-5 rounded-2xl bg-white border border-slate-200 space-y-4">
-                <h4 className="font-black text-sm text-slate-900 border-b border-slate-100 pb-2">Profissional Designada</h4>
-
-                <div className="flex items-center space-x-4">
-                  <img
-                    src={activeBooking.diaristaPhoto || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'}
-                    alt={activeBooking.diaristaName}
-                    className="w-16 h-16 rounded-2xl object-cover border border-slate-200 shadow-xs"
-                  />
-                  <div>
-                    <h3 className="font-black text-base text-slate-900 flex items-center space-x-1.5">
-                      <span>{activeBooking.diaristaName}</span>
-                      <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                    </h3>
-                    <p className="text-xs text-slate-500">Telefone: {activeBooking.diaristaPhone}</p>
-                    <div className="flex items-center space-x-2 text-xs mt-1">
-                      <span className="text-amber-500 font-bold flex items-center">
-                        <Star className="w-3.5 h-3.5 fill-current mr-0.5" /> 4.9
-                      </span>
-                      <span className="text-slate-300">•</span>
-                      <span className="text-emerald-700 font-semibold">Garantia Dona Maria Ativa</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-teal-50/60 rounded-xl text-xs text-teal-800 flex items-center space-x-2">
-                  <Phone className="w-4 h-4 text-teal-600 shrink-0" />
-                  <span>Precisa de algo? Fale diretamente com a diarista via WhatsApp ou ligue para o suporte.</span>
-                </div>
-              </div>
-
-              {/* Service Details Card */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
-                <h4 className="font-black text-xs text-slate-500 uppercase tracking-wider border-b border-slate-200 pb-2">Resumo da Diária</h4>
-
-                <div className="space-y-1.5">
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Tipo de Limpeza:</span>
-                    <strong className="text-slate-900">{activeBooking.serviceType}</strong>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Endereço:</span>
-                    <strong className="text-slate-900 text-right truncate max-w-[150px]">{activeBooking.clientAddress}</strong>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Cômodos:</span>
-                    <strong className="text-slate-900">
-                      {activeBooking.rooms.bedrooms}Q, {activeBooking.rooms.bathrooms}B, {activeBooking.rooms.kitchens}C, {activeBooking.rooms.livingRooms}S
-                    </strong>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Possui Pets:</span>
-                    <strong className="text-slate-900">{activeBooking.hasPets ? 'Sim 🐕' : 'Não'}</strong>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-200 flex justify-between font-black text-sm text-slate-900">
-                    <span>Valor Total Paid:</span>
-                    <span className="text-emerald-700">R$ {activeBooking.totalValue.toFixed(2)}</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
           </div>
         </div>
       )}
 
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 4: HISTÓRICO DE DIÁRIAS & AVALIAÇÃO                       */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'historico' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Histórico de Serviços Solicitados</h2>
-              <p className="text-xs text-slate-500">Consulte diárias anteriores, comprovantes e avalie as profissionais</p>
-            </div>
-
-            <div className="space-y-4">
-              {bookings.map((booking) => (
-                <div
-                  key={booking.id}
-                  className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition space-y-4"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-xl bg-teal-50 border border-teal-200 text-teal-700 font-bold flex items-center justify-center shrink-0">
-                        <History className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h4 className="font-extrabold text-sm text-slate-900">{booking.serviceType} • #{booking.id}</h4>
-                        <p className="text-xs text-slate-500">{booking.date} às {booking.timeSlot}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-extrabold ${
-                        booking.status === 'finalizado'
-                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                          : 'bg-amber-50 text-amber-800 border border-amber-200'
-                      }`}>
-                        {booking.status === 'finalizado' ? 'Concluído' : 'Em Andamento'}
-                      </span>
-
-                      <span className="font-black text-sm text-slate-900">R$ {booking.totalValue}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs">
-                    <div>
-                      <p className="text-slate-600 font-medium">Diarista: <strong className="text-slate-900">{booking.diaristaName}</strong></p>
-                      <p className="text-slate-500">{booking.clientAddress}</p>
-                    </div>
-
-                    {booking.status === 'finalizado' && (
-                      <div className="flex items-center space-x-2">
-                        {booking.review ? (
-                          <div className="flex items-center space-x-1.5 px-3 py-1 bg-amber-50 text-amber-800 rounded-xl border border-amber-200">
-                            <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
-                            <span className="font-bold">Avaliado: {booking.review.rating} Estrelas</span>
-                          </div>
-                        ) : (
-                          <button
-                            onClick={() => onOpenRatingModal(booking)}
-                            className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition shadow-xs cursor-pointer flex items-center space-x-1"
-                          >
-                            <Star className="w-3.5 h-3.5 fill-current" />
-                            <span>Avaliar Serviço</span>
-                          </button>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ------------------------------------------------------------- */}
-      {/* TAB 5: PERFIL DO CLIENTE                                      */}
-      {/* ------------------------------------------------------------- */}
-      {activeTab === 'perfil' && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-6">
-            <div className="flex items-center space-x-4 border-b border-slate-100 pb-6">
-              <img
-                src={clientProfile.photoUrl}
-                alt={clientProfile.name}
-                className="w-20 h-20 rounded-3xl object-cover border-2 border-teal-500 shadow-md"
-              />
-              <div>
-                <h2 className="text-2xl font-black text-slate-900 tracking-tight">{clientProfile.name}</h2>
-                <p className="text-xs text-slate-500">{clientProfile.email} • {clientProfile.phone}</p>
-                <div className="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 bg-teal-50 text-teal-800 rounded-full text-xs font-bold border border-teal-200">
-                  <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Cliente Premium Dona Maria • {clientProfile.totalBookings} Diárias Realizadas</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-              
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                <h4 className="font-extrabold text-sm text-slate-900 border-b border-slate-200 pb-2">Endereço Principal</h4>
-                <div className="space-y-1 text-slate-700">
-                  <p><strong>Rua/Alameda:</strong> {clientProfile.address}</p>
-                  <p><strong>Bairro:</strong> {clientProfile.neighborhood}</p>
-                  <p><strong>Cidade:</strong> {clientProfile.city}</p>
-                  <p><strong>Possui Animais:</strong> {clientProfile.hasPets ? 'Sim (Cachorro registrado)' : 'Não'}</p>
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                <h4 className="font-extrabold text-sm text-slate-900 border-b border-slate-200 pb-2">Método de Pagamento Preferencial</h4>
-                <div className="flex items-center space-x-3 pt-1">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
-                    <QrCode className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h5 className="font-extrabold text-sm text-slate-900">{clientProfile.preferredPaymentMethod}</h5>
-                    <p className="text-slate-500">Chave PIX registrada e checkout instantâneo</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      )}
-
-    </div>
-  );
-};
-
-// Sub-component for Live Status Pipeline
-interface StatusStepProps {
-  label: string;
-  stepStatus: ServiceStatus;
-  currentStatus: ServiceStatus;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const StatusStep: React.FC<StatusStepProps> = ({ label, stepStatus, currentStatus, icon: Icon }) => {
-  const statusOrder: ServiceStatus[] = ['solicitado', 'aceito', 'em_deslocamento', 'em_atendimento', 'finalizado'];
-  const stepIndex = statusOrder.indexOf(stepStatus);
-  const currentIndex = statusOrder.indexOf(currentStatus);
-
-  const isPassed = stepIndex <= currentIndex;
-  const isCurrent = stepIndex === currentIndex;
-
-  return (
-    <div className="flex flex-col items-center space-y-2">
-      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition ${
-        isCurrent
-          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/30 ring-4 ring-emerald-100 scale-105'
-          : isPassed
-          ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-          : 'bg-slate-200 text-slate-400'
-      }`}>
-        <Icon className="w-5 h-5" />
-      </div>
-      <span className={`text-[11px] font-bold ${
-        isCurrent ? 'text-emerald-900 font-black' : isPassed ? 'text-slate-800' : 'text-slate-400'
-      }`}>
-        {label}
-      </span>
     </div>
   );
 };

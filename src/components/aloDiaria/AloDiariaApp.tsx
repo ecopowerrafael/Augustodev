@@ -34,6 +34,8 @@ import { AdminView } from './AdminView';
 import { BookingWizardModal } from './modals/BookingWizardModal';
 import { DiaristaDetailModal } from './modals/DiaristaDetailModal';
 import { RatingModal } from './modals/RatingModal';
+import { EmpresaOnboardingModal } from './modals/EmpresaOnboardingModal';
+import { DiaristaOnboardingModal } from './modals/DiaristaOnboardingModal';
 
 import { CheckCircle2, Sparkles, X } from 'lucide-react';
 
@@ -47,7 +49,7 @@ export const AloDiariaApp: React.FC = () => {
   const [adminTab, setAdminTab] = useState<AdminTab>('dashboard');
 
   // Location selector
-  const [activeLocation, setActiveLocation] = useState<string>('São Paulo - Moema');
+  const [activeLocation, setActiveLocation] = useState<string>('São Paulo - Vila Mariana');
 
   // Main state collections
   const [categories, setCategories] = useState<ServiceCategory[]>(INITIAL_CATEGORIES);
@@ -80,6 +82,10 @@ export const AloDiariaApp: React.FC = () => {
   const [isRatingModalOpen, setIsRatingModalOpen] = useState<boolean>(false);
   const [selectedBookingForRating, setSelectedBookingForRating] = useState<ServiceBooking | undefined>(undefined);
 
+  // Onboarding Registration Modals
+  const [isEmpresaModalOpen, setIsEmpresaModalOpen] = useState<boolean>(false);
+  const [isDiaristaModalOpen, setIsDiaristaModalOpen] = useState<boolean>(false);
+
   // Open booking wizard
   const handleOpenBookingWizard = (cat?: ServiceCategory, dia?: DiaristaProfile) => {
     setPreSelectedCategory(cat);
@@ -101,7 +107,7 @@ export const AloDiariaApp: React.FC = () => {
       clientName: clientProfile.name,
       clientPhone: clientProfile.phone,
       clientAddress: bookingData.clientAddress,
-      clientNeighborhood: 'Moema',
+      clientNeighborhood: 'Vila Mariana',
       diaristaId: bookingData.diaristaId,
       diaristaName: bookingData.diaristaName,
       diaristaPhoto: bookingData.diaristaPhoto,
@@ -157,19 +163,19 @@ export const AloDiariaApp: React.FC = () => {
   // Accept booking (diarista)
   const handleAcceptBooking = (bookingId: string) => {
     setBookings(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'aceito' as ServiceStatus } : b));
-    showToast(`Você aceitou o agendamento #${bookingId}!`);
+    showToast(`Você aceitou a solicitação de diária #${bookingId}!`);
   };
 
   // Reject booking (diarista)
   const handleRejectBooking = (bookingId: string) => {
     setBookings(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'cancelado' as ServiceStatus } : b));
-    showToast(`Agendamento #${bookingId} recusado.`);
+    showToast(`Solicitação #${bookingId} recusada.`);
   };
 
   // Approve diarista (admin)
   const handleApproveDiarista = (diaristaId: string) => {
     setDiaristas(prev => prev.map(d => d.id === diaristaId ? { ...d, documentsStatus: 'aprovado' } : d));
-    showToast('Cadastro de diarista aprovado com Selo de Confiança!');
+    showToast('Cadastro de diarista aprovado com Selo de Verificação!');
   };
 
   // Update platform commission (admin)
@@ -186,13 +192,13 @@ export const AloDiariaApp: React.FC = () => {
     const newTrx: WalletTransaction = {
       id: `TRX-${Math.floor(950 + Math.random() * 50)}`,
       date: new Date().toISOString().split('T')[0],
-      description: 'Transferência PIX para Conta Cadastrada',
+      description: 'Transferência PIX Instantânea para Chave Cadastrada',
       amount: -amount,
       type: 'saque',
       status: 'concluido'
     };
     setTransactions([newTrx, ...transactions]);
-    showToast(`Saque PIX de R$ ${amount.toFixed(2)} enviado com sucesso!`);
+    showToast(`Transferência Pix de R$ ${amount.toFixed(2)} enviada com sucesso!`);
   };
 
   // Submit Rating
@@ -215,14 +221,14 @@ export const AloDiariaApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-800 font-sans flex flex-col selection:bg-teal-500 selection:text-white">
+    <div className="min-h-screen bg-[#FAF8FF] text-slate-800 font-sans flex flex-col selection:bg-[#4C1D95] selection:text-white">
       
       {/* Toast Notification Banner */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700 flex items-center space-x-3 text-xs font-bold animate-bounce">
-          <Sparkles className="w-4 h-4 text-emerald-400" />
+        <div className="fixed bottom-6 right-6 z-50 bg-[#4C1D95] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-purple-400/30 flex items-center space-x-3 text-xs font-bold animate-bounce">
+          <Sparkles className="w-4 h-4 text-[#EC4899]" />
           <span>{toastMessage}</span>
-          <button onClick={() => setToastMessage(null)} className="p-1 hover:text-slate-300">
+          <button onClick={() => setToastMessage(null)} className="p-1 hover:text-purple-200">
             <X className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -233,7 +239,7 @@ export const AloDiariaApp: React.FC = () => {
         currentRole={currentRole}
         onRoleChange={(role) => {
           setCurrentRole(role);
-          showToast(`Modo alterado para: ${role.toUpperCase()}`);
+          showToast(`Modo alternado para: ${role.toUpperCase()}`);
         }}
         clientTab={clientTab}
         setClientTab={setClientTab}
@@ -243,8 +249,8 @@ export const AloDiariaApp: React.FC = () => {
         setAdminTab={setAdminTab}
         activeLocation={activeLocation}
         setActiveLocation={setActiveLocation}
-        unreadNotifications={2}
-        onOpenNotifications={() => showToast('Sem novas notificações unread')}
+        unreadNotifications={1}
+        onOpenNotifications={() => showToast('1 nova notificação de agendamento em tempo real')}
         onBackToPortfolio={() => window.location.href = '/'}
       />
 
@@ -263,12 +269,13 @@ export const AloDiariaApp: React.FC = () => {
             activeLocation={activeLocation}
             onOpenBookingWizard={handleOpenBookingWizard}
             onOpenDiaristaDetail={handleOpenDiaristaDetail}
-            onOpenPaymentModal={() => showToast('Checkout simulado no agendamento')}
+            onOpenPaymentModal={() => showToast('Checkout Pix acionado')}
             onOpenRatingModal={(b) => {
               setSelectedBookingForRating(b);
               setIsRatingModalOpen(true);
             }}
             onAdvanceBookingStatus={handleAdvanceBookingStatus}
+            onOpenEmpresaModal={() => setIsEmpresaModalOpen(true)}
             showToast={showToast}
           />
         )}
@@ -285,6 +292,7 @@ export const AloDiariaApp: React.FC = () => {
             onRejectBooking={handleRejectBooking}
             onAdvanceBookingStatus={handleAdvanceBookingStatus}
             onRequestPayout={handleRequestPayout}
+            onOpenDiaristaModal={() => setIsDiaristaModalOpen(true)}
             showToast={showToast}
           />
         )}
@@ -334,6 +342,19 @@ export const AloDiariaApp: React.FC = () => {
         onClose={() => setIsRatingModalOpen(false)}
         booking={selectedBookingForRating}
         onSubmitRating={handleSubmitRating}
+      />
+
+      {/* Onboarding Modals */}
+      <EmpresaOnboardingModal
+        isOpen={isEmpresaModalOpen}
+        onClose={() => setIsEmpresaModalOpen(false)}
+        showToast={showToast}
+      />
+
+      <DiaristaOnboardingModal
+        isOpen={isDiaristaModalOpen}
+        onClose={() => setIsDiaristaModalOpen(false)}
+        showToast={showToast}
       />
 
     </div>
