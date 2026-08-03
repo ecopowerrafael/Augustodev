@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { SupplementLandingPageView } from "../components/formulaVita/SupplementLandingPageView";
 import {
   FileText,
   Upload,
@@ -253,7 +254,7 @@ const MOCK_REQUESTS: RequestItem[] = [
 
 export default function FormulaVitaApp({ onBack }: FormulaVitaAppProps) {
   // Navigation & View States
-  const [activeTab, setActiveTab] = useState<string>("home");
+  const [activeTab, setActiveTab] = useState<string>("landing-suplemento");
   const [activeRole, setActiveRole] = useState<"public" | "client" | "admin">("public");
   
   // Recipe Upload Form Wizard States
@@ -465,6 +466,7 @@ export default function FormulaVitaApp({ onBack }: FormulaVitaAppProps) {
           {/* DESKTOP NAV LINKS */}
           <nav className="hidden lg:flex items-center space-x-6 text-xs font-bold text-[#243331]">
             {[
+              { id: "landing-suplemento", label: "🔥 Landing Page Suplemento" },
               { id: "home", label: "Início" },
               { id: "about", label: "Sobre nós" },
               { id: "labs", label: "Laboratórios" },
@@ -528,6 +530,15 @@ export default function FormulaVitaApp({ onBack }: FormulaVitaAppProps) {
       {activeRole === "public" && (
         <main className="animate-fade-in">
           
+          {/* VIEW: LANDING PAGE SUPLEMENTO (ALTA CONVERSÃO) */}
+          {activeTab === "landing-suplemento" && (
+            <SupplementLandingPageView
+              onOpenWhatsApp={() => setShowWhatsAppChat(true)}
+              showToast={showToast}
+              onNavigateTab={(tab) => setActiveTab(tab)}
+            />
+          )}
+
           {/* VIEW: HOME */}
           {activeTab === "home" && (
             <div className="space-y-16 pb-20">
@@ -2190,12 +2201,16 @@ export default function FormulaVitaApp({ onBack }: FormulaVitaAppProps) {
             </div>
 
             <div className="space-y-3">
-              <h4 className="font-serif font-bold text-sm text-[#C5A461]">Links Institucionais</h4>
+              <h4 className="font-serif font-bold text-sm text-[#C5A461]">Navegação & Portais</h4>
               <ul className="space-y-2 text-white/80">
-                <li className="hover:text-white cursor-pointer" onClick={() => setActiveTab("about")}>Sobre a Farmácia</li>
-                <li className="hover:text-white cursor-pointer" onClick={() => setActiveTab("labs")}>Infraestrutura dos Laboratórios</li>
-                <li className="hover:text-white cursor-pointer" onClick={() => setActiveTab("specialties")}>Áreas de Atuação</li>
-                <li className="hover:text-white cursor-pointer" onClick={() => setActiveTab("ingredients")}>Catálogo de Ativos</li>
+                <li className="hover:text-[#C5A461] transition cursor-pointer font-bold flex items-center space-x-1 text-amber-300" onClick={() => { setActiveTab("landing-suplemento"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                  <span>🔥 Landing Page Suplemento</span>
+                </li>
+                <li className="hover:text-white cursor-pointer" onClick={() => { setActiveTab("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Envio de Receitas & Orçamento</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => { setActiveTab("about"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Sobre a Farmácia</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => { setActiveTab("labs"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Infraestrutura dos Laboratórios</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => { setActiveTab("specialties"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Áreas de Atuação</li>
+                <li className="hover:text-white cursor-pointer" onClick={() => { setActiveTab("ingredients"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>Catálogo de Ativos</li>
               </ul>
             </div>
 

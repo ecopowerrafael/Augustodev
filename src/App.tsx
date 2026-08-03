@@ -223,7 +223,9 @@ export default function App() {
       {
         title: "06 // PORTFÓLIO & CASOS",
         links: [
-          { text: "★ Casos de Sucesso (Lojas Oficiais)", path: "/casos-de-sucesso" },
+          { text: "🔥 Protótipo Landing Page Suplementos (Fórmula Vita / VITA PRO MAX)", path: "/portfolio/formula-vita", featured: true },
+          { text: "★ Casos de Sucesso (Lojas Oficiais)", path: "/casos-de-sucesso", featured: true },
+          { text: "Fórmula Vita - Farmácia de Manipulação & Receitas", path: "/portfolio/formula-vita" },
           { text: "Website Advocacia Premium", path: "/portfolio/advogado" },
           { text: "Website Imobiliária Luxo", path: "/portfolio/imobiliaria" },
           { text: "Möbius Studio de Arquitetura", path: "/portfolio/arquiteto" },
@@ -250,7 +252,6 @@ export default function App() {
           { text: "FreshPrep - Refeições & Marmitas", path: "/portfolio/meal-prep" },
           { text: "ColdTrack - Gestão de Refrigeração", path: "/portfolio/coldtrack" },
           { text: "BarberFlow - Agendamento Barbearias", path: "/portfolio/barberflow" },
-          { text: "Fórmula Vita - Farmácia de Manipulação", path: "/portfolio/formula-vita" },
           { text: "TáNáMão - App Contratação de Serviços", path: "/portfolio/tanamao" },
           { text: "Nexo Seguros - Corretora de Seguros", path: "/portfolio/nexo-seguros" },
           { text: "Kennel Legacy - Criadores de Cães & Pedigree", path: "/portfolio/kennel-legacy" },
@@ -279,6 +280,27 @@ export default function App() {
       <footer className="relative bg-black border-t border-white/10 pt-16 pb-12 z-20">
         <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-12">
           
+          {/* Quick Access Featured Prototypes Bar */}
+          <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-emerald-900/20 border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center space-x-3 text-left">
+              <span className="flex h-3 w-3 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+              </span>
+              <div>
+                <strong className="text-white text-xs font-bold block">🔥 Protótipo em Destaque: Landing Page de Suplementos & Farmácia</strong>
+                <p className="text-white/60 text-[11px]">Alta conversão, ofertas de kits, checkout modal e integração com Fórmula Vita.</p>
+              </div>
+            </div>
+            <button
+              onClick={() => navigateTo("/portfolio/formula-vita")}
+              className="w-full md:w-auto px-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-emerald-600 hover:from-amber-600 hover:to-emerald-700 text-white font-mono text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-[0_4px_15px_rgba(245,158,11,0.3)] flex items-center justify-center space-x-2 cursor-pointer"
+            >
+              <span>Acessar Protótipo Suplementos</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
           {/* SEO Links Map Directory */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-left pb-12 border-b border-white/5">
             {columns.map((col, idx) => (
@@ -295,7 +317,11 @@ export default function App() {
                           e.preventDefault();
                           navigateTo(link.path);
                         }}
-                        className="text-white/40 hover:text-[#00FF41] font-sans text-xs transition-colors duration-200 block"
+                        className={`font-sans text-xs transition-colors duration-200 block ${
+                          (link as any).featured
+                            ? "text-amber-300 font-bold hover:text-amber-200 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/30 inline-block my-0.5"
+                            : "text-white/40 hover:text-[#00FF41]"
+                        }`}
                       >
                         {link.text}
                       </a>

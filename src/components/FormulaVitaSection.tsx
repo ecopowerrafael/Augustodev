@@ -125,6 +125,7 @@ export default function FormulaVitaSection() {
       {/* Action footer */}
       <div className="flex flex-col sm:flex-row items-center justify-between border-t border-white/10 pt-6 gap-4 z-10">
         <div className="flex flex-wrap gap-2 text-[9px] font-mono text-white/50 uppercase font-bold">
+          <span className="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-1 rounded">🔥 LANDING PAGE SUPLEMENTOS</span>
           <span className="bg-white/5 px-2 py-1 rounded">SITE INSTITUCIONAL</span>
           <span className="bg-white/5 px-2 py-1 rounded">ORÇAMENTO DE RECEITAS</span>
           <span className="bg-white/5 px-2 py-1 rounded">PAINEL FARMACÊUTICO</span>
@@ -134,7 +135,7 @@ export default function FormulaVitaSection() {
           onClick={navigateToPortfolio}
           className="w-full sm:w-auto px-5 py-2.5 rounded bg-gradient-to-r from-[#2F7D6D] to-[#174C45] hover:from-[#174C45] hover:to-[#2F7D6D] text-white font-mono text-[10px] font-black uppercase tracking-wider transition duration-300 flex items-center justify-center space-x-1.5 cursor-pointer shadow-[0_4px_12px_rgba(47,125,109,0.3)] group"
         >
-          <span>Acessar Protótipo Fórmula Vita</span>
+          <span>Acessar Protótipo Suplementos & Farmácia</span>
           <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
