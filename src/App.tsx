@@ -94,6 +94,9 @@ import { RHConnectApp } from "./components/rhconnect/RHConnectApp";
 import { RHConnectSection } from "./components/RHConnectSection";
 import { AloDiariaApp } from "./components/aloDiaria/AloDiariaApp";
 import { AloDiariaSection } from "./components/AloDiariaSection";
+import { SenaCrmApp } from "./components/senaCrm/SenaCrmApp";
+import { SenaCrmSection } from "./components/SenaCrmSection";
+import SistemaAgendamento from "./pages/SistemaAgendamento";
 import CasosDeSucesso from "./pages/CasosDeSucesso";
 import ErrorBoundary from "./components/ErrorBoundary";
 
@@ -223,8 +226,12 @@ export default function App() {
       {
         title: "06 // PORTFÓLIO & CASOS",
         links: [
+          { text: "🏢 Protótipo CRM Imobiliário SENA 2026 (Vendas, Locações & Loteamentos)", path: "/portfolio/crm-imobiliario-sena", featured: true },
+          { text: "⚡ Script Sistema de Agendamento Multisserviços (SaaS White-Label)", path: "/portfolio/sistema-agendamento", featured: true },
           { text: "🔥 Protótipo Landing Page Suplementos (Fórmula Vita / VITA PRO MAX)", path: "/portfolio/formula-vita", featured: true },
           { text: "★ Casos de Sucesso (Lojas Oficiais)", path: "/casos-de-sucesso", featured: true },
+          { text: "CRM Imobiliário SENA 2026 (Vendas, Locação & Loteamentos)", path: "/portfolio/crm-imobiliario-sena" },
+          { text: "Sistema de Agendamento Multisserviços (SaaS)", path: "/portfolio/sistema-agendamento" },
           { text: "Fórmula Vita - Farmácia de Manipulação & Receitas", path: "/portfolio/formula-vita" },
           { text: "Website Advocacia Premium", path: "/portfolio/advogado" },
           { text: "Website Imobiliária Luxo", path: "/portfolio/imobiliaria" },
@@ -268,6 +275,8 @@ export default function App() {
           { text: "CobrancaFlow - Agenda de Cobranças & Réguas Automáticas WhatsApp", path: "/portfolio/cobrancaflow" },
           { text: "RH Connect - Plataforma Inteligente de Recrutamento & Seleção com IA", path: "/portfolio/rh-connect" },
           { text: "Alô Diária Dona Maria - Plataforma de Diárias & Serviços Domésticos", path: "/portfolio/alo-diaria-dona-maria" },
+          { text: "CRM Imobiliário SENA 2026 - Gestão Completa de Vendas, Locações & Loteamentos", path: "/portfolio/crm-imobiliario-sena", featured: true },
+          { text: "Sistema de Agendamento SaaS Multisserviços", path: "/portfolio/sistema-agendamento" },
           { text: "App Delivery Fast-Food", path: "/#project-delivery" },
           { text: "Plataforma Mobilidade", path: "/#project-mobility" },
           { text: "Painel de Controle SEO", path: "/#seo-optimization" },
@@ -508,6 +517,18 @@ export default function App() {
     return <BarberFlowApp onBack={() => navigateTo("/")} />;
   }
 
+  // CASE 0.27.1: Standalone Complete Multi-Service Scheduling Script Page (SaaS White-Label)
+  if (
+    currentPath === "/portfolio/sistema-agendamento" ||
+    currentPath === "/sistema-agendamento" ||
+    currentPath === "/script-agendamento" ||
+    currentPath === "/plataforma-agendamento" ||
+    currentPath === "/agendamento-multisservicos" ||
+    currentPath === "/portfolio/agendamento"
+  ) {
+    return <SistemaAgendamento onBack={() => navigateTo("/")} />;
+  }
+
   // CASE 0.28: Standalone Formula Vita Compounding Pharmacy & Recipe Quote Platform
   if (currentPath === "/portfolio/formula-vita" || currentPath === "/formula-vita" || currentPath === "/farmacia-de-manipulacao" || currentPath === "/site-de-farmacia-de-manipulacao" || currentPath === "/portfolio/farmacia") {
     return <FormulaVitaApp onBack={() => navigateTo("/")} />;
@@ -634,6 +655,24 @@ export default function App() {
     return (
       <ErrorBoundary fallbackTitle="Erro ao carregar a página de Casos de Sucesso">
         <CasosDeSucesso onBack={() => navigateTo("/")} />
+      </ErrorBoundary>
+    );
+  }
+
+  // CASE 0.46: Standalone CRM Imobiliário SENA 2026 Prototype
+  if (
+    currentPath === "/portfolio/crm-imobiliario-sena" ||
+    currentPath === "/portfolio/sena-crm" ||
+    currentPath === "/portfolio/crm-imobiliario" ||
+    currentPath === "/crm-imobiliario-sena-2026" ||
+    currentPath === "/crm-imobiliario" ||
+    currentPath === "/crm-sena" ||
+    currentPath === "/sena-crm" ||
+    currentPath === "/sena-2026"
+  ) {
+    return (
+      <ErrorBoundary fallbackTitle="Erro ao carregar o CRM Imobiliário SENA 2026">
+        <SenaCrmApp onBackToHome={() => navigateTo("/")} />
       </ErrorBoundary>
     );
   }
@@ -1010,6 +1049,13 @@ export default function App() {
             <section className="scroll-mt-24" id="project-alo-diaria">
               <ErrorBoundary fallbackTitle="Erro ao exibir Módulo Alô Diária Dona Maria">
                 <AloDiariaSection onOpenPrototype={() => navigateTo("/portfolio/alo-diaria-dona-maria")} />
+              </ErrorBoundary>
+            </section>
+
+            {/* 6.33. CRM Imobiliário SENA 2026 Case Section (Case 45) */}
+            <section className="scroll-mt-24" id="project-sena-crm">
+              <ErrorBoundary fallbackTitle="Erro ao exibir Módulo CRM Imobiliário SENA">
+                <SenaCrmSection onOpenPrototype={() => navigateTo("/portfolio/crm-imobiliario-sena")} />
               </ErrorBoundary>
             </section>
 
