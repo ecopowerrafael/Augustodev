@@ -36,7 +36,15 @@ export default function InternalLinker({ currentTopic, className = "" }: Interna
           <a
             key={index}
             href={link.path}
-            className="flex items-center justify-between p-3 rounded bg-white/5 border border-white/5 hover:border-[#00FF41]/30 hover:bg-[#00FF41]/5 text-white/70 hover:text-[#00FF41] transition-all duration-300 font-sans text-xs group"
+            onClick={(e) => {
+              if (link.path.startsWith("/")) {
+                e.preventDefault();
+                window.history.pushState({}, "", link.path);
+                window.dispatchEvent(new Event("popstate"));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center justify-between p-3 rounded bg-white/5 border border-white/5 hover:border-[#00FF41]/30 hover:bg-[#00FF41]/5 text-white/70 hover:text-[#00FF41] transition-all duration-300 font-sans text-xs group cursor-pointer"
           >
             <span className="truncate">{link.text}</span>
             <ArrowUpRight className="h-3.5 w-3.5 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 ml-1.5" />

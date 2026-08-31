@@ -310,6 +310,48 @@ export default function App() {
             </button>
           </div>
 
+          {/* Top Search Console Organic Queries Direct Links (Hub de Alta Conversão) */}
+          <div className="p-5 rounded-xl bg-white/[0.02] border border-[#00FF41]/20 text-left space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center space-x-2">
+                <span className="w-2 h-2 rounded-full bg-[#00FF41] animate-pulse"></span>
+                <span className="font-mono text-[10px] uppercase font-bold tracking-widest text-[#00FF41]">
+                  🎯 Termos em Destaque no Google Search Console (Alta Intenção Comercial)
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-white/40">Otimizados para CTR & Conversão</span>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {[
+                { label: "Criação de Sites Profissionais", path: "/criacao-de-sites-profissionais", badge: "102 imp" },
+                { label: "Criação de Site Profissional", path: "/criacao-de-site-profissional", badge: "49 imp" },
+                { label: "Desenvolvimento de Sites Profissionais", path: "/desenvolvimento-de-sites-profissionais", badge: "23 imp" },
+                { label: "Site Profissional para Empresas", path: "/site-profissional", badge: "16 imp" },
+                { label: "Desenvolvimento de Site Profissional", path: "/desenvolvimento-de-site-profissional", badge: "11 imp" },
+                { label: "Criação de Websites Profissionais", path: "/criacao-de-websites-profissionais", badge: "10 imp" },
+                { label: "Consultoria SEO para E-Commerce", path: "/consultoria-seo-para-e-commerce", badge: "8 imp" },
+                { label: "Criamos Seu Site Profissional", path: "/criamos-seu-site-profissional", badge: "8 imp" },
+                { label: "Desenvolver Chatbot Customizado com IA", path: "/procuro-agencia-para-desenvolver-chatbot-customizado", badge: "7 imp" },
+                { label: "Desenvolver Site Profissional", path: "/desenvolver-site-profissional", badge: "Top Buscas" }
+              ].map((item, i) => (
+                <a
+                  key={i}
+                  href={item.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(item.path);
+                  }}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-black/60 border border-white/10 hover:border-[#00FF41]/50 text-white/80 hover:text-[#00FF41] text-xs transition-all duration-200 group"
+                >
+                  <span className="group-hover:translate-x-0.5 transition-transform">{item.label}</span>
+                  <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/5 group-hover:bg-[#00FF41]/20 text-white/50 group-hover:text-[#00FF41]">
+                    {item.badge}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+
           {/* SEO Links Map Directory */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-left pb-12 border-b border-white/5">
             {columns.map((col, idx) => (

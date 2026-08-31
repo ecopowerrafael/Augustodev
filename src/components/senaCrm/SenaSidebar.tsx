@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   LayoutDashboard,
   Users,
@@ -26,7 +26,10 @@ import {
   ArrowLeft,
   Layers,
   ChevronRight,
+  Download,
+  Loader2,
 } from "lucide-react";
+import { downloadSenaStandaloneZip } from "../../utils/senaZipExporter";
 
 export type SenaTab =
   | "dashboard"
@@ -67,6 +70,19 @@ export const SenaSidebar: React.FC<SenaSidebarProps> = ({
   isMobileOpen,
   setIsMobileOpen,
 }) => {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleDownload = async () => {
+    try {
+      setIsExporting(true);
+      await downloadSenaStandaloneZip();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const handleNav = (tab: SenaTab) => {
     onSelectTab(tab);
     setIsMobileOpen(false);
@@ -230,6 +246,30 @@ export const SenaSidebar: React.FC<SenaSidebarProps> = ({
               })}
             </div>
           ))}
+        </div>
+
+        {/* Download Standalone Project Box */}
+        <div className="p-3 border-t border-slate-800/80 bg-gradient-to-b from-slate-900/60 to-slate-950/90">
+          <button
+            onClick={handleDownload}
+            disabled={isExporting}
+            className="w-full flex items-center justify-center gap-2 text-xs font-bold py-2.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md shadow-amber-500/10 transition-all cursor-pointer"
+          >
+            {isExporting ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                <span>Empacotando .ZIP...</span>
+              </>
+            ) : (
+              <>
+                <Download className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>Baixar Projeto Isolado (.ZIP)</span>
+              </>
+            )}
+          </button>
+          <p className="text-[10px] text-slate-400 text-center mt-1.5 leading-tight">
+            Pronto para rodar em seu próprio domínio ou hospedagem
+          </p>
         </div>
 
         {/* User Session Footer */}

@@ -49,20 +49,33 @@ export const SEO_CONFIG = {
 
   // Primary Keywords for SEO relevance
   keywords: [
+    "criação de sites profissionais",
+    "criação de site profissional",
+    "desenvolvimento de sites profissionais",
+    "site profissional",
+    "desenvolvimento de site profissional",
+    "criação de websites profissionais",
+    "consultoria seo para e-commerce",
+    "criamos seu site profissional",
+    "procuro agência para desenvolver chatbot customizado",
+    "desenvolver site profissional",
     "criação de sites",
     "criação de aplicativos",
     "desenvolvedor de aplicativos",
     "otimização SEO",
     "criar landing page de alta conversão",
-    "desenvolvedor android",
-    "desenvolvedor ios",
-    "site otimizado google",
-    "porto de desenvolvedor de software",
     "core web vitals"
   ],
 
   // Internal Linking System Mapping (Automated Internal Links Builder)
   internalLinks: [
+    { text: "Criação de Sites Profissionais", path: "/criacao-de-sites-profissionais", topic: "sites" },
+    { text: "Criação de Site Profissional", path: "/criacao-de-site-profissional", topic: "sites" },
+    { text: "Desenvolvimento de Sites Profissionais", path: "/desenvolvimento-de-sites-profissionais", topic: "sites" },
+    { text: "Site Profissional para Empresas", path: "/site-profissional", topic: "sites" },
+    { text: "Desenvolver Chatbot Customizado com IA", path: "/procuro-agencia-para-desenvolver-chatbot-customizado", topic: "chatbot" },
+    { text: "Consultoria SEO para E-Commerce", path: "/consultoria-seo-para-e-commerce", topic: "ecommerce" },
+    { text: "Criamos Seu Site Profissional", path: "/criamos-seu-site-profissional", topic: "sites" },
     { text: "Criação de Aplicativos Delivery", path: "/#project-delivery", topic: "delivery" },
     { text: "Sistemas de Mobilidade e Rotas", path: "/#project-mobility", topic: "mobility" },
     { text: "Sites para Advocacia e Profissionais", path: "/#project-lawyer", topic: "lawyer" },
@@ -78,6 +91,17 @@ export const SEO_CONFIG = {
     { path: "/#project-lawyer", changefreq: "weekly", priority: "0.9" },
     { path: "/#seo-optimization", changefreq: "weekly", priority: "0.8" },
     { path: "/#contact", changefreq: "monthly", priority: "0.7" },
+    // Google Search Console Top Queries (Prioridade Máxima)
+    { path: "/criacao-de-sites-profissionais", changefreq: "daily", priority: "1.0" },
+    { path: "/criacao-de-site-profissional", changefreq: "daily", priority: "1.0" },
+    { path: "/desenvolvimento-de-sites-profissionais", changefreq: "daily", priority: "1.0" },
+    { path: "/site-profissional", changefreq: "daily", priority: "1.0" },
+    { path: "/desenvolvimento-de-site-profissional", changefreq: "daily", priority: "1.0" },
+    { path: "/criacao-de-websites-profissionais", changefreq: "daily", priority: "0.9" },
+    { path: "/consultoria-seo-para-e-commerce", changefreq: "daily", priority: "0.9" },
+    { path: "/criamos-seu-site-profissional", changefreq: "daily", priority: "0.9" },
+    { path: "/procuro-agencia-para-desenvolver-chatbot-customizado", changefreq: "daily", priority: "0.9" },
+    { path: "/desenvolver-site-profissional", changefreq: "daily", priority: "0.9" },
     // Category 1: Intenção Comercial / Fundo de Funil
     { path: "/criar-site-profissional", changefreq: "weekly", priority: "0.9" },
     { path: "/quanto-custa-para-criar-um-site", changefreq: "weekly", priority: "0.9" },

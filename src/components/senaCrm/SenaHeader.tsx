@@ -10,8 +10,13 @@ import {
   DollarSign,
   Home,
   UserPlus,
+  Download,
+  CheckCircle2,
+  Loader2,
+  Code2,
 } from "lucide-react";
 import { SenaTab } from "./SenaSidebar";
+import { downloadSenaStandaloneZip } from "../../utils/senaZipExporter";
 
 interface SenaHeaderProps {
   onToggleMobileMenu: () => void;
@@ -31,6 +36,21 @@ export const SenaHeader: React.FC<SenaHeaderProps> = ({
   const [selectedBranch, setSelectedBranch] = useState("Matriz Alphaville / Faria Lima");
   const [showQuickMenu, setShowQuickMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isExportingZip, setIsExportingZip] = useState(false);
+  const [exportSuccess, setExportSuccess] = useState(false);
+
+  const handleDownloadZip = async () => {
+    try {
+      setIsExportingZip(true);
+      await downloadSenaStandaloneZip();
+      setExportSuccess(true);
+      setTimeout(() => setExportSuccess(false), 4000);
+    } catch (err) {
+      console.error("Erro ao exportar ZIP do projeto:", err);
+    } finally {
+      setIsExportingZip(false);
+    }
+  };
 
   const getTabTitle = (tab: SenaTab): { title: string; subtitle: string } => {
     switch (tab) {
@@ -187,6 +207,35 @@ export const SenaHeader: React.FC<SenaHeaderProps> = ({
               </div>
             )}
           </div>
+
+          {/* Standalone Project Export Button */}
+          <button
+            onClick={handleDownloadZip}
+            disabled={isExportingZip}
+            title="Baixar projeto completo e isolado em .ZIP para rodar em qualquer domínio"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+              exportSuccess
+                ? "bg-emerald-600/20 border-emerald-500/60 text-emerald-300"
+                : "bg-slate-800 hover:bg-slate-750 text-slate-200 hover:text-white border-slate-700 hover:border-amber-500/50"
+            }`}
+          >
+            {isExportingZip ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-400" />
+                <span className="hidden md:inline text-amber-300">Gerando .ZIP...</span>
+              </>
+            ) : exportSuccess ? (
+              <>
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden md:inline">ZIP Baixado!</span>
+              </>
+            ) : (
+              <>
+                <Download className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden sm:inline">Baixar Projeto (.ZIP)</span>
+              </>
+            )}
+          </button>
 
           {/* Quick Action Button */}
           <div className="relative">

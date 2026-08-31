@@ -13,6 +13,7 @@ import { BUSINESS_SEO_LANDING_DATA } from "./seoLandingDataBusiness";
 import { FREELANCER_SEO_LANDING_DATA } from "./seoLandingDataFreelancer";
 import { SEO_NICHE_LANDING_DATA } from "./seoLandingDataSeoNiche";
 import { SEO_AUTOMATION_SYS_LANDING_DATA } from "./seoLandingDataAutomationSys";
+import { SEARCH_CONSOLE_SEO_LANDING_DATA } from "./seoLandingDataSearchConsole";
 
 // Types for Landing Content
 export interface LandingPageData {
@@ -818,7 +819,8 @@ export const SEO_LANDING_DATA: Record<string, LandingPageData> = {
   ...BUSINESS_SEO_LANDING_DATA,
   ...FREELANCER_SEO_LANDING_DATA,
   ...SEO_NICHE_LANDING_DATA,
-  ...SEO_AUTOMATION_SYS_LANDING_DATA
+  ...SEO_AUTOMATION_SYS_LANDING_DATA,
+  ...SEARCH_CONSOLE_SEO_LANDING_DATA,
 };
 
 
